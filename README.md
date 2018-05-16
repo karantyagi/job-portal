@@ -1,4 +1,3 @@
-# web-dev-full-stack-project
 # `Web Development Project`
 
 ## Purpose
