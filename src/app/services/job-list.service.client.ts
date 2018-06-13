@@ -1,24 +1,28 @@
+import * as $ from 'jquery';
 export class JobListServiceClient {
+
+
   findAllJobs() {
-    return fetch('https://jobs.github.com/positions.json', {
-      mode: 'no-cors'
-    }).then(response => {
-      // console.log(response.body);
-      // console.log(response);
-      console.log(response);
-      return response.body;
-      });
+    return $.ajax({
+      url: 'https://jobs.github.com/positions.json',
+      dataType: 'jsonp'
+    });
   }
 }
 
 
-
+// import * as $ from 'jquery';
 // export class JobListServiceClient {
-//   findAllJobs() {
-//     return fetch('https://jobs.github.com/positions.json', {
-//       mode: 'no-cors'
-//     }).then((response) => response[0]).then((data) => {
-//       console.log(data);
+//
+//
+//   findAllJobs(callback) {
+//     return $.ajax({
+//       url: 'https://jobs.github.com/positions.json',
+//       dataType: 'jsonp',
+//       success: function (res) {
+//         console.log('hhgfghf');
+//         console.log(res);
+//       }
 //     });
 //   }
 // }

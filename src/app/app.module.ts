@@ -12,6 +12,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { JobBoardComponent } from './job-board/job-board.component';
 import { FooterComponent } from './footer/footer.component';
 import {JobListServiceClient} from './services/job-list.service.client';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {JobListServiceClient} from './services/job-list.service.client';
     FooterComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   providers: [
     JobListServiceClient

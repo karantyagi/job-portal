@@ -8,27 +8,23 @@
 
   <!--<li [ngClass]="{'active': module.id == moduleId}" *ngFor="let module of modules"&ndash;&gt;-->
   <li class="list-group-item joblist">
-    Job Title
-    <!--<a routerLink="/course/{{courseId}}/module/{{module.id}}">-->
-      <!--{{module.title}}</a>-->
+
   </li>
 
-  <li> Job Title 2 </li>
-  <li> Job Title 3 </li>
-  <li> Job Title 4 </li>
-  <li> Job Title 5 </li>
-  <li> Job Title 6 </li>
-  <li> Job Title 7 </li>
-  <li> Job Title 8 </li>
-  <li> Job Title 9 </li>
-  <li> Job Title 10 </li>
-  <li> Job Title 11 </li>
-  <li> Job Title 12 </li>
-  <li> Job Title 13 </li>
-  <li> Job Title 14 </li>
-  <li> Job Title 15 </li>
-  <li> Job Title 16 </li>
-  <li> Job Title 17 </li>
+  <h2>Job Grid ({{jobs.length}})</h2>
+
+  <div class="row">
+    <div *ngFor="let job of jobs" class="col-sm-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{job.title}}</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <!--<a routerLink="/course/{{job.id}}"-->
+             <!--class="btn btn-primary">Go somewhere</a>-->
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 
