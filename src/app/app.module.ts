@@ -11,6 +11,7 @@ import { RegisterRecruiterComponent } from './register-recruiter/register-recrui
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { JobBoardComponent } from './job-board/job-board.component';
 import { FooterComponent } from './footer/footer.component';
+import {JobListServiceClient} from './services/job-list.service.client';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,9 @@ import { FooterComponent } from './footer/footer.component';
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [
+    JobListServiceClient
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {JobListServiceClient} from '../services/job-list.service.client';
 
 @Component({
   selector: 'app-job-list',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JobListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service: JobListServiceClient) {
+  }
+
+  jobs = [];
 
   ngOnInit() {
+    this.service.findAllJobs();
+      // .then(jobs => this.jobs = jobs);
   }
 
 }
