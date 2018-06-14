@@ -8,6 +8,13 @@ export class JobListServiceClient {
       dataType: 'jsonp'
     });
   }
+
+  findFilteredJobs(location, keyword) {
+    return $.ajax({
+      url: 'https://jobs.github.com/positions.json?description=' + keyword + '&location=' + location,
+      dataType: 'jsonp'
+    });
+  }
 }
 
 
