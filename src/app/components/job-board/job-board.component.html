@@ -36,7 +36,9 @@
         <!--<button class="btn btn-light">Search</button>-->
         <!--</div>-->
       </div>
-      <button class="btn btn-light w-25" routerLink="/job-list/{{location}}/{{keywordOrTitle}}" >Search</button>
+      <button class="btn btn-light w-25"
+              routerLink="/job-list/{{location!='' && location!=null ? location:' '}}/{{keywordOrTitle!='' &&
+              keywordOrTitle!=null? keywordOrTitle: ' '}}">Search</button>
     </div>
     <div class="product-device box-shadow d-none d-md-block"></div>
     <div class="product-device product-device-2 box-shadow d-none d-md-block"></div>

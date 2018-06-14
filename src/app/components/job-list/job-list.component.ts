@@ -15,11 +15,11 @@ export class JobListComponent implements OnInit {
 
   constructor(private service: JobListServiceClient, private route: ActivatedRoute) {
 
-    var location = ' ';
+    let location = ' ';
     this.route.params.subscribe(param => {
       location = param['location'];
     });
-    var keyword = ' ';
+    let keyword = ' ';
     this.route.params.subscribe(param => {
       keyword = param['keyword'];
     });
@@ -36,7 +36,7 @@ export class JobListComponent implements OnInit {
   }
 
   fetchFilteredJobs(location, keyword) {
-    this.service.findFilteredJobs(location,keyword).then(jobs => this.jobs = jobs);
+    this.service.findFilteredJobs(location, keyword).then(jobs => this.jobs = jobs);
   }
 
   ngOnInit() {
