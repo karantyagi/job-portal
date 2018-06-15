@@ -8,5 +8,5 @@ Repository for Final Project for CS5610-Web Development course, taught by Prof. 
 
 ## Links
 
-- Heroku : [https://job-portal-project.herokuapp.com/](https://job-portal-project.herokuapp.com/)
-- Check [wiki](https://github.com/karantyagi/CS5610-web-dev-project/wiki) for Project milestones 🏁
+- __Heroku :__ [https://job-portal-project.herokuapp.com/](https://job-portal-project.herokuapp.com/)
+- Check __[wiki]__(https://github.com/karantyagi/CS5610-web-dev-project/wiki) for Project milestones 🏁
