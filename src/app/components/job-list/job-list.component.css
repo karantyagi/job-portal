@@ -21,3 +21,10 @@
   font-family: "Bookman Old Style";
 
 }
+
+
+.dropdown-menu{
+  position: absolute;
+  max-height: 200px;
+  overflow-y: auto;
+}

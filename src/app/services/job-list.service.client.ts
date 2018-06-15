@@ -4,7 +4,7 @@ export class JobListServiceClient {
 
   findAllJobs() {
     return $.ajax({
-      url: 'https://jobs.github.com/positions.json',
+      url: 'https://jobs.github.com/positions.json?markdown=true',
       dataType: 'jsonp'
     });
   }
@@ -15,6 +15,13 @@ export class JobListServiceClient {
       dataType: 'jsonp'
     });
   }
+
+  // findJobById(jobId) {
+  //   return $.ajax({
+  //     url: 'https://jobs.github.com/positions/' + jobId + '.json?markdown=true' ,
+  //     dataType: 'jsonp'
+  //   });
+  // }
 }
 
 

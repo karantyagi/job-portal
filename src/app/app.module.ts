@@ -14,6 +14,7 @@ import {FooterComponent} from './components/footer/footer.component';
 import {JobListServiceClient} from './services/job-list.service.client';
 import {FormsModule} from '@angular/forms';
 import { SearchFilterPipe } from './components/job-board/job-board.component';
+import { ViewJobComponent } from './components/view-job/view-job.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { SearchFilterPipe } from './components/job-board/job-board.component';
     NavBarComponent,
     JobBoardComponent,
     FooterComponent,
-    SearchFilterPipe
+    SearchFilterPipe,
+    ViewJobComponent
   ],
   imports: [
     BrowserModule,

@@ -10,8 +10,69 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class JobListComponent implements OnInit {
 
-
+  location: string;
   jobs: Job[] = [];
+  type: string;
+  typeList: string[];
+  company: string;
+  companyList: string[];
+  keywordOrTitle: string;
+  filterCriteria: string[];
+  states = ['Alaska',
+    'Alabama',
+    'Arkansas',
+    'American Samoa',
+    'Arizona',
+    'California',
+    'Colorado',
+    'Connecticut',
+    'District of Columbia',
+    'Delaware',
+    'Florida',
+    'Georgia',
+    'Guam',
+    'Hawaii',
+    'Iowa',
+    'Idaho',
+    'Illinois',
+    'Indiana',
+    'Kansas',
+    'Kentucky',
+    'Louisiana',
+    'Massachusetts',
+    'Maryland',
+    'Maine',
+    'Michigan',
+    'Minnesota',
+    'Missouri',
+    'Mississippi',
+    'Montana',
+    'North Carolina',
+    'North Dakota',
+    'Nebraska',
+    'New Hampshire',
+    'New Jersey',
+    'New Mexico',
+    'Nevada',
+    'New York',
+    'Ohio',
+    'Oklahoma',
+    'Oregon',
+    'Pennsylvania',
+    'Puerto Rico',
+    'Rhode Island',
+    'South Carolina',
+    'South Dakota',
+    'Tennessee',
+    'Texas',
+    'Utah',
+    'Virginia',
+    'Virgin Islands',
+    'Vermont',
+    'Washington',
+    'Wisconsin',
+    'West Virginia',
+    'Wyoming'];
 
   constructor(private service: JobListServiceClient, private route: ActivatedRoute) {
 
@@ -31,12 +92,37 @@ export class JobListComponent implements OnInit {
     }
   }
 
+  setVal(val) {
+    this.location = val;
+  }
+
+  setCompany(company) {
+    this.company = company;
+  }
+
+  setJobType(type) {
+    this.type = type;
+  }
+
+
   fetchAllJobs() {
-    this.service.findAllJobs().then(jobs => this.jobs = jobs);
+    this.service.findAllJobs().then(jobs => {
+      this.jobs = jobs;
+      this.companyList = this.jobs.map(item => item.company)
+        .filter((value, index, self) => self.indexOf(value) === index);
+      this.typeList = this.jobs.map(item => item.type)
+        .filter((value, index, self) => self.indexOf(value) === index);
+    });
   }
 
   fetchFilteredJobs(location, keyword) {
-    this.service.findFilteredJobs(location, keyword).then(jobs => this.jobs = jobs);
+    this.service.findFilteredJobs(location, keyword).then(jobs => {
+      this.jobs = jobs;
+      this.companyList = this.jobs.map(item => item.company)
+        .filter((value, index, self) => self.indexOf(value) === index);
+      this.typeList = this.jobs.map(item => item.type)
+        .filter((value, index, self) => self.indexOf(value) === index);
+    });
   }
 
   ngOnInit() {

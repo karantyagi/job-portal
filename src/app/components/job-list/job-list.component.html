@@ -1,84 +1,96 @@
 <div class="rounded bg-light p-5 background-pic">
-  <h1 class="bg-transparent text-center text-light rounded shadow p-2 mb-4 heading" >Job Listings
+  <h1 class="bg-transparent text-center text-light rounded shadow p-2 mb-4 heading">Job Listings
   </h1>
-  <div class="row mb-3">
-    <div class="col-8 float-left">
-      <input class="form-control" type="search" placeholder="Search jobs by keyword or title..."
-             aria-label="Search" >
-
-      </div>
-      <div class="col-4">
-        <button class="btn btn-light font-weight-bold float-right" type="submit">
-          Search</button>
-
-      <div class="btn-group float-right">
-        <button type="button" class="btn btn-light border-secondary dropdown-toggle mr-3" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-          <span style="color:gray;">Type:</span> All
-        </button>
-
-        <div class="dropdown-menu float-right">
-          <h6 class="dropdown-header">Select Job Type</h6>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">All</a>
-          <a class="dropdown-item" href="#">Full Time</a>
-          <a class="dropdown-item disabled" href="#">Internship</a>
-          <a class="dropdown-item disabled" href="#">Co-op</a>
-          <a class="dropdown-item" href="#">Contract</a>
+  <div class="row mb-5">
+    <div class="col-3">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id=""><i class="fa fa-search"></i></span>
         </div>
+        <input type="text" class="form-control" placeholder="Keyword or Title" aria-label="Keyword or Title"
+               aria-describedby="basic-addon1" [(ngModel)]="keywordOrTitle" name="keywordOrTitle">
       </div>
-
-      <div class="btn-group float-right">
-        <button type="button" class="btn btn-light border-secondary dropdown-toggle mr-3" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-          <span style="color:gray;">Company:</span> All
-        </button>
-
-        <div class="dropdown-menu float-right">
-          <h6 class="dropdown-header">Select company</h6>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">All</a>
-          <a class="dropdown-item" href="#">Full Time</a>
-          <a class="dropdown-item disabled" href="#">Internship</a>
-          <a class="dropdown-item disabled" href="#">Co-op</a>
-          <a class="dropdown-item" href="#">Contract</a>
+    </div>
+    <div class="col-3">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1"><i class="fa fa-map-marker"></i></span>
         </div>
-      </div>
-
-
-      <div class="btn-group float-right">
-        <button type="button" class="btn btn-light border-secondary dropdown-toggle mr-3" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-          <span style="color:gray;">Location:</span> All
-        </button>
-
-        <div class="dropdown-menu float-right">
+        <input type="text" autocomplete="off" class="form-control dropdown-toggle" id="dropdownMenuLink"
+               placeholder="Location" aria-label="Location"
+               aria-describedby="basic-addon1"
+               [(ngModel)]="location"
+               name="location" data-toggle="dropdown">
+        <div class="dropdown-menu dropdown-menu-input float-right">
           <h6 class="dropdown-header">Select location</h6>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">All</a>
-          <a class="dropdown-item" href="#">Full Time</a>
-          <a class="dropdown-item disabled" href="#">Internship</a>
-          <a class="dropdown-item disabled" href="#">Co-op</a>
-          <a class="dropdown-item" href="#">Contract</a>
+          <div class="dropdown-item" *ngFor="let state of states | searchFilter: location"
+               (click)="setVal(state)">{{state}}
+          </div>
         </div>
       </div>
+    </div>
+      <div class="col-2 m-0">
+      <div class="btn-group">
+        <button type="button" class="btn btn-light border-secondary dropdown-toggle" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+          <span style="color:gray;">Type:</span>
+        </button>
 
+        <div class="dropdown-menu">
+          <h6 class="dropdown-header">Select Job Type</h6>
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-item" *ngFor="let jobType of typeList"
+               (click)="setJobType(jobType)">{{jobType}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-2 m-0">
+      <div class="btn-group">
+        <button type="button" class="btn btn-light border-secondary dropdown-toggle" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+          <span style="color:gray;">Company:</span>
+        </button>
 
+        <div class="dropdown-menu">
+          <h6 class="dropdown-header">Select company</h6>
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-item" *ngFor="let c of companyList"
+               (click)="setCompany(c)">{{c}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-2 m-0">
+      <button class="btn btn-light font-weight-bold" type="submit">
+        Search
+      </button>
     </div>
   </div>
+
+  <div class="row mb-5">
+
+  </div>
+
   <ul class="list-group">
     <li *ngFor="let job of jobs"
         class="list-group-item bg-light my-2 rounded shadow-sm">
       <div class="row text-dark">
         <div class="col-8">
-          <h5 style="color: rgba(0,123,255,0.85);">{{job.title}}</h5>
+          <h5 style="color: rgba(0,123,255,0.85);">
+            <a routerLink="view-job/{{job.id}}">{{job.title}}</a></h5>
         </div>
         <div class="col-4" style="text-align: right">
           {{job.location}}
         </div>
       </div>
       <div class="row">
-        <div class="col-6">{{job.company}}</div>
+        <div class="col-8">{{job.company}} | {{job.type}}</div>
+        <div class="col-4" style="text-align: right">
+          <small>Posted on: {{job.created_at}}</small>
+        </div>
       </div>
 
     </li>

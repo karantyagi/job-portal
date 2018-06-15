@@ -1,0 +1,46 @@
+<div class="rounded bg-light p-5 background-pic">
+  <div class="row">
+    <div class="col">
+      <h3 class="bg-primary text-center rounded shadow p-2 mb-4">
+        {{job.title}}
+      </h3>
+
+
+      <div class="card shadow rounded my-3">
+        <div class="card-body">
+          <img src={{job.company_logo}} alt="logo" width="85px" height="85px" class="float-right"/>
+          <b>Position : </b>{{job.title}} <br>
+          <b>Company : </b><a href={{job.company_url}} class="card-link">{{job.company}}</a> <br/>
+          <b>Location : </b>{{job.location}}
+        </div>
+      </div>
+
+      <div class="card shadow rounded my-3">
+        <div class="card-body">
+          <b>Description</b><br>
+          {{job.description}}
+        </div>
+      </div>
+
+      <div class="card shadow rounded my-3 " >
+        <div class="card-body">
+          <b>How to Apply ?</b> <br>
+          {{job.how_to_apply}}
+          <br/>
+        </div>
+      </div>
+
+      <div class="my-3">
+        <form class="form-inline pb-3">
+          <button class="btn btn-outline-primary font-weight-bold mr-3 shadow" type="submit">
+            Bookmark&nbsp;&nbsp;<i class="fa fa-bookmark" aria-hidden="true"></i></button>
+          <button class="btn btn-primary font-weight-bold mr-3 shadow" type="submit">
+            Apply
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+</div>
