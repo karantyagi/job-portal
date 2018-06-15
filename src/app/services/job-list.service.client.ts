@@ -10,6 +10,7 @@ export class JobListServiceClient {
   }
 
   findFilteredJobs(location, keyword) {
+    console.log('service');
     return $.ajax({
       url: 'https://jobs.github.com/positions.json?description=' + keyword + '&location=' + location,
       dataType: 'jsonp'

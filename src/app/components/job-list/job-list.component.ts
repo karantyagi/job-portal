@@ -85,7 +85,10 @@ export class JobListComponent implements OnInit {
       keyword = param['keyword'];
     });
 
-    if (location !== ' ' && keyword !== ' ') {
+    console.log(location);
+    console.log(keyword);
+
+    if (location !== ' ' || keyword !== ' ') {
       this.fetchFilteredJobs(location, keyword);
     } else {
       this.fetchAllJobs();
@@ -102,6 +105,10 @@ export class JobListComponent implements OnInit {
 
   setJobType(type) {
     this.type = type;
+  }
+
+  searchJob() {
+
   }
 
 
