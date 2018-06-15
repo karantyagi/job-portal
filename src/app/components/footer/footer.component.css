@@ -15,4 +15,6 @@
 .footer > .container {
   padding-right: 15px;
   padding-left: 15px;
+  text-align: center;
+  text-decoration: whitesmoke;
 }

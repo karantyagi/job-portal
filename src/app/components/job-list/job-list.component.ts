@@ -17,7 +17,7 @@ export class JobListComponent implements OnInit {
   company: string;
   companyList: string[];
   keywordOrTitle: string;
-  filterCriteria: string[];
+  filterCriteria = {};
   states = ['Alaska',
     'Alabama',
     'Arkansas',
@@ -97,18 +97,28 @@ export class JobListComponent implements OnInit {
 
   setVal(val) {
     this.location = val;
+    this.filterCriteria['location'] = val;
+
   }
 
   setCompany(company) {
     this.company = company;
+    this.filterCriteria['company'] = company;
   }
 
   setJobType(type) {
     this.type = type;
+    this.filterCriteria['type'] = type;
   }
 
   searchJob() {
-
+     this.service.filteredSearch(this.filterCriteria).then(jobs => {
+       this.jobs = jobs;
+       this.companyList = this.jobs.map(item => item.company)
+         .filter((value, index, self) => self.indexOf(value) === index);
+       this.typeList = this.jobs.map(item => item.type)
+         .filter((value, index, self) => self.indexOf(value) === index);
+     });
   }
 
 
