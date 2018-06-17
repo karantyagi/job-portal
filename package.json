@@ -2,7 +2,7 @@
   "name": "cs5610-web-dev-project",
   "version": "0.0.0",
   "scripts": {
-    "postinstall": "ng build --aot -prod",
+    "postinstall": "ng build --aot --prod",
     "ng": "ng",
     "start": "node server.js",
     "build": "ng build",
