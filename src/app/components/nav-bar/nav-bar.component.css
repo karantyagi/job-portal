@@ -1,0 +1,23 @@
+
+.title {
+  font-family: "Fira Code Retina";
+  font-size: 50px;
+}
+
+.nav-link {
+  font-family: "Arial";
+  font-size: large;
+
+}
+
+.navbar {
+
+  height: 140px;
+  background-color: #cccccc;
+  /*background-image: linear-gradient(black,whitesmoke);*/
+  background-image: url('./../../../assets/images/naphtali-marshall-45606-unsplash.jpg');
+  /*background-size: contain;*/
+
+}
+
+
