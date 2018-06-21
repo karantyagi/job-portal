@@ -19,24 +19,6 @@ export class JobListServiceClient {
   }
 
 
-  filteredSearch(obj) {
-    let url = 'https://jobs.github.com/positions.json?';
-    for (const o in obj) {
-      if (obj[o] === 'Full Time') {
-        url = url + o + '=Full%20Time' + '&';
-      } else {
-        url = url + o + '=' + obj[o] + '&';
-      }
-    }
-
-    console.log(url);
-    return $.ajax({
-      url: url,
-      dataType: 'jsonp'
-    });
-
-  }
-
   // findJobById(jobId) {
   //   return $.ajax({
   //     url: 'https://jobs.github.com/positions/' + jobId + '.json?markdown=true' ,

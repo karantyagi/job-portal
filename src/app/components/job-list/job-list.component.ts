@@ -18,61 +18,62 @@ export class JobListComponent implements OnInit {
   companyList: string[];
   keywordOrTitle: string;
   filterCriteria = {};
-  states = ['Alaska',
-    'Alabama',
-    'Arkansas',
-    'American Samoa',
-    'Arizona',
-    'California',
-    'Colorado',
-    'Connecticut',
-    'District of Columbia',
-    'Delaware',
-    'Florida',
-    'Georgia',
-    'Guam',
-    'Hawaii',
-    'Iowa',
-    'Idaho',
-    'Illinois',
-    'Indiana',
-    'Kansas',
-    'Kentucky',
-    'Louisiana',
-    'Massachusetts',
-    'Maryland',
-    'Maine',
-    'Michigan',
-    'Minnesota',
-    'Missouri',
-    'Mississippi',
-    'Montana',
-    'North Carolina',
-    'North Dakota',
-    'Nebraska',
-    'New Hampshire',
-    'New Jersey',
-    'New Mexico',
-    'Nevada',
-    'New York',
-    'Ohio',
-    'Oklahoma',
-    'Oregon',
-    'Pennsylvania',
-    'Puerto Rico',
-    'Rhode Island',
-    'South Carolina',
-    'South Dakota',
-    'Tennessee',
-    'Texas',
-    'Utah',
-    'Virginia',
-    'Virgin Islands',
-    'Vermont',
-    'Washington',
-    'Wisconsin',
-    'West Virginia',
-    'Wyoming'];
+  states = [];
+  // states = ['Alaska',
+  //   'Alabama',
+  //   'Arkansas',
+  //   'American Samoa',
+  //   'Arizona',
+  //   'California',
+  //   'Colorado',
+  //   'Connecticut',
+  //   'District of Columbia',
+  //   'Delaware',
+  //   'Florida',
+  //   'Georgia',
+  //   'Guam',
+  //   'Hawaii',
+  //   'Iowa',
+  //   'Idaho',
+  //   'Illinois',
+  //   'Indiana',
+  //   'Kansas',
+  //   'Kentucky',
+  //   'Louisiana',
+  //   'Massachusetts',
+  //   'Maryland',
+  //   'Maine',
+  //   'Michigan',
+  //   'Minnesota',
+  //   'Missouri',
+  //   'Mississippi',
+  //   'Montana',
+  //   'North Carolina',
+  //   'North Dakota',
+  //   'Nebraska',
+  //   'New Hampshire',
+  //   'New Jersey',
+  //   'New Mexico',
+  //   'Nevada',
+  //   'New York',
+  //   'Ohio',
+  //   'Oklahoma',
+  //   'Oregon',
+  //   'Pennsylvania',
+  //   'Puerto Rico',
+  //   'Rhode Island',
+  //   'South Carolina',
+  //   'South Dakota',
+  //   'Tennessee',
+  //   'Texas',
+  //   'Utah',
+  //   'Virginia',
+  //   'Virgin Islands',
+  //   'Vermont',
+  //   'Washington',
+  //   'Wisconsin',
+  //   'West Virginia',
+  //   'Wyoming'];
 
   constructor(private service: JobListServiceClient, private route: ActivatedRoute) {
 
@@ -112,13 +113,28 @@ export class JobListComponent implements OnInit {
   }
 
   searchJob() {
-     this.service.filteredSearch(this.filterCriteria).then(jobs => {
-       this.jobs = jobs;
-       this.companyList = this.jobs.map(item => item.company)
-         .filter((value, index, self) => self.indexOf(value) === index);
-       this.typeList = this.jobs.map(item => item.type)
-         .filter((value, index, self) => self.indexOf(value) === index);
-     });
+
+    this.service.findAllJobs().then(jobs => {
+      this.jobs = jobs;
+      this.companyList = this.jobs.map(item => item.company)
+        .filter((value, index, self) => self.indexOf(value) === index);
+      this.typeList = this.jobs.map(item => item.type)
+        .filter((value, index, self) => self.indexOf(value) === index);
+      this.states = this.jobs.map(item => item.location)
+        .filter((value, index, self) => self.indexOf(value) === index);
+    }).then(() => {
+      for (const filter in this.filterCriteria) {
+        if (1 === 1) {
+          console.log(this.filterCriteria[filter]);
+          console.log(filter);
+          this.jobs = this.jobs.filter((value) => value[filter] === this.filterCriteria[filter]);
+          console.log(this.jobs);
+        }
+      }
+    });
+
+    console.log(this.jobs);
+
   }
 
 
@@ -129,7 +145,10 @@ export class JobListComponent implements OnInit {
         .filter((value, index, self) => self.indexOf(value) === index);
       this.typeList = this.jobs.map(item => item.type)
         .filter((value, index, self) => self.indexOf(value) === index);
+      this.states = this.jobs.map(item => item.location)
+        .filter((value, index, self) => self.indexOf(value) === index);
     });
+
   }
 
   fetchFilteredJobs(location, keyword) {
@@ -138,6 +157,8 @@ export class JobListComponent implements OnInit {
       this.companyList = this.jobs.map(item => item.company)
         .filter((value, index, self) => self.indexOf(value) === index);
       this.typeList = this.jobs.map(item => item.type)
+        .filter((value, index, self) => self.indexOf(value) === index);
+      this.states = this.jobs.map(item => item.location)
         .filter((value, index, self) => self.indexOf(value) === index);
     });
   }
