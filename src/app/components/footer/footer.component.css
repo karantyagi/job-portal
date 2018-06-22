@@ -1,7 +1,7 @@
 
 .footer {
-  position: absolute;
-  /*bottom: 0;*/
+  /*position: absolute;*/
+  bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
   height: 100px;
@@ -9,7 +9,7 @@
   background-color: #f5f5f5;
   /*background-image: linear-gradient(white,black);*/
   background-image: url('./../../../assets/images/naphtali-marshall-45606-unsplash.jpg');
-  margin-top: 10px;
+
 }
 
 .footer > .container {

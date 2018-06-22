@@ -1,0 +1,28 @@
+/*.alert{*/
+  /*display: none;*/
+/*}*/
+
+.mandatory{
+  color:red;
+}
+
+.needs-validation {
+  width: 100%;
+  max-width: 800px;
+  padding: 15px;
+  margin: auto;
+  margin-top: 100px;
+}
+
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}
+
+.background-pic{
+  background-image: url('./../../../assets/images/paul-hanaoka-299941-unsplash.jpg');
+  background-size: contain;
+}

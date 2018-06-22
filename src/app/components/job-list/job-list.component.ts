@@ -1,13 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {JobListServiceClient} from './../../services/job-list.service.client';
 import {Job} from '../../models/Job';
 import {ActivatedRoute} from '@angular/router';
+import {JobListingService} from '../../services/job-listing.service';
+
 
 @Component({
   selector: 'app-job-list',
   templateUrl: './job-list.component.html',
   styleUrls: ['./job-list.component.css']
 })
+
 export class JobListComponent implements OnInit {
 
   location: string;
@@ -75,7 +77,7 @@ export class JobListComponent implements OnInit {
   //   'West Virginia',
   //   'Wyoming'];
 
-  constructor(private service: JobListServiceClient, private route: ActivatedRoute) {
+  constructor(private service: JobListingService, private route: ActivatedRoute) {
 
     let location = ' ';
     this.route.params.subscribe(param => {

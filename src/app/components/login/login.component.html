@@ -1,3 +1,98 @@
-<p>
-  login works!
-</p>
+<section class="content">
+  <div class="container con">
+    <form class="needs-validation" #form="ngForm">
+      <div class="alert alert-danger" role="alert" [hidden]="!badUserNamePass">
+        Entered a wrong username or password!!
+      </div>
+      <div class="form-group row">
+        <label for="username" class="col-sm-2 col-form-label">Username<span class="mandatory">*</span></label>
+
+        <div class="col-sm-10">
+          <input type="text" placeholder="Xyz" id="username" class="form-control"
+                 required [(ngModel)]="username" name="username" #userName="ngModel" >
+          <div [hidden]="userName.valid || userName.pristine"  class="mt-2 alert alert-danger">
+            Username required!!
+          </div>
+        </div>
+
+      </div>
+      <div class="form-group row">
+        <label for="password" class="col-sm-2 col-form-label">Password<span class="mandatory">*</span></label>
+
+        <div class="col-sm-10">
+          <input type="password" placeholder="123qwe#$" id="password" class="form-control" required
+                  [(ngModel)]="password" name="password" #pass="ngModel">
+          <div [hidden]="pass.valid || pass.pristine" class="mt-2 alert alert-danger">
+            Password required!!
+          </div>
+          <div class="invalid-feedback invalid-password">
+            Please enter a valid password!!
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <span class="col-sm-2"></span>
+        <div class="col-sm-10 d-inline-block">
+          <div class="py-1">
+            <button type="button" class="btn btn-success form-control" id="login"
+                    (click)="login(username,password);  form.reset();" [disabled]="!form.form.valid"
+            >Sign In</button>
+          </div>
+          <!--<div class="py-1 d-inline">-->
+            <!--<a href="" class="float-left forgot-pass" data-toggle="modal" data-target="#forgotPassword">Forgot-->
+              <!--Password?</a>-->
+            <!--&lt;!&ndash;<a href="../register/register.template.client.html" class="float-right">Sign Up</a>&ndash;&gt;-->
+          <!--</div>-->
+        </div>
+      </div>
+    </form>
+    <!-- Modal -->
+    <div class="modal fade" id="forgotPassword" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header ">
+            <h5 class="modal-title" id="modalTitle">Forgot Password</h5>
+
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h6 id="modal-text" class="py-2">Enter valid Username and Email Id to Reset password</h6>
+            <form class="needs-validation" novalidate>
+              <div class="form-group row">
+                <label for="usernameVerify" class="col-sm-2 col-form-label">Username</label>
+                <div class="col-sm-10">
+                  <input type="text" placeholder="Username" id="usernameVerify" class="form-control"
+                         required>
+
+                  <div class="invalid-feedback invalid-username-verify">
+                    Please enter a valid username!!
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="resetEmail" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                  <input type="email" placeholder="abc@xyz.com" id="resetEmail" class="form-control"
+                         required>
+
+                  <div class="invalid-feedback invalid-username-verify">
+                    Please enter a valid email!!
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary close-modal" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="sendEmail">Send Email</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

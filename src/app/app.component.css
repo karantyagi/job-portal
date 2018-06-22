@@ -12,15 +12,6 @@
   background-color: #f5f5f5;
 }
 
-
-/* Custom page CSS
--------------------------------------------------- */
-/* Not required for template or sticky footer method. */
-
-/*body > .container {*/
-/*padding: 60px 15px 0;*/
-/*}*/
-
 .footer > .container {
   padding-right: 15px;
   padding-left: 15px;
@@ -37,10 +28,13 @@ code {
 .nav-link{
   font-family: "Arial";
   font-size: large;
-
 }
 
 
 .cont {
   padding: 160px 15px 0;
+  height: 100%;
+  margin-bottom: 65px;
 }
+
+
