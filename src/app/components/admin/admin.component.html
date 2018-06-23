@@ -1,3 +1,18 @@
-<p>
-  admin works!
-</p>
+<div class="row navbar navbar-expand-lg  bg-dark text-light m-3">
+  <div class="col text-center">
+    <h3>Pending Recruiter List</h3>
+  </div>
+</div>
+
+<div *ngFor="let user of users" class="m-3">
+  <div class="row bg-light text-dark p-2 mx-3" data-toggle="collapse">
+    <div class="col">
+      <h5>{{user.username}}</h5>
+    </div>
+    <div class="col">
+      <button class="btn btn-success float-right ml-2" (click)="approveUser(user._id)" >Approve</button>
+      <button class="btn btn-danger float-right" (click)="rejectUser(user._id)" >Reject</button>
+    </div>
+  </div>
+</div>
+
