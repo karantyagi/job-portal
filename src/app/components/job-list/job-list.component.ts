@@ -102,6 +102,7 @@ export class JobListComponent implements OnInit {
   setVal(location) {
     this.location = location;
     this.filterCriteria['location'] = location;
+    this.filterItems =  this.filterItems.filter((obj) => obj.type!= 'location' );
     this.filterItems.push({type: 'location' , val: location});
     this.searchJob();
 
@@ -110,6 +111,7 @@ export class JobListComponent implements OnInit {
   setCompany(company) {
     this.company = company;
     this.filterCriteria['company'] = company;
+    this.filterItems =  this.filterItems.filter((obj) => obj.type!= 'company' );
     this.filterItems.push({type: 'company' , val: company});
     this.searchJob();
 
@@ -118,6 +120,7 @@ export class JobListComponent implements OnInit {
   setJobType(type) {
     this.type = type;
     this.filterCriteria['type'] = type;
+    this.filterItems =  this.filterItems.filter((obj) => obj.type!= 'type' );
     this.filterItems.push({type: 'type' , val: type});
     this.searchJob();
   }
@@ -131,6 +134,11 @@ export class JobListComponent implements OnInit {
   searchJob() {
     this.service.findAllJobs().then(jobs => {
       this.jobs = jobs;
+      this.jobs.forEach((job, index) => {
+        const d = new Date(job.created_at);
+        job.created_at = d.toDateString();
+        // this.jobs[index] = job;
+      })
       this.companyList = this.jobs.map(item => item.company)
         .filter((value, index, self) => self.indexOf(value) === index);
       this.typeList = this.jobs.map(item => item.type)
@@ -156,6 +164,11 @@ export class JobListComponent implements OnInit {
   fetchAllJobs() {
     this.service.findAllJobs().then(jobs => {
       this.jobs = jobs;
+      this.jobs.forEach((job, index) => {
+        const d = new Date(job.created_at);
+        job.created_at = d.toDateString();
+        // this.jobs[index] = job;
+      })
       this.companyList = this.jobs.map(item => item.company)
         .filter((value, index, self) => self.indexOf(value) === index);
       this.typeList = this.jobs.map(item => item.type)
@@ -169,6 +182,11 @@ export class JobListComponent implements OnInit {
   fetchFilteredJobs(location, keyword) {
     this.service.findFilteredJobs(location, keyword).then(jobs => {
       this.jobs = jobs;
+      this.jobs.forEach((job, index) => {
+        const d = new Date(job.created_at);
+        job.created_at = d.toDateString();
+        // this.jobs[index] = job;
+      });
       this.companyList = this.jobs.map(item => item.company)
         .filter((value, index, self) => self.indexOf(value) === index);
       this.typeList = this.jobs.map(item => item.type)
