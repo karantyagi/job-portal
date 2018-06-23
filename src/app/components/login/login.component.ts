@@ -13,10 +13,12 @@ export class LoginComponent implements OnInit {
   username: string;
   password: string;
   badUserNamePass: boolean;
+  verificationPending: boolean;
 
 
   constructor(private router: Router, private userService: UserService) {
     this.badUserNamePass = false;
+    this.verificationPending = false;
   }
 
 
@@ -24,17 +26,28 @@ export class LoginComponent implements OnInit {
 
     this.userService
       .login(username, password)
-      .then((user) => {
-        if (user != null) {
-          if (user.username === 'admin') {
-            this.router.navigate(['admin']);
-          } else if (user.username === 'faculty') {
-            this.router.navigate(['faculty']);
-          } else {
-            this.router.navigate(['profile']);
-          }
-        } else {
+      .then((obj) => {
+        if (obj.status === 'success') {
+            if (obj.role === 'JobSeeker' ) {
+              this.router.navigate(['profile-seeker']);
+            } else if (obj.role === 'Admin' ) {
+              this.router.navigate(['admin']);
+            } else {
+              this.router.navigate(['profile-recruiter']);
+            }
+          // if (user.username === 'admin') {
+          //   this.router.navigate(['admin']);
+          // } else if (user.username === 'faculty') {
+          //   this.router.navigate(['faculty']);
+          // } else {
+          //   this.router.navigate(['profile']);
+          // }
+        } else if (obj.status === 'user does not exists') {
           this.badUserNamePass = true;
+          this.verificationPending =  false;
+        } else {
+          this.badUserNamePass = false;
+          this.verificationPending =  true;
         }
       });
   }

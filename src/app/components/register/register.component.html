@@ -1,82 +1,97 @@
+<div class="rounded bg-light p-5 background-pic text-light">
 
-  <div class="rounded bg-light p-5 background-pic text-light">
+  <form class="needs-validation" #form="ngForm">
 
-    <form class="needs-validation" #form="ngForm" >
+    <!--<div class="alert alert-success" role="alert">-->
+    <!--<strong>User registered successfully!!</strong>-->
+    <!--</div>-->
+    <div class="alert alert-danger" [hidden]="!usernameExists">
+      Username already exists user another one !
+    </div>
+    <div class="alert alert-success" [hidden]="!successMsg">
+      User Registered under Recruiter Role. Please wait until verification complete. You will get notification
+      on the registered email within 24 hours !!
+    </div>
+    <div class="form-group row">
+      <label for="username" class="col-sm-3 col-form-label">Username<span class="mandatory">*</span></label>
 
-      <!--<div class="alert alert-success" role="alert">-->
-      <!--<strong>User registered successfully!!</strong>-->
-      <!--</div>-->
-      <div class="alert alert-danger" [hidden]="!usernameExists">
-        Username already exists user another one !
-      </div>
-      <div class="form-group row">
-        <label for="username" class="col-sm-3 col-form-label">Username<span class="mandatory">*</span></label>
-
-        <div class="col-sm-9">
-          <input type="text" [(ngModel)]="username" name="username" placeholder="Username"
-                 id="username" class="form-control" required #userName="ngModel">
-          <div [hidden]="userName.valid || userName.pristine" class="mt-2 alert alert-danger">
-            Username required!!
-          </div>
-        </div>
-
-      </div>
-      <div class="form-group row">
-        <label for="password" class="col-sm-3 col-form-label">Password<span class="mandatory">*</span></label>
-
-        <div class="col-sm-9">
-          <input type="password" placeholder="123qwe#$" [(ngModel)]="password" name="password"
-                 id="password" class="form-control" required #pass="ngModel">
-          <div [hidden]="pass.valid || pass.pristine" class="mt-2 alert alert-danger">
-            Password required!!
-          </div>
+      <div class="col-sm-9">
+        <input type="text" [(ngModel)]="username" name="username" placeholder="Username"
+               id="username" class="form-control" required #userName="ngModel">
+        <div [hidden]="userName.valid || userName.pristine" class="mt-2 alert alert-danger">
+          Username required!!
         </div>
       </div>
 
-      <div class="form-group row">
-        <label for="verifypass" class="col-sm-3 col-form-label">Verify Password<span class="mandatory">*</span></label>
+    </div>
+    <div class="form-group row">
+      <label for="password" class="col-sm-3 col-form-label">Password<span class="mandatory">*</span></label>
 
-        <div class="col-sm-9">
-          <input type="password" placeholder="123qwe#$" id="verifypass"
-                 [(ngModel)]="verifyPassword" name="verifyPassword" class="form-control" [pattern]="password" required #vPass="ngModel">
-          <div [hidden] = "vPass.valid || vPass.pristine" class="mt-2 alert alert-danger">
-            Password do not match!!
-          </div>
+      <div class="col-sm-9">
+        <input type="password" placeholder="123qwe#$" [(ngModel)]="password" name="password"
+               id="password" class="form-control" required #pass="ngModel">
+        <div [hidden]="pass.valid || pass.pristine" class="mt-2 alert alert-danger">
+          Password required!!
         </div>
       </div>
-      <div class="form-group row">
+    </div>
 
-        <label for="inlineRadio1" class="col-sm-3 col-form-label">Role<span class="mandatory">*</span></label>
 
-        <div class="col-sm-9">
-          <div class="form-check form-check-inline bg-light text-dark rounded py-2 px-3">
-            <input class="form-check-input " type="radio" checked="true" name="inlineRadioOptions"
-                   id="inlineRadio1" value="option1">
-            <label class="form-check-label" for="inlineRadio1">JobSeeker</label>
-          </div>
-          <div class="form-check form-check-inline bg-light text-dark rounded ml-2 py-2 px-3" >
-            <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                   id="inlineRadio2" value="option1">
-            <label class="form-check-label" for="inlineRadio1">Recruiter</label>
-          </div>
+    <div class="form-group row">
+      <label for="verifypass" class="col-sm-3 col-form-label">Verify Password<span class="mandatory">*</span></label>
+
+      <div class="col-sm-9">
+        <input type="password" placeholder="123qwe#$" id="verifypass"
+               [(ngModel)]="verifyPassword" name="verifyPassword" class="form-control" [pattern]="password" required
+               #vPass="ngModel">
+        <div [hidden]="vPass.valid || vPass.pristine" class="mt-2 alert alert-danger">
+          Password do not match!!
         </div>
       </div>
+    </div>
+    <div class="form-group row">
 
-      <div class="form-group row">
-        <span class="col-sm-3"></span>
-        <div class="col-sm-9 d-inline-block">
-          <div class="py-1">
-            <button type="button" (click)="register(username, password, verifyPassword); form.reset();"
-                    [disabled]="!form.form.valid"
-                    class="btn btn-success form-control" id="signup">Sign Up
-            </button>
-          </div>
-          <!--<div class="py-1">-->
-          <!--<a href="../login/login.template.client.html">Login</a>-->
-          <!--</div>-->
+      <label for="inlineRadio1" class="col-sm-3 col-form-label">Role<span class="mandatory">*</span></label>
+
+      <div class="col-sm-9">
+        <div class="form-check form-check-inline bg-light text-dark rounded py-2 px-3">
+          <input class="form-check-input " type="radio" name="role"
+                 id="inlineRadio1" [(ngModel)]="role" value="JobSeeker">
+          <label class="form-check-label" for="inlineRadio1">JobSeeker</label>
+        </div>
+        <div class="form-check form-check-inline bg-light text-dark rounded ml-2 py-2 px-3">
+          <input class="form-check-input" type="radio" name="role"
+                 id="inlineRadio2" [(ngModel)]="role" value="Recruiter">
+          <label class="form-check-label" for="inlineRadio1">Recruiter</label>
         </div>
       </div>
-    </form>
+    </div>
+    <div class="form-group row" [hidden]="role==='JobSeeker'">
+      <label for="email" class="col-sm-3 col-form-label ">Email<span class="mandatory">*</span></label>
+      <div class="col-sm-9">
+        <input type="email" placeholder="abc@xyz.com" email="true" [(ngModel)]="email"
+               id="email" name="email" class="form-control" #emailId="ngModel" [required]="role !== 'JobSeeker'" >
+        <div [hidden]="emailId.valid || emailId.pristine" class="mt-2 alert alert-danger">
+          Please enter a valid email!!
+        </div>
+      </div>
+    </div>
 
-  </div>
+    <div class="form-group row">
+      <span class="col-sm-3"></span>
+      <div class="col-sm-9 d-inline-block">
+        <div class="py-1">
+          <button type="button" (click)="register(username, password, role, email ); form.reset(); "
+                  [disabled]="!form.form.valid"
+                  class="btn btn-success form-control" id="signup">Sign Up
+          </button>
+        </div>
+        <!--<div class="py-1">-->
+        <!--<a href="../login/login.template.client.html">Login</a>-->
+        <!--</div>-->
+      </div>
+    </div>
+  </form>
+
+</div>
 

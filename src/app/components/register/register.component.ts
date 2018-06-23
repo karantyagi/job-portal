@@ -13,24 +13,41 @@ export class RegisterComponent implements OnInit {
   password: string;
   verifyPassword: string;
   usernameExists: boolean;
-  radioCheck = true;
+  role = 'JobSeeker';
+  successMsg: boolean;
+  email: string;
 
   constructor(private router: Router,
               private service: UserService) {
     this.usernameExists = false;
+    this.successMsg = false;
   }
 
 
-  register(username, password, verifyPassword) {
+  register(username, password, role, email) {
+    var user;
+    if (role === 'Recruiter') {
+      user = {username, password, role, email};
+    } else {
+      user = {username, password, role};
+    }
     this.service
-      .register({username, password})
+      .register(user)
       .then((res) => {
 
           if (res.status === true) {
-            this.router.navigate(['profile']);
+            if (role === 'JobSeeker') {
+              this.router.navigate(['profile-seeker']);
+            } else {
+              this.successMsg = true;
+              this.usernameExists = false;
+              this.role = 'JobSeeker';
+            }
           } else {
 
             this.usernameExists = true;
+            this.role = 'JobSeeker';
+            this.successMsg = false;
           }
         }
       );

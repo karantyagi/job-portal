@@ -6,11 +6,13 @@ import {ProfileRecruiterComponent} from './components/profile-recruiter/profile-
 import {ProfileSeekerComponent} from './components/profile-seeker/profile-seeker.component';
 import {ViewJobComponent} from './components/view-job/view-job.component';
 import {RegisterComponent} from './components/register/register.component';
+import {AdminComponent} from './components/admin/admin.component';
 
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: JobBoardComponent},
+  {path: 'admin', component: AdminComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'job-list/:location/:keyword', component: JobListComponent},
   {path: 'login', component: LoginComponent},

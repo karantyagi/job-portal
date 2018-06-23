@@ -1,13 +1,16 @@
-<section class="content">
-  <div class="container con">
+<section class="content background-pic">
+  <div class="rounded bg-light p-5 background-pic text-light">
     <form class="needs-validation" #form="ngForm">
       <div class="alert alert-danger" role="alert" [hidden]="!badUserNamePass">
         Entered a wrong username or password!!
       </div>
+      <div class="alert alert-danger" role="alert" [hidden]="!verificationPending">
+        Verification for recruiter role pending!!
+      </div>
       <div class="form-group row">
-        <label for="username" class="col-sm-2 col-form-label">Username<span class="mandatory">*</span></label>
+        <label for="username" class="col-sm-3 col-form-label">Username<span class="mandatory">*</span></label>
 
-        <div class="col-sm-10">
+        <div class="col-sm-9">
           <input type="text" placeholder="Xyz" id="username" class="form-control"
                  required [(ngModel)]="username" name="username" #userName="ngModel" >
           <div [hidden]="userName.valid || userName.pristine"  class="mt-2 alert alert-danger">
@@ -17,9 +20,9 @@
 
       </div>
       <div class="form-group row">
-        <label for="password" class="col-sm-2 col-form-label">Password<span class="mandatory">*</span></label>
+        <label for="password" class="col-sm-3 col-form-label">Password<span class="mandatory">*</span></label>
 
-        <div class="col-sm-10">
+        <div class="col-sm-9">
           <input type="password" placeholder="123qwe#$" id="password" class="form-control" required
                   [(ngModel)]="password" name="password" #pass="ngModel">
           <div [hidden]="pass.valid || pass.pristine" class="mt-2 alert alert-danger">
@@ -32,8 +35,8 @@
       </div>
 
       <div class="form-group row">
-        <span class="col-sm-2"></span>
-        <div class="col-sm-10 d-inline-block">
+        <span class="col-sm-3"></span>
+        <div class="col-sm-9 d-inline-block">
           <div class="py-1">
             <button type="button" class="btn btn-success form-control" id="login"
                     (click)="login(username,password);  form.reset();" [disabled]="!form.form.valid"

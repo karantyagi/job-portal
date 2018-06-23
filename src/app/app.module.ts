@@ -15,6 +15,7 @@ import {JobListingService} from './services/job-listing.service';
 import {UserService} from './services/user.service';
 import {JobListComponent} from './components/job-list/job-list.component';
 import {RegisterComponent} from './components/register/register.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {RegisterComponent} from './components/register/register.component';
     SearchFilterPipe,
     ViewJobComponent,
     JobListComponent,
-    RegisterComponent
+    RegisterComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
