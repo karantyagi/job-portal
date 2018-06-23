@@ -26,6 +26,7 @@ import { ExtraCurricularListComponent } from './components/extra-curricular-list
 import { ProjectListComponent } from './components/project-list/project-list.component';
 import { CertificateListComponent } from './components/certificate-list/certificate-list.component';
 import { PersonalInfoComponent } from './components/personal-info/personal-info.component';
+import { UserSidebarComponent } from './components/user-sidebar/user-sidebar.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { PersonalInfoComponent } from './components/personal-info/personal-info.
     ExtraCurricularListComponent,
     ProjectListComponent,
     CertificateListComponent,
-    PersonalInfoComponent
+    PersonalInfoComponent,
+    UserSidebarComponent
   ],
   imports: [
     BrowserModule,

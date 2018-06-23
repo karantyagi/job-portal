@@ -1,0 +1,61 @@
+<ul class="list-group border rounded shadow bg-light" [hidden] = editMode>
+  <li class="list-group-item border border-light mt-2 bg-light">
+    <button class="ml-1 btn btn-primary py-1 px-2 float-right" [hidden]=!uploadPicture>
+      <i class="fa fa-pencil"></i>
+    </button>
+    <img src="../../assets/images/displayPic/karan.jpg" class="rounded"
+         alt="profile picture" width="250px">
+  </li>
+  <li class="list-group-item border border-light mt-2 mb-0 py-1 bg-light">
+    <span style="font-size: 25px; font-weight: bold">Karan Tyagi </span>
+  </li>
+  <li class="list-group-item border border-light mt-1 py-1 bg-light" ([ngModel])=tagline>
+    <!--<pre class="mx-0 my-0" style="white-space: pre-line; font-size: 18px; color:grey;">🎓 CS Grad Northeastern,-->
+    <!--University-->
+    <!--📌 Actively seeking co-op/-->
+    <!--internship starting Jan 2019-->
+    <!--</pre>-->
+    <pre class="mx-0 my-0" style="white-space: pre-line; font-size: 18px; color:grey;">
+      {{tagline}}
+      </pre>
+  </li>
+  <li class="list-group-item border border-light mt-1 mb-2 bg-light">
+    <button class="btn btn-primary rounded btn-block" (click)="editBio()">
+      Edit Bio
+    </button>
+  </li>
+  <!--<li class="list-group-item border border-white mt-0 py-0 mb-0">-->
+  <!--<hr/>-->
+  <!--</li>-->
+  <!--<li class="list-group-item border border-white mt-1 py-1">-->
+  <!--<pre class="mx-0 my-0" style="white-space: pre-line; font-size: 18px; color:grey;"><i class="fas fa-map-marker-alt"></i>&nbsp;Boston, MA-->
+  <!--<i class="fas fa-envelope"></i>&nbsp;tyagi.k@husky.neu.edu-->
+  <!--</pre>-->
+  <!--</li>-->
+</ul>
+
+<ul class="list-group border rounded shadow bg-light"
+    [hidden]="!editMode">
+  <li class="list-group-item border border-light mt-2 bg-light">
+    <img src="../../assets/images/displayPic/karan.jpg" class="rounded"
+         alt="profile picture" width="250px">
+  </li>
+  <li class="list-group-item border border-light mt-2 mb-0 py-1 bg-light">
+    <span style="font-size: 25px; font-weight: bold">Karan Tyagi </span>
+  </li>
+  <li class="list-group-item border border-light mt-1 py-1 bg-light">
+      <textarea class="mx-0 my-0" rows="5" cols="31"
+                [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="tagline">
+      </textarea>
+  </li>
+  <li class="list-group-item border border-light mt-1 mb-2 bg-light">
+    <button class="btn btn-success rounded" (click)="saveBio(tagline)">
+      &nbsp;Save&nbsp;
+    </button>
+    <button class="btn btn-grey rounded ml-2" (click)="cancel()">
+      Cancel
+    </button>
+  </li>
+</ul>
+
