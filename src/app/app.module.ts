@@ -18,6 +18,14 @@ import {RegisterComponent} from './components/register/register.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { PostJobComponent } from './components/post-job/post-job.component';
 import {SaveJobService} from './services/save-job.service';
+import { ExperienceListComponent } from './components/experience-list/experience-list.component';
+import { AwardListComponent } from './components/award-list/award-list.component';
+import { SkillListComponent } from './components/skill-list/skill-list.component';
+import { EducationListComponent } from './components/education-list/education-list.component';
+import { ExtraCurricularListComponent } from './components/extra-curricular-list/extra-curricular-list.component';
+import { ProjectListComponent } from './components/project-list/project-list.component';
+import { CertificateListComponent } from './components/certificate-list/certificate-list.component';
+import { PersonalInfoComponent } from './components/personal-info/personal-info.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +41,15 @@ import {SaveJobService} from './services/save-job.service';
     JobListComponent,
     RegisterComponent,
     AdminComponent,
-    PostJobComponent
+    PostJobComponent,
+    ExperienceListComponent,
+    AwardListComponent,
+    SkillListComponent,
+    EducationListComponent,
+    ExtraCurricularListComponent,
+    ProjectListComponent,
+    CertificateListComponent,
+    PersonalInfoComponent
   ],
   imports: [
     BrowserModule,
