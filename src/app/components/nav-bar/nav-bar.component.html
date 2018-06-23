@@ -28,10 +28,21 @@
            [routerLinkActive]="['active']" routerLink="/profile-recruiter" >Profile</a>
       </li>
       <li class="nav-item">
+        <a [hidden]="!(user != null && user.role === 'JobSeeker')" class="btn btn-outline-light
+        font-weight-light ml-3"
+           [routerLinkActive]="['active']" routerLink="/dashboard-seeker" >Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a [hidden]="!(user != null && user.role === 'Recruiter')" class="btn btn-outline-light
+        font-weight-light ml-3"
+           [routerLinkActive]="['active']" routerLink="/dashboard-recruiter" >Dashboard</a>
+      </li>
+      <li class="nav-item">
         <a [hidden]="!(user != null && user.role === 'Admin')" class="btn btn-outline-light
          font-weight-light ml-3"
            [routerLinkActive]="['active']" routerLink="/admin" >Admin</a>
       </li>
+
     </ul>
     <form class="form-inline mt-2 mt-md-0">
       <!--<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->

@@ -8,6 +8,8 @@ import {ViewJobComponent} from './components/view-job/view-job.component';
 import {RegisterComponent} from './components/register/register.component';
 import {AdminComponent} from './components/admin/admin.component';
 import {PostJobComponent} from './components/post-job/post-job.component';
+import {JobSeekerDashboardComponent} from './components/job-seeker-dashboard/job-seeker-dashboard.component';
+import {RecruiterDashboardComponent} from './components/recruiter-dashboard/recruiter-dashboard.component';
 
 
 const appRoutes: Routes = [
@@ -19,8 +21,10 @@ const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'profile-recruiter', component: ProfileRecruiterComponent},
   {path: 'profile-seeker', component: ProfileSeekerComponent},
+  {path: 'dashboard-recruiter', component: RecruiterDashboardComponent},
+  {path: 'dashboard-seeker', component: JobSeekerDashboardComponent},
   {path: 'job-list/:location/:keyword/view-job/:jobId', component: ViewJobComponent},
-  {path: 'post', component: PostJobComponent}, // last
+  {path: 'post', component: PostJobComponent},
   {path: '**', component: JobBoardComponent} // last
 ];
 export const routing = RouterModule.forRoot(appRoutes);

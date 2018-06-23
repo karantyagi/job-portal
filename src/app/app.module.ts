@@ -27,8 +27,8 @@ import { ProjectListComponent } from './components/project-list/project-list.com
 import { CertificateListComponent } from './components/certificate-list/certificate-list.component';
 import { PersonalInfoComponent } from './components/personal-info/personal-info.component';
 import { UserSidebarComponent } from './components/user-sidebar/user-sidebar.component';
-import { JobSeekerDashboardComponent } from './job-seeker-dashboard/job-seeker-dashboard.component';
-
+import { JobSeekerDashboardComponent } from './components/job-seeker-dashboard/job-seeker-dashboard.component';
+import {RecruiterDashboardComponent} from './components/recruiter-dashboard/recruiter-dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +53,9 @@ import { JobSeekerDashboardComponent } from './job-seeker-dashboard/job-seeker-d
     CertificateListComponent,
     PersonalInfoComponent,
     UserSidebarComponent,
-    JobSeekerDashboardComponent
+    JobSeekerDashboardComponent,
+    RecruiterDashboardComponent
+
   ],
   imports: [
     BrowserModule,
