@@ -9,21 +9,65 @@
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="btn btn-outline-light font-weight-light ml-5" [routerLinkActive]="['active']" routerLink="/home">Home</a>
+        <a class="btn btn-outline-light font-weight-light ml-3" [routerLinkActive]="['active']" routerLink="/home" >Home </a>
         <!--<span class="sr-only">(current)</span>-->
       </li>
       <li class="nav-item">
-        <a class="btn btn-outline-light font-weight-light ml-3" [routerLinkActive]="['active']" routerLink="/job-list/{{' '}}/{{' '}}">Jobs</a>
+        <a class="btn btn-outline-light font-weight-light ml-3" [routerLinkActive]="['active']"
+           routerLink="/job-list/{{' '}}/{{' '}}">Jobs</a>
+      </li>
+
+      <li class="nav-item">
+        <a [hidden]="!(user != null && user.role === 'JobSeeker')" class="btn btn-outline-light
+        font-weight-light ml-3"
+           [routerLinkActive]="['active']" routerLink="/profile-seeker" >Profile</a>
+      </li>
+      <li class="nav-item">
+        <a [hidden]="!(user != null && user.role === 'Recruiter')" class="btn btn-outline-light
+        font-weight-light ml-3"
+           [routerLinkActive]="['active']" routerLink="/profile-recruiter" >Profile</a>
+      </li>
+      <li class="nav-item">
+        <a [hidden]="!(user != null && user.role === 'Admin')" class="btn btn-outline-light
+         font-weight-light ml-3"
+           [routerLinkActive]="['active']" routerLink="/admin" >Admin</a>
       </li>
     </ul>
     <form class="form-inline mt-2 mt-md-0">
       <!--<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
-      <button class="btn btn-outline-light font-weight-light my-2 my-sm-0 mr-4" routerLink="/login" [routerLinkActive]="['active']"
-              type="button">Login
-      </button>
-      <button class="btn btn-outline-light font-weight-light my-2 my-sm-0 mr-2" [routerLinkActive]="['active']" routerLink="/register"
-              type="button">Sign Up
-      </button>
+      <button [hidden]="!(user === null)" class="btn btn-outline-light
+       font-weight-light ml-3" routerLink="/login" [routerLinkActive]="['active']"
+              type="button">Login</button>
+
+      <h5 [hidden]="user===null"class="text-light my-1 mr-1"><i [hidden]="user===null" class="fa fa-user text-light"></i>
+        {{user!=null && user.username}}</h5>
+      <button [hidden]="user===null" class="btn btn-outline-light
+       font-weight-light ml-3" (click)="logout()"
+              type="button">Logout</button>
+      <button class="btn btn-outline-light
+      font-weight-light ml-3" routerLink="/register" [routerLinkActive]="['active']"
+              type="button">Sign Up</button>
     </form>
   </div>
+
+  <!--<div class="collapse navbar-collapse" id="navbarCollapse">-->
+    <!--<ul class="navbar-nav mr-auto">-->
+      <!--<li class="nav-item">-->
+        <!--<a class="btn btn-outline-light font-weight-light ml-5" [routerLinkActive]="['active']" routerLink="/home">Home</a>-->
+        <!--&lt;!&ndash;<span class="sr-only">(current)</span>&ndash;&gt;-->
+      <!--</li>-->
+      <!--<li class="nav-item">-->
+        <!--<a class="btn btn-outline-light font-weight-light ml-3" [routerLinkActive]="['active']" routerLink="/job-list/{{' '}}/{{' '}}">Jobs</a>-->
+      <!--</li>-->
+    <!--</ul>-->
+    <!--<form class="form-inline mt-2 mt-md-0">-->
+      <!--&lt;!&ndash;<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">&ndash;&gt;-->
+      <!--<button class="btn btn-outline-light font-weight-light my-2 my-sm-0 mr-4" routerLink="/login" [routerLinkActive]="['active']"-->
+              <!--type="button">Login-->
+      <!--</button>-->
+      <!--<button class="btn btn-outline-light font-weight-light my-2 my-sm-0 mr-2" [routerLinkActive]="['active']" routerLink="/register"-->
+              <!--type="button">Sign Up-->
+      <!--</button>-->
+    <!--</form>-->
+  <!--</div>-->
 </nav>

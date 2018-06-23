@@ -1,3 +1,19 @@
-<p>
-  job-seeker-dashboard works!
-</p>
+<nav>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1"><i class="fa fa-map-marker"></i></span>
+    </div>
+    <input type="text" autocomplete="off" class="form-control dropdown-toggle" id="dropdownMenuLink"
+           placeholder="Location" aria-label="Location"
+           aria-describedby="basic-addon1" [(ngModel)]="location"
+           name="location" data-toggle="dropdown">
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+      <div *ngFor = "let state of states | searchFilter: getInputVal()" (click)="setVal(state)"
+           class="dropdown-item" >{{state}}</div>
+    </div>
+
+  </div>
+  <button class="btn btn-light w-25"
+          routerLink="/job-list/{{location!='' && location!=null ? location:' '}}/{{keywordOrTitle!='' &&
+              keywordOrTitle!=null? keywordOrTitle: ' '}}">Search</button>
+</nav>
