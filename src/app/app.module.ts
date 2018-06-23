@@ -27,6 +27,7 @@ import { ProjectListComponent } from './components/project-list/project-list.com
 import { CertificateListComponent } from './components/certificate-list/certificate-list.component';
 import { PersonalInfoComponent } from './components/personal-info/personal-info.component';
 import { UserSidebarComponent } from './components/user-sidebar/user-sidebar.component';
+import { JobSeekerDashboardComponent } from './job-seeker-dashboard/job-seeker-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { UserSidebarComponent } from './components/user-sidebar/user-sidebar.com
     ProjectListComponent,
     CertificateListComponent,
     PersonalInfoComponent,
-    UserSidebarComponent
+    UserSidebarComponent,
+    JobSeekerDashboardComponent
   ],
   imports: [
     BrowserModule,
