@@ -16,6 +16,8 @@ import {UserService} from './services/user.service';
 import {JobListComponent} from './components/job-list/job-list.component';
 import {RegisterComponent} from './components/register/register.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { PostJobComponent } from './components/post-job/post-job.component';
+import {SaveJobService} from './services/save-job.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { AdminComponent } from './components/admin/admin.component';
     ViewJobComponent,
     JobListComponent,
     RegisterComponent,
-    AdminComponent
+    AdminComponent,
+    PostJobComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,8 @@ import { AdminComponent } from './components/admin/admin.component';
   ],
   providers: [
     JobListingService,
-    UserService
+    UserService,
+    SaveJobService
   ],
   bootstrap: [AppComponent]
 })

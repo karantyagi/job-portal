@@ -20,7 +20,7 @@ export class UserService {
   constructor() {
     let base;
     if (!location.toString().includes('localhost')) {
-      base = 'https://whiteboard-middle-tier-node.herokuapp.com';
+      base = 'https://job-portal-server.herokuapp.com';
     } else {
       base = 'http://localhost:5500';
     }

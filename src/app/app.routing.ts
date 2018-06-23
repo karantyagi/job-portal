@@ -7,6 +7,7 @@ import {ProfileSeekerComponent} from './components/profile-seeker/profile-seeker
 import {ViewJobComponent} from './components/view-job/view-job.component';
 import {RegisterComponent} from './components/register/register.component';
 import {AdminComponent} from './components/admin/admin.component';
+import {PostJobComponent} from './components/post-job/post-job.component';
 
 
 const appRoutes: Routes = [
@@ -19,6 +20,7 @@ const appRoutes: Routes = [
   {path: 'profile-recruiter', component: ProfileRecruiterComponent},
   {path: 'profile-seeker', component: ProfileSeekerComponent},
   {path: 'job-list/:location/:keyword/view-job/:jobId', component: ViewJobComponent},
+  {path: 'post', component: PostJobComponent}, // last
   {path: '**', component: JobBoardComponent} // last
 ];
 export const routing = RouterModule.forRoot(appRoutes);

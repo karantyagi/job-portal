@@ -1,11 +1,23 @@
 
-.background-pic {
-  background-image: url('./../../../assets/images/paul-hanaoka-299941-unsplash.jpg');
+/*.background-pic {*/
+  /*background-image: url('./../../../assets/images/paul-hanaoka-299941-unsplash.jpg');*/
+  /*background-size: contain;*/
+/*}*/
+
+/*.heading {*/
+
+  /*font-family: "Bookman Old Style";*/
+  /*background-color: rgba(15, 15, 15 ,0.6);*/
+/*}*/
+
+.mainContainer{
+
+  background-image: url('./../../../assets/images/joanna-kosinska-439234-unsplash.jpg');
+  /*background-size: 100% 20%;*/
   background-size: contain;
+  height: 300px;
 }
 
-.heading {
-
-  font-family: "Bookman Old Style";
-  background-color: rgba(15, 15, 15 ,0.6);
+.container{
+  margin-top:50px;
 }

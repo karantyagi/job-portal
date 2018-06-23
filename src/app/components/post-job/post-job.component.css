@@ -1,0 +1,11 @@
+.mainContainer{
+
+  background-image: url('./../../../assets/images/joanna-kosinska-439234-unsplash.jpg');
+  /*background-size: 100% 20%;*/
+  background-size: contain;
+  height: 300px;
+}
+
+.container{
+  margin-top:50px;
+}
