@@ -19,13 +19,13 @@
         <input type="text" autocomplete="off" class="form-control dropdown-toggle" id="dropdownMenuLink"
                placeholder="Location" aria-label="Location"
                aria-describedby="basic-addon1"
-               [(ngModel)]="location"
+               [(ngModel)]="location" #stateSelect="ngModel"
                name="location" data-toggle="dropdown">
         <div class="dropdown-menu dropdown-menu-input float-right">
           <h6 class="dropdown-header">Select location</h6>
           <div class="dropdown-divider"></div>
           <div class="dropdown-item" *ngFor="let state of states | searchFilter: location"
-               (click)="setVal(state)">{{state}}
+               (click)="setVal(state); location='' ">{{state}}
           </div>
         </div>
       </div>
@@ -64,14 +64,22 @@
     </div>
 
     <div class="col-2 m-0">
-      <button class="btn btn-light font-weight-bold" (click)="searchJob();" >
-        Search
-      </button>
+      <!--<button class="btn btn-light font-weight-bold" (click)="searchJob();" >-->
+        <!--Search-->
+      <!--</button>-->
     </div>
   </div>
 
   <div class="row mb-5">
-
+    {{filterItems}}
+    <ul class="nav nav-pills">
+      <li class="nav-item" *ngFor="let item of filterItems; let i = index" [attr.data-index]="i">
+        <div class="nav-link bg-white mx-3" href="#">
+         {{item.val}}
+         <i class="fa fa-times ml-3" (click)="removeItems(item,i)"></i>
+        </div>
+      </li>
+    </ul>
   </div>
 
   <ul class="list-group">
