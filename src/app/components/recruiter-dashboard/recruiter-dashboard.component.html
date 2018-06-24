@@ -89,37 +89,80 @@
 
           <!--Add Responsibilities-->
           <button class="btn btn-block btn-outline-primary"
-                  (click)="addResponsibility()">
+                  (click)=" toggleRAddMode()">
             <i class="fas fa-plus"></i>&nbsp;Add Responsibilities</button>
-          <input type="text"
-                 class="form-control my-2"
-                 placeholder="Add a responsibility bullet ..."
-                 *ngFor="let res of responsibilities">
+            <div [hidden]="!rAddMode" class="form-row my-2">
+              <input type="text"
+                     class="form-control my-1"
+                     placeholder="Add a responsibility bullet ..."
+              [(ngModel)]="responsibility">
+              <button class="btn btn-success"><i class="fas fa-check"></i></button>
+              &nbsp;
+              <button class="btn btn-danger"
+              (click)="cancelAddR()"><i class="fas fa-times"></i></button>
+            </div>
+          <div [hidden]="rAddMode" class="my-2">
+            <h6 style="color: dimgrey;"> Responsibilities</h6>
+            <ul>
+              <li *ngFor = "let item of responsibilities">
+                {{item}}
+                <button class="btn btn-primary float-right"><i class="fas fa-pencil-alt"></i></button>
+              </li>
+            </ul>
+            <hr>
+          </div>
 
           <!--Add Minimum Qualification Required-->
           <button class="btn btn-block btn-outline-primary"
-                  (click)="addMinQualifications()">
-            <i class="fas fa-plus"></i>&nbsp;Add Minimum Qualifications</button>
-          <input type="text"
-                 class="form-control my-2"
-                 placeholder="Add a qualifiaction needed for the job position ..."
-                 *ngFor="let qualification of minQualification">
+                  (click)=" toggleQAddMode()">
+            <i class="fas fa-plus"></i>&nbsp;Add Qualifications</button>
+          <div [hidden]="!qAddMode" class="form-row my-2">
+            <input type="text"
+                   class="form-control my-1"
+                   placeholder="Add a minimum qualification ..."
+                   [(ngModel)]="qualification">
+            <button class="btn btn-success"><i class="fas fa-check"></i></button>
+            &nbsp;
+            <button class="btn btn-danger"
+                    (click)="cancelAddQ()"><i class="fas fa-times"></i></button>
+          </div>
+          <div [hidden]="qAddMode" class="my-2">
+            <h6 style="color: dimgrey;"> Minimum Qualifications</h6>
+            <ul>
+              <li *ngFor = "let item of minQualifications">
+                {{item}}
+                <button class="btn btn-primary float-right"><i class="fas fa-times"></i></button>
+              </li>
+            </ul>
+            <hr/>
+          </div>
 
           <!--Add Skills Required-->
           <button class="btn btn-block btn-outline-primary"
-                  (click)="addRequiredSkills()">
+                  (click)=" toggleSAddMode()">
             <i class="fas fa-plus"></i>&nbsp;Add Required Skills</button>
-          <input type="text"
-                 class="form-control my-2"
-                 placeholder="Add a skill required for the job ..."
-                 *ngFor="let skill of skillsRequired">
-        </div>
-        <div class="py-3">
-          <hr>
-          <button type="button" class="btn btn-primary float-left ml-3">Save Job </button>
-          <button type="button" class="btn btn-secondary float-right mr-3" data-dismiss="modal">
-            &nbsp;Cancel&nbsp;
-          </button>
+          <div [hidden]="!sAddMode" class="form-row my-2">
+            <input type="text"
+                   class="form-control my-1"
+                   placeholder="Add a skill required for the job ..."
+                   [(ngModel)]="skill">
+            <button class="btn btn-success"><i class="fas fa-check"></i></button>
+            &nbsp;
+            <button class="btn btn-danger"
+                    (click)="cancelAddS()"><i class="fas fa-times"></i></button>
+          </div>
+          <div [hidden]="sAddMode" class="my-2">
+            <h6 style="color: dimgrey;"> Required Skills</h6>
+            <ul>
+              <li *ngFor = "let item of skillsRequired">
+                {{item}}
+                <button class="btn btn-primary float-right"><i class="fas fa-times"></i></button>
+              </li>
+            </ul>
+            <hr/>
+          </div>
+
+
         </div>
       </div>
     </div>

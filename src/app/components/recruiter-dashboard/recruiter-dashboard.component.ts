@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {JobListingService} from '../../services/job-listing.service';
 import {ActivatedRoute} from '@angular/router';
 import {SaveJobService} from '../../services/save-job.service';
@@ -13,9 +13,18 @@ export class RecruiterDashboardComponent implements OnInit {
 
   job: Job = new Job();
   jobId: string;
+  sAddMode = false;
+  sEditMode = false;
+  rAddMode = false;
+  rEditMode = false;
+  qAddMode = false;
+  qEditMode = false;
   skillsRequired = [];
+  skill = '';
   responsibilities = [];
-  minQualification = [];
+  responsibility = '';
+  minQualifications = [];
+  qualification = '';
   months = [
     'Month',
     'January',
@@ -49,8 +58,9 @@ export class RecruiterDashboardComponent implements OnInit {
     '2017',
     '2018'
   ];
+
   constructor(private jobService: JobListingService, private route: ActivatedRoute,
-              private saveJobService: SaveJobService ) {
+              private saveJobService: SaveJobService) {
 
     this.route.params.subscribe(param => {
       this.jobId = param['jobId'];
@@ -78,19 +88,32 @@ export class RecruiterDashboardComponent implements OnInit {
 
   }
 
-  addResponsibility() {
-    this.responsibilities.push('');
-    console.log('No. of Reponsibilities : ', this.responsibilities.length);
+  toggleRAddMode() {
+    this.rAddMode = !this.rAddMode;
   }
 
-  addMinQualifications() {
-    this.minQualification.push('');
-    console.log('No. of Qualifications : ', this.minQualification.length);
+  toggleSAddMode() {
+    this.sAddMode = !this.sAddMode;
   }
 
-  addRequiredSkills() {
-    this.skillsRequired.push('');
-    console.log('No. of Required Skills: ', this.skillsRequired.length);
+  toggleQAddMode() {
+    this.qAddMode = !this.qAddMode;
+  }
+
+  cancelAddR() {
+    this.toggleRAddMode();
+  }
+
+  cancelAddS() {
+    this.toggleSAddMode();
+  }
+
+  cancelAddQ() {
+    this.toggleQAddMode();
+  }
+
+  saveJob() {
+    console.log(this.responsibilities);
   }
 
   ngOnInit() {
