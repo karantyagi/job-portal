@@ -1,5 +1,6 @@
 import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
 import {Router} from '@angular/router';
+import {SaveJobService} from '../../services/save-job.service';
 
 @Component({
   selector: 'app-job-seeker-dashboard',
@@ -12,6 +13,9 @@ export class JobSeekerDashboardComponent implements OnInit {
   location: string;
   jobsSaved = 0;
   jobsApplied = 0;
+  savedApplication = [];
+  appliedApplication = [];
+  allApplications = [];
   states = ['Alaska',
     'Alabama',
     'Arkansas',
@@ -68,14 +72,9 @@ export class JobSeekerDashboardComponent implements OnInit {
     'West Virginia',
     'Wyoming'];
 
-  constructor(private router: Router,) {
+  constructor(private router: Router, private jobApplicationService: SaveJobService) {
   }
 
-  // searchBasedOn() {
-  //
-  //   this.router.navigate(['job-list/+'location'+]);
-  //
-  // }
 
   setVal(val) {
     this.location = val;
@@ -87,22 +86,27 @@ export class JobSeekerDashboardComponent implements OnInit {
 
   ngOnInit() {
 
+    this.jobApplicationService.getAllJobApplicationForUser().then((application) => {
+
+      if (application.status != null && application.status === 'session expired') {
+        this.allApplications = [];
+      } else {
+        this.allApplications = application;
+      }
+    }).then(() => {
+      console.log(this.allApplications);
+      this.allApplications.forEach((jobApp) => {
+        if (jobApp.status === 'save') {
+          this.savedApplication.push(jobApp);
+        } else {
+          this.appliedApplication.push(jobApp);
+        }
+      });
+
+    }).then(() => {
+      this.jobsApplied = this.appliedApplication.length;
+      this.jobsSaved = this.savedApplication.length;
+
+    });
   }
-
-
-// @Pipe({name: 'searchFilter'})
-// export class SearchFilterPipe implements PipeTransform {
-//   transform(value: any, search: string): any {
-//     if (!search) {
-//       return value;
-//     }
-//     const solution = value.filter(v => {
-//       if (!v) {
-//         return;
-//       }
-//       return v.toLowerCase().indexOf(search.toLowerCase()) !== -1;
-//     });
-//     return solution;
-//   }
-
 }

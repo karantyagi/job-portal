@@ -29,7 +29,7 @@
           </div>
         </div>
       </div>
-      <div class="col-2">
+      <div class="col-2 ">
         <button class="btn btn-primary float-right btn-block"
                 routerLink="/job-list/{{location!='' && location!=null ? location:' '}}/{{keywordOrTitle!='' &&
               keywordOrTitle!=null? keywordOrTitle: ' '}}">Search
@@ -37,34 +37,53 @@
       </div>
     </div>
 
-    <div class="row mx-2 p-3 mt-3 bg-white border bounceOutUp">
+    <div class="row mx-2 p-3 mt-3 bg-white border bounceOutUp shadow">
       <div class="col stats text-center text-muted">
-        <span class="float-right"><span class="text-primary">{{jobsSaved}}</span> Saved Job</span>
-        <span class="float-left"><span class="text-primary">{{jobsSaved}}</span> Applied Jobs</span>
+        <a class="float-right mx-3" href="" >Saved Job</a> <span class="text-danger float-right" data-toggle="#SavedJob" >{{jobsSaved}}</span>
+        <span class="text-danger float-left" data-toggle="" >{{jobsApplied}}</span><a class="float-left mx-3" href="" >Applied Jobs</a>
       </div>
     </div>
 
-    <div class="row mx-2 mt-3 bg-white border bounceOutUp">
-      <div class="col-12 stats text-center text-muted">
-        <div class="row text-center border-bottom">
-          <div class="col p-2">Jobs</div>
+    <div class="row mx-2 mt-3 bg-white border bounceOutUp shadow" id ="SavedJob" >
+      <div class="col-12 stats text-center text-muted ">
+        <div class="row text-center border-bottom bg-dark text-light">
+          <div class="col p-2" >Saved Jobs</div>
         </div>
-        <div class="row back">
+        <div class="row ">
           <div class="col">
             <div class="row mx-2 p-2 m-3 bg-white border">
-              <div class="col-10">
+              <div class="col-8">
               </div>
-              <div class="col-1">
+              <div class="col-2">
                 <button class="btn btn-success">Apply</button>
               </div>
-              <div class="col-1">
-                <button [hidden]="false" class="btn btn-danger">Save</button>
-                <button [hidden]="true" class="btn btn-danger">UnSave</button>
+              <div class="col-2">
+                <button  class="btn btn-danger">UnSave</button>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <div class="row mx-2 mt-3 bg-white border bounceOutUp shadow" id="AppliedJob">
+      <div class="col-12 stats text-center text-muted ">
+        <div class="row text-center border-bottom bg-dark text-light">
+          <div class="col p-2">Applied Jobs</div>
+        </div>
+        <div class="row ">
+          <div class="col">
+            <div class="row mx-2 p-2 m-3 bg-white border">
+              <div class="col-8">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
   </div>
 </div>
