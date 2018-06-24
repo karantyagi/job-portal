@@ -54,11 +54,14 @@
         <img class="mt-3" alt="Image not found" src="{{job.company_logo}}" width="120px" height="140px"/>
       </div>
       <div class="col-sm-10">
-        <i class="fa fa-2x fa-pencil float-right" ></i>
+        <i class="fa fa-2x fa-pencil float-right"
+
+           [hidden]="!(user!=null && user.role === 'JobSeeker' ) && (job.jobSource === 'job-portal' )" ></i>
         <h1 class="p-0">{{job.title}}</h1>
 
         <h3 class="text-muted" >{{job.company}} | {{job.location}} </h3>
-        <small>Posted : {{job.created_at}}</small> <br>
+        <small [hidden]="job.jobSource!='github'">Posted : {{job.created_at}}</small> <br>
+        <small [hidden]="job.jobSource==='github'">Posted : {{job.datePosted}}</small> <br>
         <div class="d-inline-block mt-3">
           <!--{{user.role}}-->
           <button [ngClass]="{ 'disabled': !(user != null && user.role === 'JobSeeker')}"
@@ -77,7 +80,7 @@
   <div class="bg-white bounceOutRight border container mt-4 p-5 mb-4">
     <div class="row">
       <div class="col-sm-8" [innerHTML]="job.description" [hidden]="job.jobSource!='github'"></div>
-      <div class="col-sm-8" [innerHTML]="job.description" [hidden]="job.jobSource=='github'">
+      <div class="col-sm-8"  [hidden]="job.jobSource==='github'">
         <h2>Job Description</h2>
         <p class="text-left">{{job.description}}</p>
         <br>

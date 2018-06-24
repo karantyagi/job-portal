@@ -11,4 +11,5 @@ export class Job {
   company_logo: string;
   url: string;
   jobSource: string;
+  datePosted: Date;
 }

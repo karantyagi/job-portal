@@ -3,6 +3,7 @@ import {JobListingService} from '../../services/job-listing.service';
 import {ActivatedRoute} from '@angular/router';
 import {SaveJobService} from '../../services/save-job.service';
 import {Job} from '../../models/Job';
+import {JobPostingService} from '../../services/job-posting.service';
 
 @Component({
   selector: 'app-recruiter-dashboard',
@@ -13,6 +14,7 @@ export class RecruiterDashboardComponent implements OnInit {
 
   job: Job = new Job();
   jobId: string;
+  jobPostings = []
   moreDetails = false;
   sAddMode = false;
   sEditMode = false;
@@ -61,7 +63,7 @@ export class RecruiterDashboardComponent implements OnInit {
   ];
 
   constructor(private jobService: JobListingService, private route: ActivatedRoute,
-              private saveJobService: SaveJobService) {
+              private saveJobService: SaveJobService, private jobPostService: JobPostingService) {
 
     this.route.params.subscribe(param => {
       this.jobId = param['jobId'];
@@ -84,12 +86,19 @@ export class RecruiterDashboardComponent implements OnInit {
     }
   }
 
+  getJobPostingOfCurrentUser() {
+    this.jobPostService.getAllJobPostingForUser().then((jobPostings) => {
+      this.jobPostings = jobPostings;
+    });
+  }
+
   saveJobId(id) {
   }
 
   addMoreDetails() {
     this.moreDetails = true;
   }
+
   toggleRAddMode() {
     this.rAddMode = !this.rAddMode;
   }
@@ -119,6 +128,7 @@ export class RecruiterDashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getJobPostingOfCurrentUser();
   }
 
 }
