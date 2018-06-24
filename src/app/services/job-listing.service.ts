@@ -24,4 +24,9 @@ export class JobListingService {
       dataType: 'jsonp'
     });
   }
+
+
+  findAllJobPortalJobs(){
+
+  }
 }

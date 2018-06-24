@@ -17,10 +17,9 @@ export class ViewJobComponent implements OnInit {
   jobId: string;
   user: User;
   jobSource: string;
-  savedJobApplication = [];
-  appliedJobApplication = [];
-  alreadySavedCheck: boolean;
-  alreadyAppliedCheck: boolean;
+  jobApplications = [];
+  alreadySavedCheck = false;
+  alreadyAppliedCheck = false;
 
   constructor(private jobService: JobListingService, private route: ActivatedRoute,
               private saveJobService: SaveJobService, private userService: UserService) {
@@ -39,26 +38,83 @@ export class ViewJobComponent implements OnInit {
           if (jobs[j].id === this.jobId) {
             const d = new Date(jobs[j].created_at);
             this.job = jobs[j];
+            this.job.jobSource = this.jobSource;
             this.job.created_at = d.toDateString();
           }
         }
-      }).then(() => this.userService.findLoggedUser().then((user) => this.user = user));
-      console.log(this.job);
+      }).then(() => ).then(() => this.userService.findLoggedUser().then((user) => this.user = user)).then(
+        this.getJobApplication()
+      );
+      console.log(this.jobSource);
     }
   }
 
+
+  getJobApplication() {
+    this.saveJobService.getAllJobApplicationForUser().then((jobApplications) =>
+      this.jobApplications = jobApplications).then(() => {
+      this.jobApplications.forEach((jobApp) => {
+        if (this.jobSource === 'github' &&
+          jobApp.gitHubJobId === this.jobId) {
+          if (jobApp.status === 'save') {
+            this.alreadySavedCheck = true;
+          } else {
+            this.alreadyAppliedCheck = true;
+          }
+
+        } else if (this.jobSource !== 'github' &&
+          jobApp.jobPosting === this.jobId) {
+          if (jobApp.status === 'save') {
+            this.alreadySavedCheck = true;
+          } else {
+            this.alreadyAppliedCheck = true;
+          }
+        }
+      });
+
+    });
+  }
+
   saveJobId(job) {
-    var jobApplication;
+    let jobApplication;
+    console.log(job.jobSource);
     if (job.jobSource === 'github') {
       jobApplication = {dateApplied: new Date(), status: 'save', jobSource: job.jobSource, gitHubJobId: job.id};
     } else {
       jobApplication = {dateApplied: new Date(), status: 'save', jobSource: job.jobSource, jobPosting: job._id};
     }
 
-    this.saveJobService.createJobApplication(jobApplication).then(() => {
+    this.alreadySavedCheck = false;
+    this.alreadyAppliedCheck = false;
 
-    });
+    this.saveJobService.createJobApplication(jobApplication).then(() => this.getJobApplication());
+  }
 
+  deleteJobId(job) {
+    this.alreadySavedCheck = false;
+    this.alreadyAppliedCheck = false;
+    let id;
+    if (job.jobSource === 'github') {
+      id = job.id;
+    } else {
+      id = job._id;
+    }
+    this.saveJobService.deleteJobApplication(id).then(() => this.getJobApplication());
+  }
+
+  applyJob(job) {
+    let jobApplication;
+    console.log(job.jobSource);
+    if (job.jobSource === 'github') {
+      jobApplication = {dateApplied: new Date(), status: 'save', jobSource: job.jobSource, gitHubJobId: job.id};
+    } else {
+      jobApplication = {dateApplied: new Date(), status: 'save', jobSource: job.jobSource, jobPosting: job._id};
+    }
+
+    this.alreadySavedCheck = false;
+    this.alreadyAppliedCheck = false;
+
+    this.saveJobService.createJobApplication(jobApplication).then(() => this.getJobApplication());
   }
 
   ngOnInit() {
