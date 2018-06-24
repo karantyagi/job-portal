@@ -194,11 +194,11 @@
               <span [hidden]=!ongoingStatus> <br/> Present </span>
               <select class="form-control" [hidden]=ongoingStatus
                       [ngModelOptions]="{standalone: true}" [(ngModel)]="endMonth">
-                <option *ngFor="let month of months">{{month}}</option>
+                <option *ngFor="let month of months" [value]="month">{{month}}</option>
               </select>
               <select class="form-control mt-3" [hidden]=ongoingStatus
                       [ngModelOptions]="{standalone: true}" [(ngModel)]="endYear">
-                <option *ngFor="let year of years">{{year}}</option>
+                <option *ngFor="let year of years" [value]="year" ]>{{year}}</option>
               </select>
             </div>
             </div>
