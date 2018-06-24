@@ -68,7 +68,7 @@ export class JobSeekerDashboardComponent implements OnInit {
     'West Virginia',
     'Wyoming'];
 
-  constructor(private router: Router, ) {
+  constructor(private router: Router,) {
   }
 
   // searchBasedOn() {
@@ -88,21 +88,21 @@ export class JobSeekerDashboardComponent implements OnInit {
   ngOnInit() {
 
   }
-}
 
-@Pipe({name: 'searchFilter'})
-export class SearchFilterPipe implements PipeTransform {
-  transform(value: any, search: string): any {
-    if (!search) {
-      return value;
-    }
-    const solution = value.filter(v => {
-      if (!v) {
-        return;
-      }
-      return v.toLowerCase().indexOf(search.toLowerCase()) !== -1;
-    });
-    return solution;
-  }
+
+// @Pipe({name: 'searchFilter'})
+// export class SearchFilterPipe implements PipeTransform {
+//   transform(value: any, search: string): any {
+//     if (!search) {
+//       return value;
+//     }
+//     const solution = value.filter(v => {
+//       if (!v) {
+//         return;
+//       }
+//       return v.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+//     });
+//     return solution;
+//   }
 
 }
