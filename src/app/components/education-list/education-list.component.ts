@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../services/user.service';
 import {EducationService} from '../../services/education.service';
 
@@ -126,6 +126,17 @@ export class EducationListComponent implements OnInit {
     this.addMode = false;
   }
 
+  delete(id) {
+    this.educationService.deleteEducation(id)
+      .then((response) => {
+        this.educationService.findEducationByUserId()
+          .then((educationArray) => {
+            console.log('educations array : ', educationArray);
+            this.education = educationArray;
+          });
+      });
+  }
+
   update() {
     console.log('Update new education as : ');
     // this.startDate = this.startMonth + ' ' + this.startYear;
@@ -171,7 +182,7 @@ export class EducationListComponent implements OnInit {
     this.userService.findLoggedUser()
       .then((user) => {
         this.user = user;
-        if (user !== null ) {
+        if (user !== null) {
           this.educationService.findEducationByUserId()
             .then((educationArray) => {
               console.log('educations array : ', educationArray);

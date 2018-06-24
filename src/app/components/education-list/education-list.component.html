@@ -27,6 +27,8 @@
         {{edu.description}}
       </p>
       <div [hidden]="!getEditMode(edu._id)" class="mt-1 border-top pt-2" style="border-top-color: darkgray;">
+        <i class="float-right btn btn-outline-danger far fa-trash-alt py-2 px-2"
+           (click)="delete(edu._id)"></i>
         <h4>Update Education</h4>
         <form>
           <div class="form-group row mx-2 mt-2">

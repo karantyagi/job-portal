@@ -98,23 +98,6 @@ export class ExperienceListComponent implements OnInit {
     this.editMode = true;
   }
 
-  setStartMonth(month) {
-    this.startMonth = month;
-    console.log(month);
-  }
-
-  setEndMonth(month) {
-    this.endMonth = month;
-  }
-
-  setStartYear(yyyy) {
-    this.startYear = yyyy;
-  }
-
-  setEndYear(yyyy) {
-    this.endYear = yyyy;
-  }
-
   getEditMode(updateId) {
     if (this.updateId === updateId && this.editMode === true) {
       return true;
