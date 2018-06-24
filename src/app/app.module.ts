@@ -29,6 +29,7 @@ import { PersonalInfoComponent } from './components/personal-info/personal-info.
 import { UserSidebarComponent } from './components/user-sidebar/user-sidebar.component';
 import { JobSeekerDashboardComponent } from './components/job-seeker-dashboard/job-seeker-dashboard.component';
 import {RecruiterDashboardComponent} from './components/recruiter-dashboard/recruiter-dashboard.component';
+import {JobPostingService} from './services/job-posting.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,7 +66,8 @@ import {RecruiterDashboardComponent} from './components/recruiter-dashboard/recr
   providers: [
     JobListingService,
     UserService,
-    SaveJobService
+    SaveJobService,
+    JobPostingService
   ],
   bootstrap: [AppComponent]
 })

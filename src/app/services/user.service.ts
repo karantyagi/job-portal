@@ -80,6 +80,7 @@ export class UserService {
   }
 
   findLoggedUser() {
+    console.log('sadasdas');
     return fetch(this.urlLoggedUser, {
       credentials: 'include',
     }).then(response => {

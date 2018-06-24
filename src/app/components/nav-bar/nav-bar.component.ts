@@ -13,7 +13,7 @@ export class NavBarComponent implements OnInit {
   user: User;
 
   constructor(private userService: UserService, private router: Router) {
-    this.router.events.subscribe(() => this.sessionCheck());
+    // this.router.events.subscribe(() => this.sessionCheck());
 
   }
 

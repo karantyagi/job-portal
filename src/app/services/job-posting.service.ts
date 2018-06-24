@@ -72,6 +72,7 @@ export class JobPostingService {
   }
 
   getAllJobPostings() {
+    // console.log('in here');
     return fetch(this.allJobPostingUrl, {
       credentials: 'include'
     }).then(response => {

@@ -60,15 +60,16 @@
         <h3 class="text-muted" >{{job.company}} | {{job.location}} </h3>
         <small>Posted : {{job.created_at}}</small> <br>
         <div class="d-inline-block mt-3">
-          <button [ngClass]="{ 'disabled': user != null && user.role != 'JobSeeker'}"
-                  [disabled]="(user!=null && user.role != 'JobSeeker') " [hidden]="alreadySavedCheck || alreadyAppliedCheck"
+          <!--{{user.role}}-->
+          <button [ngClass]="{ 'disabled': !(user != null && user.role === 'JobSeeker')}"
+                  [disabled]="!(user!=null && user.role === 'JobSeeker') " [hidden]="alreadySavedCheck || alreadyAppliedCheck"
                   class="btn btn-outline-primary mr-3" (click)="saveJobId(job)">Save</button>
-          <button [ngClass]="{ 'disabled': user != null && user.role != 'JobSeeker'}"
-                  [disabled]="(user!=null && user.role != 'JobSeeker')" [hidden]="!alreadySavedCheck || alreadyAppliedCheck"
+          <button [ngClass]="{ 'disabled': !(user != null && user.role === 'JobSeeker')}"
+                  [disabled]="!(user!=null && user.role === 'JobSeeker')" [hidden]="!alreadySavedCheck || alreadyAppliedCheck"
                   class="btn btn-outline-primary mr-3" (click)="deleteJobId(job)">UnSave</button>
-          <a [ngClass]="{ 'disabled': user != null && user.role != 'JobSeeker'}"
+          <a [ngClass]="{ 'disabled': !(user != null && user.role === 'JobSeeker')}"
              class="btn  btn-primary" (click)="applyJob(job);"  [hidden]="alreadyAppliedCheck" >Apply</a>
-          <div class="btn btn-primary disabled" [hidden]="!alreadyAppliedCheck">Already Applied</div>
+          <div class="btn btn-primary disabled" [hidden]="!alreadyAppliedCheck">Applied</div>
         </div>
       </div>
     </div>

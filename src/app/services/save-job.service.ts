@@ -58,6 +58,13 @@ export class SaveJobService {
     });
   }
 
+  deleteJobApplicationByJobPosting(jobApplicationId, source) {
+    return fetch(this.url + '/' + jobApplicationId + '/' + source, {
+      method: 'DELETE',
+      credentials: 'include'
+    });
+  }
+
   getAllJobApplicationForUser() {
     return fetch(this.url, {
       credentials: 'include'
