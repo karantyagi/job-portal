@@ -51,12 +51,13 @@ export class EducationListComponent implements OnInit {
   degree;
   location;
   startDate;
-  startMonth = 'month';
-  startYear = 'year';
-  endMonth = 'month';
-  endYear = 'year';
+  startMonth = 'Month';
+  startYear = 'Year';
+  endMonth = 'Month';
+  endYear = 'Year';
   endDate;
-  ongoingStatus; // present working on this job
+  defaultAddOnGoing = false;
+  ongoingStatus: boolean;  // present working on this job
   description;
   updateId = '';
   education = [];
@@ -66,17 +67,57 @@ export class EducationListComponent implements OnInit {
   }
 
   edit(education, updateId) {
+    if ( education.ongoingStatus === undefined ) {
+      this.ongoingStatus = false;
+    } else {
+      if ( education.ongoingStatus === 'true') {
+        this.ongoingStatus = true;
+      } else {
+        this.ongoingStatus = false;
+      }
+      // console.log('type :', typeof this.ongoingStatus);
+    }
+    console.log('DB ongoingStatus :', this.ongoingStatus);
+    this.startMonth = education.startDate.month;
+    this.endMonth = education.endDate.month;
+    this.startYear = education.startDate.year;
+    this.endYear = education.endDate.year;
     this.institute = education.institute;
     this.location = education.location;
-    this.ongoingStatus = education.ongoingStatus;
-    this.startDate = education.startDate;
-    this.endDate = education.endDate;
     this.description = education.description;
     this.degree = education.degree;
     this.fieldOfStudy = education.fieldOfStudy;
     this.updateId = updateId;
-    console.log('update id : ', updateId);
+    // console.log('update id : ', updateId);
     this.editMode = true;
+  }
+
+  disableMonth(mm) {
+    if (mm === 'Month') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  disableYear(yy) {
+    if (yy === 'Year') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  checkAddStatus(status) {
+    this.defaultAddOnGoing = !status;
+    console.log('Ongoing ADD type : ', typeof this.defaultAddOnGoing);
+    console.log('New status (+) : ', this.defaultAddOnGoing);
+  }
+
+  checkUpdateStatus() {
+    this.ongoingStatus = !this.ongoingStatus;
+    // console.log('Ongoing UPDATE type : ', typeof this.ongoingStatus);
+    console.log('New status for update (*) : ', !this.ongoingStatus);
   }
 
   getEditMode(updateId) {
@@ -94,9 +135,11 @@ export class EducationListComponent implements OnInit {
   add() {
     this.institute = '';
     this.location = '';
-    this.ongoingStatus = '';
-    this.startDate = '';
-    this.endDate = '';
+    this.startMonth = 'Month';
+    this.startYear = 'Year';
+    this.endMonth = 'Month';
+    this.endYear = 'Year';
+    this.defaultAddOnGoing = false; // present working on this job
     this.description = '';
     this.degree = '';
     this.fieldOfStudy = '';
@@ -107,9 +150,9 @@ export class EducationListComponent implements OnInit {
     const newEducation = {
       institute: this.institute,
       location: this.location,
-      startDate: this.startDate,
-      endDate: this.endDate,
-      ongoingStatus: this.ongoingStatus,
+      startDate: {'month' : this.startMonth, 'year' : this.startYear},
+      endDate: {'month' : this.endMonth, 'year' : this.endYear},
+      ongoingStatus: this.defaultAddOnGoing,
       description: this.description,
       fieldOfStudy: this.fieldOfStudy,
       degree: this.degree
@@ -138,20 +181,16 @@ export class EducationListComponent implements OnInit {
   }
 
   update() {
+    console.log('Updated new ongoing status as : ', !this.ongoingStatus);
     console.log('Update new education as : ');
-    // this.startDate = this.startMonth + ' ' + this.startYear;
-    // console.log('Start Date : ', this.startDate);
-    // this.endDate = this.endMonth + ' ' + this.endYear;
-    // console.log('End Date : ', this.endDate);
-
     const updatedEducation = {
       degree: this.degree,
       fieldOfStudy: this.fieldOfStudy,
       institute: this.institute,
       location: this.location,
-      startDate: this.startDate,
-      endDate: this.endDate,
-      ongoingStatus: this.ongoingStatus,
+      startDate: {'month' : this.startMonth, 'year' : this.startYear},
+      endDate: {'month' : this.endMonth, 'year' : this.endYear},
+      ongoingStatus: !this.ongoingStatus,
       description: this.description
     };
     this.editMode = false;
@@ -172,10 +211,7 @@ export class EducationListComponent implements OnInit {
   }
 
   cancelEdit() {
-    console.log('in cancel update ---');
-    console.log(this.editMode);
     this.editMode = false;
-    console.log(this.editMode);
   }
 
   ngOnInit() {

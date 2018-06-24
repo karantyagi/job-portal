@@ -25,6 +25,7 @@
       <p style="white-space: pre-line; font-size: 22px;">
         {{experience.description}}
       </p>
+
       <div [hidden]="!getEditMode(experience._id)" class="mt-1 border-top pt-2" style="border-top-color: darkgray;">
         <i class="float-right btn btn-outline-danger far fa-trash-alt py-2 px-2"
            (click)="delete(experience._id)"></i>
@@ -98,12 +99,15 @@
             </div>
           </div>
 
+          <form #form="ngForm">
+            <div class="custom-control custom-checkbox form-group row mx-2 mb-1">
+              <input type="checkbox" class="custom-control-input" [attr.id]=" '#'+ experience._id"
+              [checked]="!ongoingStatus" (change)="checkUpdateStatus()"
+                     name="ongoingStatus">
+              <label class="custom-control-label" [attr.for]=" '#'+ experience._id">I presently work here.</label>
+            </div>
+          </form>
 
-          <div class="custom-control custom-checkbox form-group row mx-2 mb-1">
-            <input type="checkbox" class="custom-control-input" id={{updateId}}
-                   [checked]="!ongoingStatus" (change)="checkStatus(ongoingStatus)" name="ongoingStatus">
-            <label class="custom-control-label" for={{updateId}}>I presently work here.</label>
-          </div>
 
           <!--Description-->
 
@@ -124,7 +128,8 @@
               Update Experience
             </button>
             <button class="btn btn-secondary btn-block mt-2"
-                    (click)="cancelEdit()">
+                    (click)="cancelEdit();
+                     form.reset();">
               Cancel
             </button>
           </div>
@@ -204,12 +209,12 @@
           <div class="col">
             <label class="text-center col-form-label">
               To </label>
-            <span [hidden]=!ongoingStatus> <br/> Present </span>
-            <select class="form-control" [hidden]=ongoingStatus [(ngModel)]="endMonth" name="endMonth">
+            <span [hidden]=!defaultAddOnGoing> <br/> Present </span>
+            <select class="form-control" [hidden]=defaultAddOnGoing [(ngModel)]="endMonth" name="endMonth">
               <option *ngFor="let month of months" [ngValue]="month"
                       [disabled]="disableMonth(month)">{{month}}</option>
             </select>
-            <select class="form-control mt-3" [hidden]=ongoingStatus
+            <select class="form-control mt-3" [hidden]=defaultAddOnGoing
                     [(ngModel)]="endYear" name="endYear">
               <option *ngFor="let year of years" [ngValue]="year"
                       [disabled]="disableYear(year)">{{year}}</option>
@@ -220,7 +225,7 @@
 
         <div class="custom-control custom-checkbox form-group row mx-2 mb-1">
           <input type="checkbox" class="custom-control-input" id="check1"
-                 [checked]="ongoingStatus" (change)="checkStatus(ongoingStatus)" name="ongoingStatus">
+                 [checked]="defaultAddOnGoing" (change)="checkAddStatus(defaultAddOnGoing)" name="defaultAddOnGoing">
           <label class="custom-control-label" for="check1">I presently work here.</label>
         </div>
 
@@ -259,10 +264,10 @@
       <span style="font-size: 22px; font-weight: normal; color:black;"> {{experience.location}} </span> <br/>
       <div [ngSwitch]="experience.ongoingStatus">
         <span style="font-size: 20px; font-weight: normal; color:gray;" *ngSwitchCase="'true'">
-        {{experience.startDate}} &nbsp;&nbsp;-&nbsp;&nbsp;Present
+        {{experience.startDate.month}} {{experience.startDate.year}}&nbsp;&nbsp;-&nbsp;&nbsp;Present
       </span>
         <span style="font-size: 20px; font-weight: normal; color:gray;" *ngSwitchCase="'false'">
-        {{experience.startDate}} &nbsp;&nbsp;-&nbsp;&nbsp;{{experience.endDate}}
+        {{experience.startDate.month}} {{experience.startDate.year}} &nbsp;&nbsp;-&nbsp;&nbsp;{{experience.endDate.month}} {{experience.endDate.year}}
       </span>
       </div>
       <p style="white-space: pre-line; font-size: 22px;">

@@ -56,7 +56,8 @@ export class ExperienceListComponent implements OnInit {
   endMonth = 'Month';
   endYear = 'Year';
   endDate;
-  ongoingStatus; // present working on this job
+  ongoingStatus: boolean; // present working on this job
+  defaultAddOnGoing = false;
   description;
   updateId = '';
   experiences = [];
@@ -86,11 +87,20 @@ export class ExperienceListComponent implements OnInit {
   }
 
   edit(experience, updateId) {
+    if ( experience.ongoingStatus === undefined ) {
+      this.ongoingStatus = false;
+    } else {
+      if ( experience.ongoingStatus === 'true') {
+        this.ongoingStatus = true;
+      } else {
+        this.ongoingStatus = false;
+      }
+      // console.log('type :', typeof this.ongoingStatus);
+    }
+    console.log('DB ongoingStatus :', this.ongoingStatus);
     this.title = experience.title;
     this.company = experience.company;
     this.location = experience.location;
-    this.ongoingStatus = experience.ongoingStatus;
-    console.log('DB ongoingStatus :', this.ongoingStatus);
     this.startMonth = experience.startDate.month;
     this.endMonth = experience.endDate.month;
     this.startYear = experience.startDate.year;
@@ -125,9 +135,16 @@ export class ExperienceListComponent implements OnInit {
     }
   }
 
-  checkStatus(status) {
-    this.ongoingStatus = !status;
-    console.log('New status : ', this.ongoingStatus);
+  checkAddStatus(status) {
+    this.defaultAddOnGoing = !status;
+    console.log('Ongoing ADD type : ', typeof this.defaultAddOnGoing);
+    console.log('New status (+) : ', this.defaultAddOnGoing);
+  }
+
+  checkUpdateStatus() {
+    this.ongoingStatus = !this.ongoingStatus;
+    // console.log('Ongoing UPDATE type : ', typeof this.ongoingStatus);
+    console.log('New status for update (*) : ', !this.ongoingStatus);
   }
 
   add() {
@@ -138,7 +155,7 @@ export class ExperienceListComponent implements OnInit {
     this.startYear = 'Year';
     this.endMonth = 'Month';
     this.endYear = 'Year';
-    this.ongoingStatus = false; // present working on this job
+    this.defaultAddOnGoing = false; // present working on this job
     this.description = '';
     this.addMode = true;
   }
@@ -150,7 +167,7 @@ export class ExperienceListComponent implements OnInit {
       location: this.location,
       startDate: {'month' : this.startMonth, 'year' : this.startYear},
       endDate: {'month' : this.endMonth, 'year' : this.endYear},
-      ongoingStatus: this.ongoingStatus,
+      ongoingStatus: this.defaultAddOnGoing,
       description: this.description
     };
     this.experienceService.createExperience(newExperience)
@@ -221,11 +238,6 @@ export class ExperienceListComponent implements OnInit {
       .then((user) => {
         this.user = user;
         if (user !== null) {
-          if ( this.ongoingStatus === undefined ) {
-            this.ongoingStatus = false;
-          } else {
-            this.ongoingStatus = user.ongoingStatus;
-          }
           this.experienceService.findExperienceByUserId()
             .then((experiences) => {
               console.log('Experiences array : ', experiences);
