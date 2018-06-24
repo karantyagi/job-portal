@@ -62,6 +62,9 @@ export class PersonalInfoComponent implements OnInit {
       .then((user) => {
         this.user = user;
         if (user !== null ) {
+          if ( user.firstName === undefined) {
+            this.editMode = true;
+          }
           this.updateId = user._id;
           this.username = user.username;
           this.password = user.password;
@@ -69,11 +72,13 @@ export class PersonalInfoComponent implements OnInit {
           this.lastName = user.lastName;
           this.email = user.email;
           this.phone = user.phone;
-          this.socialContact = user.socialContact;
-          this.facebook = this.socialContact.find(s => s.socialtype === 'facebook').url;
-          this.github = this.socialContact.find(s => s.socialtype === 'github').url;
-          this.linkedin = this.socialContact.find(s => s.socialtype === 'linkedin').url;
-          this.twitter = this.socialContact.find(s => s.socialtype === 'twitter').url;
+          if (user.socialContact.length !== 0 ) {
+            this.socialContact = user.socialContact;
+            this.facebook = this.socialContact.find(s => s.socialtype === 'facebook').url;
+            this.github = this.socialContact.find(s => s.socialtype === 'github').url;
+            this.linkedin = this.socialContact.find(s => s.socialtype === 'linkedin').url;
+            this.twitter = this.socialContact.find(s => s.socialtype === 'twitter').url;
+          }
           console.log(this.user);
         } else {
           console.log('User : null');
