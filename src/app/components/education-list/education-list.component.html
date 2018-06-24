@@ -17,10 +17,10 @@
 
       <div [ngSwitch]="edu.ongoingStatus">
         <span style="font-size: 20px; font-weight: normal; color:gray;" *ngSwitchCase="'true'">
-        {{edu.startDate}} &nbsp;&nbsp;-&nbsp;&nbsp;Present
+        {{edu.startDate.month}} {{edu.startDate.year}}&nbsp;&nbsp;-&nbsp;&nbsp;Present
       </span>
         <span style="font-size: 20px; font-weight: normal; color:gray;" *ngSwitchCase="'false'">
-        {{edu.startDate}} &nbsp;&nbsp;-&nbsp;&nbsp;{{edu.endDate}}
+        {{edu.startDate.month}} {{edu.startDate.year}} &nbsp;&nbsp;-&nbsp;&nbsp;{{edu.endDate.month}} {{edu.endDate.year}}
       </span>
       </div>
       <p style="white-space: pre-line; font-size: 22px;">
@@ -56,7 +56,7 @@
             <!--Field of Study-->
 
             <label for="field2" class="text-center col-form-label">
-             Field of Study </label>
+              Field of Study </label>
             <input [ngModelOptions]="{standalone: true}"
                    [(ngModel)]="fieldOfStudy"
                    id="field2"
@@ -80,33 +80,43 @@
             <div class="col">
               <label class="text-center col-form-label">
                 From </label>
-              <select class="form-control">
-                <option *ngFor="let month of months">{{month}}</option>
+              <select class="form-control"
+                      [(ngModel)]="startMonth" name="startMonth">
+                <option *ngFor="let month of months" [ngValue]="month"
+                        [disabled]="disableMonth(month)">{{month}}</option>
               </select>
-              <select class="form-control mt-3">
-                <option *ngFor="let year of years">{{year}}</option>
+              <select class="form-control mt-3" name="startYear"
+                      [(ngModel)]="startYear">
+                <option *ngFor="let year of years" [ngValue]="year"
+                        [disabled]="disableYear(year)">{{year}}</option>
               </select>
             </div>
 
             <div class="col">
               <label class="text-center col-form-label">
                 To </label>
-              <span [hidden]=!ongoingStatus> <br/> Present </span>
-              <select class="form-control" [hidden]=ongoingStatus>
-                <option *ngFor="let month of months">{{month}}</option>
+              <span [hidden]=ongoingStatus> <br/> Present </span>
+              <select class="form-control" [hidden]=!ongoingStatus [(ngModel)]="endMonth" name="endMonth">
+                <option *ngFor="let month of months" [ngValue]="month"
+                        [disabled]="disableMonth(month)">{{month}}</option>
               </select>
-              <select class="form-control mt-3" [hidden]=ongoingStatus>
-                <option *ngFor="let year of years">{{year}}</option>
+              <select class="form-control mt-3" [hidden]=!ongoingStatus
+                      [(ngModel)]="endYear" name="endYear">
+                <option *ngFor="let year of years" [ngValue]="year"
+                        [disabled]="disableYear(year)">{{year}}</option>
               </select>
             </div>
           </div>
 
 
-          <div class="custom-control custom-checkbox form-group row mx-2 mb-1">
-            <input type="checkbox" class="custom-control-input" id="check4"
-                   [checked]="ongoingStatus" (change)="ongoingStatus = !ongoingStatus; check()"  name="ongoingStatus">
-            <label class="custom-control-label" for="check4">I presently work here.</label>
-          </div>
+          <form #form="ngForm">
+            <div class="custom-control custom-checkbox form-group row mx-2 mb-1">
+              <input type="checkbox" class="custom-control-input" [attr.id]=" '#'+ edu._id"
+                     [checked]="!ongoingStatus" (change)="checkUpdateStatus()"
+                     name="ongoingStatus">
+              <label class="custom-control-label" [attr.for]=" '#'+ edu._id">I presently work here.</label>
+            </div>
+          </form>
 
           <!--Description-->
 
@@ -127,7 +137,7 @@
               Update education
             </button>
             <button class="btn btn-secondary btn-block mt-2"
-                    (click)="cancelEdit()">
+                    (click)="cancelEdit(); form.reset()">
               Cancel
             </button>
           </div>
@@ -198,40 +208,49 @@
         </div>
         <!--Dates-->
 
+        <!--Dates-->
+
         <div class="form-group row mt-2">
           <div class="col">
             <label class="text-center col-form-label">
               From </label>
             <select class="form-control"
-                    [ngModelOptions]="{standalone: true}" [(ngModel)]="startMonth">
-              <option *ngFor="let month of months" [ngValue]="startMonth">{{month}}</option>
+                    [(ngModel)]="startMonth" name="startMonth">
+              <option *ngFor="let month of months" [ngValue]="month"
+                      [disabled]="disableMonth(month)">{{month}}
+              </option>
             </select>
-            <select class="form-control mt-3"
-                    [ngModelOptions]="{standalone: true}" [(ngModel)]="startYear">
-              <option [(ngValue)]="startYear" *ngFor="let year of years">{{year}}</option>
+            <select class="form-control mt-3" name="startYear"
+                    [(ngModel)]="startYear">
+              <option *ngFor="let year of years" [ngValue]="year"
+                      [disabled]="disableYear(year)">{{year}}
+              </option>
             </select>
           </div>
 
           <div class="col">
             <label class="text-center col-form-label">
               To </label>
-            <span [hidden]=!ongoingStatus> <br/> Present </span>
-            <select class="form-control" [hidden]=ongoingStatus
-                    [ngModelOptions]="{standalone: true}" [(ngModel)]="endMonth">
-              <option *ngFor="let month of months">{{month}}</option>
+            <span [hidden]=!defaultAddOnGoing> <br/> Present </span>
+            <select class="form-control" [hidden]=defaultAddOnGoing [(ngModel)]="endMonth" name="endMonth">
+              <option *ngFor="let month of months" [ngValue]="month"
+                      [disabled]="disableMonth(month)">{{month}}
+              </option>
             </select>
-            <select class="form-control mt-3" [hidden]=ongoingStatus
-                    [ngModelOptions]="{standalone: true}" [(ngModel)]="endYear">
-              <option *ngFor="let year of years">{{year}}</option>
+            <select class="form-control mt-3" [hidden]=defaultAddOnGoing
+                    [(ngModel)]="endYear" name="endYear">
+              <option *ngFor="let year of years" [ngValue]="year"
+                      [disabled]="disableYear(year)">{{year}}
+              </option>
             </select>
           </div>
         </div>
 
 
         <div class="custom-control custom-checkbox form-group row mx-2 mb-1">
-          <input type="checkbox" class="custom-control-input" id="check3"
-                 [checked]="ongoingStatus" (change)="ongoingStatus = !ongoingStatus; check()"  name="ongoingStatus">
-          <label class="custom-control-label" for="check3">I presently work here.</label>
+          <input type="checkbox" class="custom-control-input" id="check100"
+                 [checked]="defaultAddOnGoing" (change)="checkAddStatus(defaultAddOnGoing)" name="defaultAddOnGoing">
+          <label class="custom-control-label" for="check100">I presently work here.</label>
         </div>
 
         <!--Description-->
@@ -273,10 +292,10 @@
 
       <div [ngSwitch]="edu.ongoingStatus">
         <span style="font-size: 20px; font-weight: normal; color:gray;" *ngSwitchCase="'true'">
-        {{edu.startDate}} &nbsp;&nbsp;-&nbsp;&nbsp;Present
+        {{edu.startDate.month}} {{edu.startDate.year}}&nbsp;&nbsp;-&nbsp;&nbsp;Present
       </span>
         <span style="font-size: 20px; font-weight: normal; color:gray;" *ngSwitchCase="'false'">
-        {{edu.startDate}} &nbsp;&nbsp;-&nbsp;&nbsp;{{edu.endDate}}
+        {{edu.startDate.month}} {{edu.startDate.year}} &nbsp;&nbsp;-&nbsp;&nbsp;{{edu.endDate.month}} {{edu.endDate.year}}
       </span>
       </div>
       <p style="white-space: pre-line; font-size: 22px;">
