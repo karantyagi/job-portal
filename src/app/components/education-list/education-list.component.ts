@@ -92,6 +92,14 @@ export class EducationListComponent implements OnInit {
   }
 
   add() {
+    this.institute = '';
+    this.location = '';
+    this.ongoingStatus = '';
+    this.startDate = '';
+    this.endDate = '';
+    this.description = '';
+    this.degree = '';
+    this.fieldOfStudy = '';
     this.addMode = true;
   }
 
