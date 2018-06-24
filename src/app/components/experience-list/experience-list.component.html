@@ -10,113 +10,124 @@
     <li class="list-group-item" *ngFor="let experience of experiences">
       <i class="float-right btn btn-light fas fa-angle-down"
          (click)="edit(experience, experience._id)"></i>
+
       <span style="font-size: 28px; font-weight: bold; color:black;"> {{experience.title}} </span> <br/>
       <span style="font-size: 22px; font-weight: normal; color:black;"> {{experience.company}} </span> <br/>
       <span style="font-size: 22px; font-weight: normal; color:black;"> {{experience.location}} </span> <br/>
       <div [ngSwitch]="experience.ongoingStatus">
         <span style="font-size: 20px; font-weight: normal; color:gray;" *ngSwitchCase="'true'">
-        {{experience.startDate}} &nbsp;&nbsp;-&nbsp;&nbsp;Present
+        {{experience.startDate.month}} {{experience.startDate.year}}&nbsp;&nbsp;-&nbsp;&nbsp;Present
       </span>
         <span style="font-size: 20px; font-weight: normal; color:gray;" *ngSwitchCase="'false'">
-        {{experience.startDate}} &nbsp;&nbsp;-&nbsp;&nbsp;{{experience.endDate}}
+        {{experience.startDate.month}} {{experience.startDate.year}} &nbsp;&nbsp;-&nbsp;&nbsp;{{experience.endDate.month}} {{experience.endDate.year}}
       </span>
       </div>
       <p style="white-space: pre-line; font-size: 22px;">
         {{experience.description}}
       </p>
       <div [hidden]="!getEditMode(experience._id)" class="mt-1 border-top pt-2" style="border-top-color: darkgray;">
+        <i class="float-right btn btn-outline-danger far fa-trash-alt py-2 px-2"
+           (click)="delete(experience._id)"></i>
         <h4>Update Experience</h4>
         <form>
-        <div class="form-group row mx-2 mt-2">
+          <div class="form-group row mx-2 mt-2">
 
-        <!--Title-->
+            <!--Title-->
 
-        <label for="title2" class="text-center col-form-label">
-        Title </label>
-        <input [ngModelOptions]="{standalone: true}"
-        [(ngModel)]="title"
-        id="title2"
-        class="form-control"
-        placeholder="E.g. Software Engineering Intern">
+            <label for="title2" class="text-center col-form-label">
+              Title </label>
+            <input [ngModelOptions]="{standalone: true}"
+                   [(ngModel)]="title"
+                   id="title2"
+                   class="form-control"
+                   placeholder="E.g. Software Engineering Intern">
 
-        <!--Company-->
+            <!--Company-->
 
-        <label for="company2" class="text-center col-form-label">
-        Company </label>
-        <input [ngModelOptions]="{standalone: true}"
-        [(ngModel)]="company"
-        id="company2"
-        class="form-control"
-        placeholder="E.g. Google">
+            <label for="company2" class="text-center col-form-label">
+              Company </label>
+            <input [ngModelOptions]="{standalone: true}"
+                   [(ngModel)]="company"
+                   id="company2"
+                   class="form-control"
+                   placeholder="E.g. Google">
 
-        <!--Location-->
+            <!--Location-->
 
-        <label for="location2" class="text-center col-form-label">
-        Location </label>
-        <input [ngModelOptions]="{standalone: true}"
-        [(ngModel)]="location"
-        id="location2"
-        class="form-control"
-        placeholder="Location">
+            <label for="location2" class="text-center col-form-label">
+              Location </label>
+            <input [ngModelOptions]="{standalone: true}"
+                   [(ngModel)]="location"
+                   id="location2"
+                   class="form-control"
+                   placeholder="Location">
 
-        </div>
-        <!--Dates-->
+          </div>
 
-        <div class="form-group row mt-2">
-        <div class="col">
-        <label class="text-center col-form-label">
-        From </label>
-        <select class="form-control">
-        <option *ngFor="let month of months">{{month}}</option>
-        </select>
-        <select class="form-control mt-3">
-        <option *ngFor="let year of years">{{year}}</option>
-        </select>
-        </div>
+          <!--Dates-->
 
-        <div class="col">
-        <label class="text-center col-form-label">
-        To </label>
-        <span [hidden]=!ongoingStatus> <br/> Present </span>
-        <select class="form-control" [hidden]=ongoingStatus>
-        <option *ngFor="let month of months">{{month}}</option>
-        </select>
-        <select class="form-control mt-3" [hidden]=ongoingStatus>
-        <option *ngFor="let year of years">{{year}}</option>
-        </select>
-        </div>
-        </div>
+          <div class="form-group row mt-2">
+            <div class="col">
+              <label class="text-center col-form-label">
+                From </label>
+              <select class="form-control"
+                      [(ngModel)]="startMonth" name="startMonth">
+                <option *ngFor="let month of months" [ngValue]="month"
+                        [disabled]="disableMonth(month)">{{month}}</option>
+              </select>
+              <select class="form-control mt-3" name="startYear"
+                      [(ngModel)]="startYear">
+                <option *ngFor="let year of years" [ngValue]="year"
+                        [disabled]="disableYear(year)">{{year}}</option>
+              </select>
+            </div>
+
+            <div class="col">
+              <label class="text-center col-form-label">
+                To </label>
+              <span [hidden]=ongoingStatus> <br/> Present </span>
+              <select class="form-control" [hidden]=!ongoingStatus [(ngModel)]="endMonth" name="endMonth">
+                <option *ngFor="let month of months" [ngValue]="month"
+                        [disabled]="disableMonth(month)">{{month}}</option>
+              </select>
+              <select class="form-control mt-3" [hidden]=!ongoingStatus
+                      [(ngModel)]="endYear" name="endYear">
+                <option *ngFor="let year of years" [ngValue]="year"
+                        [disabled]="disableYear(year)">{{year}}</option>
+              </select>
+            </div>
+          </div>
 
 
-        <div class="custom-control custom-checkbox form-group row mx-2 mb-1">
-        <input type="checkbox" class="custom-control-input" id="check2"
-        [checked]="ongoingStatus" (change)="ongoingStatus = !ongoingStatus; check()"  name="ongoingStatus">
-        <label class="custom-control-label" for="check2">I presently work here.</label>
-        </div>
+          <div class="custom-control custom-checkbox form-group row mx-2 mb-1">
+            <input type="checkbox" class="custom-control-input" id={{updateId}}
+                   [checked]="!ongoingStatus" (change)="checkStatus(ongoingStatus)" name="ongoingStatus">
+            <label class="custom-control-label" for={{updateId}}>I presently work here.</label>
+          </div>
 
-        <!--Description-->
+          <!--Description-->
 
-        <div class="form-group row mx-2">
-        <label for="desc2" class="text-center col-form-label">
-        Description </label>
-        <textarea [ngModelOptions]="{standalone: true}"
-        [(ngModel)]="description"
-        id="desc2"
-        class="form-control"
-        rows="4"
-        placeholder="">
+          <div class="form-group row mx-2">
+            <label for="desc2" class="text-center col-form-label">
+              Description </label>
+            <textarea [ngModelOptions]="{standalone: true}"
+                      [(ngModel)]="description"
+                      id="desc2"
+                      class="form-control"
+                      rows="4"
+                      placeholder="">
         </textarea>
 
-        <button class="btn btn-block mt-2"
-        style="color: white; background-color: green"
-        (click)="update()">
-        Update Experience
-        </button>
-        <button class="btn btn-secondary btn-block mt-2"
-        (click)="cancelEdit()">
-        Cancel
-        </button>
-        </div>
+            <button class="btn btn-block mt-2"
+                    style="color: white; background-color: green"
+                    (click)="update()">
+              Update Experience
+            </button>
+            <button class="btn btn-secondary btn-block mt-2"
+                    (click)="cancelEdit()">
+              Cancel
+            </button>
+          </div>
         </form>
       </div>
     </li>
@@ -172,47 +183,50 @@
                  placeholder="Location">
 
         </div>
-          <!--Dates-->
+        <!--Dates-->
 
         <div class="form-group row mt-2">
-            <div class="col">
-              <label class="text-center col-form-label">
-                From </label>
-              <select class="form-control"
-                      [ngModelOptions]="{standalone: true}" [(ngModel)]="startMonth">
-                <option *ngFor="let month of months" [ngValue]="startMonth">{{month}}</option>
-              </select>
-              <select class="form-control mt-3"
-                      [ngModelOptions]="{standalone: true}" [(ngModel)]="startYear">
-                <option [(ngValue)]="startYear" *ngFor="let year of years">{{year}}</option>
-              </select>
-            </div>
-
-            <div class="col">
-              <label class="text-center col-form-label">
-                To </label>
-              <span [hidden]=!ongoingStatus> <br/> Present </span>
-              <select class="form-control" [hidden]=ongoingStatus
-                      [ngModelOptions]="{standalone: true}" [(ngModel)]="endMonth">
-                <option *ngFor="let month of months">{{month}}</option>
-              </select>
-              <select class="form-control mt-3" [hidden]=ongoingStatus
-                      [ngModelOptions]="{standalone: true}" [(ngModel)]="endYear">
-                <option *ngFor="let year of years">{{year}}</option>
-              </select>
-            </div>
-            </div>
-
-
-          <div class="custom-control custom-checkbox form-group row mx-2 mb-1">
-            <input type="checkbox" class="custom-control-input" id="check1"
-                   [checked]="ongoingStatus" (change)="ongoingStatus = !ongoingStatus; check()"  name="ongoingStatus">
-            <label class="custom-control-label" for="check1">I presently work here.</label>
+          <div class="col">
+            <label class="text-center col-form-label">
+              From </label>
+            <select class="form-control"
+                    [(ngModel)]="startMonth" name="startMonth">
+              <option *ngFor="let month of months" [ngValue]="month"
+                      [disabled]="disableMonth(month)">{{month}}</option>
+            </select>
+            <select class="form-control mt-3" name="startYear"
+                    [(ngModel)]="startYear">
+              <option *ngFor="let year of years" [ngValue]="year"
+                      [disabled]="disableYear(year)">{{year}}</option>
+            </select>
           </div>
 
-          <!--Description-->
+          <div class="col">
+            <label class="text-center col-form-label">
+              To </label>
+            <span [hidden]=!ongoingStatus> <br/> Present </span>
+            <select class="form-control" [hidden]=ongoingStatus [(ngModel)]="endMonth" name="endMonth">
+              <option *ngFor="let month of months" [ngValue]="month"
+                      [disabled]="disableMonth(month)">{{month}}</option>
+            </select>
+            <select class="form-control mt-3" [hidden]=ongoingStatus
+                    [(ngModel)]="endYear" name="endYear">
+              <option *ngFor="let year of years" [ngValue]="year"
+                      [disabled]="disableYear(year)">{{year}}</option>
+            </select>
+          </div>
+        </div>
 
-          <div class="form-group row mx-2">
+
+        <div class="custom-control custom-checkbox form-group row mx-2 mb-1">
+          <input type="checkbox" class="custom-control-input" id="check1"
+                 [checked]="ongoingStatus" (change)="checkStatus(ongoingStatus)" name="ongoingStatus">
+          <label class="custom-control-label" for="check1">I presently work here.</label>
+        </div>
+
+        <!--Description-->
+
+        <div class="form-group row mx-2">
           <label for="desc1" class="text-center col-form-label">
             Description </label>
           <textarea [ngModelOptions]="{standalone: true}"

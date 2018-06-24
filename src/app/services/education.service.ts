@@ -58,5 +58,11 @@ export class EducationService {
     });
   }
 
+  deleteEducation(Id) {
+    return fetch(this.url + '/' + Id, {
+      method: 'DELETE',
+      credentials: 'include'
+    });
+  }
 
 }

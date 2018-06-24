@@ -14,8 +14,8 @@ export class UserSidebarComponent implements OnInit {
   user;
   editMode = false;
   uploadPicture = true;
-  firstName = '';
-  lastName = '';
+  firstName = 'firstName';
+  lastName = 'lastName';
   name;
   // tagline = '🎓 CS Grad Northeastern,\n' +
   //   '        University\n' +

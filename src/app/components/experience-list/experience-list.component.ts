@@ -51,15 +51,15 @@ export class ExperienceListComponent implements OnInit {
   company;
   location;
   startDate;
-  startMonth = 'month';
-  startYear = 'year';
-  endMonth = 'month';
-  endYear = 'year';
+  startMonth = 'Month';
+  startYear = 'Year';
+  endMonth = 'Month';
+  endYear = 'Year';
   endDate;
   ongoingStatus; // present working on this job
   description;
   updateId = '';
-experiences = [];
+  experiences = [];
   // experiences = [
   //   { _id: 1,
   //     title: 'Software Engineering Intern',
@@ -90,12 +90,31 @@ experiences = [];
     this.company = experience.company;
     this.location = experience.location;
     this.ongoingStatus = experience.ongoingStatus;
-    this.startDate = experience.startDate;
-    this.endDate = experience.endDate;
+    console.log('DB ongoingStatus :', this.ongoingStatus);
+    this.startMonth = experience.startDate.month;
+    this.endMonth = experience.endDate.month;
+    this.startYear = experience.startDate.year;
+    this.endYear = experience.endDate.year;
     this.description = experience.description;
     this.updateId = updateId;
-    console.log('update id : ', updateId);
+    // console.log('update id : ', updateId);
     this.editMode = true;
+  }
+
+  disableMonth(mm) {
+    if (mm === 'Month') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  disableYear(yy) {
+    if (yy === 'Year') {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   getEditMode(updateId) {
@@ -106,24 +125,34 @@ experiences = [];
     }
   }
 
-  check() {
-    console.log(this.ongoingStatus);
+  checkStatus(status) {
+    this.ongoingStatus = !status;
+    console.log('New status : ', this.ongoingStatus);
   }
 
   add() {
+    this.title = '';
+    this.company = '';
+    this.location = '';
+    this.startMonth = 'Month';
+    this.startYear = 'Year';
+    this.endMonth = 'Month';
+    this.endYear = 'Year';
+    this.ongoingStatus = false; // present working on this job
+    this.description = '';
     this.addMode = true;
   }
 
   create() {
     const newExperience = {
-        title: this.title,
-        company: this.company,
-        location: this.location,
-        startDate: this.startDate,
-        endDate: this.endDate,
-        ongoingStatus: this.ongoingStatus,
-        description: this.description
-      };
+      title: this.title,
+      company: this.company,
+      location: this.location,
+      startDate: {'month' : this.startMonth, 'year' : this.startYear},
+      endDate: {'month' : this.endMonth, 'year' : this.endYear},
+      ongoingStatus: this.ongoingStatus,
+      description: this.description
+    };
     this.experienceService.createExperience(newExperience)
       .then((response) => {
         console.log('Add new experience : ', response);
@@ -136,26 +165,38 @@ experiences = [];
     this.addMode = false;
   }
 
+  delete(id) {
+    this.experienceService.deleteExperience(id)
+      .then((response) => {
+        this.experienceService.findExperienceByUserId()
+          .then((experiences) => {
+            console.log('Experiences array : ', experiences);
+            this.experiences = experiences;
+          });
+      });
+  }
+
   update() {
-    console.log('Update new experience as : ');
     // this.startDate = this.startMonth + ' ' + this.startYear;
     // console.log('Start Date : ', this.startDate);
     // this.endDate = this.endMonth + ' ' + this.endYear;
     // console.log('End Date : ', this.endDate);
-    // this.experienceService.updateExperience()
+    console.log('Updated new ongoing status as : ', !this.ongoingStatus);
     const updatedExperience = {
       title: this.title,
       company: this.company,
       location: this.location,
-      startDate: this.startDate,
-      endDate: this.endDate,
-      ongoingStatus: this.ongoingStatus,
+      startDate: {'month' : this.startMonth, 'year' : this.startYear},
+      endDate: {'month' : this.endMonth, 'year' : this.endYear},
+      ongoingStatus: !this.ongoingStatus,
       description: this.description
     };
+    // console.log('Update new experience as : ');
+    // console.log(updatedExperience);
     this.editMode = false;
     this.experienceService.updateExperience(this.updateId, updatedExperience)
       .then((response) => {
-        console.log('Updated in DB : ', response);
+        // console.log('Updated in DB : ', response);
         this.experienceService.findExperienceByUserId()
           .then((experiences) => {
             console.log('Experiences array : ', experiences);
@@ -170,24 +211,28 @@ experiences = [];
   }
 
   cancelEdit() {
-    console.log('in cancel update ---');
-console.log(this.editMode);
+    // console.log('in cancel update ---');
     this.editMode = false;
-    console.log(this.editMode);
+    // console.log(this.editMode);
   }
 
   ngOnInit() {
     this.userService.findLoggedUser()
       .then((user) => {
         this.user = user;
-        if (user !== null ) {
+        if (user !== null) {
+          if ( this.ongoingStatus === undefined ) {
+            this.ongoingStatus = false;
+          } else {
+            this.ongoingStatus = user.ongoingStatus;
+          }
           this.experienceService.findExperienceByUserId()
             .then((experiences) => {
               console.log('Experiences array : ', experiences);
               this.experiences = experiences;
             });
         }
-        });
+      });
   }
 
 }
