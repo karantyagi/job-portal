@@ -56,7 +56,7 @@ export class ExperienceListComponent implements OnInit {
   endMonth = 'month';
   endYear = 'year';
   endDate;
-  ongoingStatus: String; // present working on this job
+  ongoingStatus; // present working on this job
   description;
   updateId = '';
 experiences = [];
