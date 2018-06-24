@@ -1,3 +1,127 @@
-<p>
-  recruiter-dashboard works!
-</p>
+<div>
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-lg btn-outline-primary shadow" data-toggle="modal" data-target="#exampleModalCenter">
+    Add new Job
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Add new Job</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!--Job Title-->
+          <input
+            class="form-control mb-2"
+            placeholder="Job Title">
+
+          <!--Company-->
+          <input
+            class="form-control mb-2"
+            placeholder="Company">
+
+          <!--Location-->
+          <input
+            class="form-control mb-2"
+            placeholder="Location">
+
+          <!-- Date Posted -->
+          <label for="dateposted" class="text-center col-form-label">
+            Date Posted</label>
+          <input type="date"
+                 id="dateposted"
+                 class="form-control">
+
+          <hr>
+
+          <h5 style="color:dimgrey;">Add more job details</h5>
+
+          <div class="form-group">
+            <label for="inputState">Job Type</label>
+            <select id="inputState" class="form-control">
+              <option disabled>Choose one...</option>
+              <option value="Fulltime">Fulltime</option>
+              <option value="Contract">Contract</option>
+              <option value="Internship">Internship</option>
+              <option value="Coop">Coop</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="status">Status</label>
+            <select id="status" class="form-control">
+              <option disabled>Choose one...</option>
+              <option value="Fulltime">Positions open</option>
+              <option value="Contract">Closed</option>
+            </select>
+          </div>
+
+          <!--Dates-->
+
+          <div class="form-group row mt-2">
+            <div class="col">
+              <label class="text-center col-form-label">
+                Start Date </label>
+              <select class="form-control">
+                <option *ngFor="let month of months">{{month}}</option>
+              </select>
+              <select class="form-control mt-3">
+                <option *ngFor="let year of years">{{year}}</option>
+              </select>
+            </div>
+
+            <div class="col">
+              <label class="text-center col-form-label">
+                End Date </label>
+              <select class="form-control">
+                <option *ngFor="let month of months">{{month}}</option>
+              </select>
+              <select class="form-control mt-3">
+                <option *ngFor="let year of years">{{year}}</option>
+              </select>
+            </div>
+          </div>
+
+          <!--Add Responsibilities-->
+          <button class="btn btn-block btn-outline-primary"
+                  (click)="addResponsibility()">
+            <i class="fas fa-plus"></i>&nbsp;Add Responsibilities</button>
+          <input type="text"
+                 class="form-control my-2"
+                 placeholder="Add a responsibility bullet ..."
+                 *ngFor="let res of responsibilities">
+
+          <!--Add Minimum Qualification Required-->
+          <button class="btn btn-block btn-outline-primary"
+                  (click)="addMinQualifications()">
+            <i class="fas fa-plus"></i>&nbsp;Add Minimum Qualifications</button>
+          <input type="text"
+                 class="form-control my-2"
+                 placeholder="Add a qualifiaction needed for the job position ..."
+                 *ngFor="let qualification of minQualification">
+
+          <!--Add Skills Required-->
+          <button class="btn btn-block btn-outline-primary"
+                  (click)="addRequiredSkills()">
+            <i class="fas fa-plus"></i>&nbsp;Add Required Skills</button>
+          <input type="text"
+                 class="form-control my-2"
+                 placeholder="Add a skill required for the job ..."
+                 *ngFor="let skill of skillsRequired">
+        </div>
+        <div class="py-3">
+          <hr>
+          <button type="button" class="btn btn-primary float-left ml-3">Save Job </button>
+          <button type="button" class="btn btn-secondary float-right mr-3" data-dismiss="modal">
+            &nbsp;Cancel&nbsp;
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
