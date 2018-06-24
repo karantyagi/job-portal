@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SaveJobService {
+export class JobPostingService {
 
   url: string;
-
+  allJobPostingUrl: string;
   constructor() {
     let base;
     if (!location.toString().includes('localhost')) {
@@ -14,13 +14,14 @@ export class SaveJobService {
     } else {
       base = 'http://localhost:5500';
     }
-    this.url = base + '/api/jobApplication';
+    this.url = base + '/api/jobPosting';
+    this.allJobPostingUrl =  base + '/api/allJobPosting';
   }
 
-  createJobApplication(jobApplication) {
+  createJobPosting(jobPosting) {
     return fetch(this.url, {
       method: 'POST',
-      body: JSON.stringify(jobApplication),
+      body: JSON.stringify(jobPosting),
       credentials: 'include',
       headers: {
         'content-type': 'application/json'
@@ -34,10 +35,10 @@ export class SaveJobService {
     });
   }
 
-  updateJobApplication(jobApplicationId, jobApplication) {
-    return fetch(this.url + '/' + jobApplicationId, {
+  updateJobPosting(jobPostingId, jobPosting) {
+    return fetch(this.url + '/' + jobPostingId, {
       method: 'PUT',
-      body: JSON.stringify(jobApplication),
+      body: JSON.stringify(jobPosting),
       credentials: 'include',
       headers: {
         'content-type': 'application/json'
@@ -51,21 +52,14 @@ export class SaveJobService {
     });
   }
 
-  deleteJobApplication(jobApplicationId) {
-    return fetch(this.url + '/' + jobApplicationId, {
+  deleteJobPosting(jobPostingId) {
+    return fetch(this.url + '/' + jobPostingId, {
       method: 'DELETE',
       credentials: 'include'
     });
   }
 
-  deleteJobApplicationByJobPosting(jobApplicationId, source) {
-    return fetch(this.url + '/' + jobApplicationId + '/' + source, {
-      method: 'DELETE',
-      credentials: 'include'
-    });
-  }
-
-  getAllJobApplicationForUser() {
+  getAllJobPostingForUser() {
     return fetch(this.url, {
       credentials: 'include'
     }).then(response => {
@@ -77,5 +71,17 @@ export class SaveJobService {
     });
   }
 
+  getAllJobPostings() {
+    // console.log('in here');
+    return fetch(this.allJobPostingUrl, {
+      credentials: 'include'
+    }).then(response => {
+      if (response.headers.get('content-type') != null) {
+        return response.json();
+      } else {
+        return null;
+      }
+    });
+  }
 
 }
