@@ -13,6 +13,7 @@ export class RecruiterDashboardComponent implements OnInit {
 
   job: Job = new Job();
   jobId: string;
+  moreDetails = false;
   sAddMode = false;
   sEditMode = false;
   rAddMode = false;
@@ -84,10 +85,11 @@ export class RecruiterDashboardComponent implements OnInit {
   }
 
   saveJobId(id) {
-
-
   }
 
+  addMoreDetails() {
+    this.moreDetails = true;
+  }
   toggleRAddMode() {
     this.rAddMode = !this.rAddMode;
   }
