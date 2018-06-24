@@ -9,14 +9,26 @@
   </li>
   <li class="list-group-item border border-light mt-0 mb-0 py-1 bg-light">
       <!--<input type="file" class="form-control-file" id="exampleFormControlFile1">-->
-    <form ngNoForm action="https://job-portal-server.herokuapp.com/api/upload"
-          method="post"
-          enctype="multipart/form-data">
+
+    <!--<form ngNoForm action="https://job-portal-server.herokuapp.com/api/upload"-->
+          <!--method="post"-->
+          <!--enctype="multipart/form-data">-->
+      <!--<input name="myFile"-->
+             <!--type="file"-->
+             <!--class="form-control"/>-->
+      <!--<button type="submit"-->
+              <!--class="btn btn-block btn-primary mt-2 disabled">-->
+        <!--Upload Image-->
+      <!--</button>-->
+    <!--</form>-->
+
+    <form>
       <input name="myFile"
              type="file"
              class="form-control"/>
-      <button type="submit"
-              class="btn btn-block btn-primary mt-2">
+      <button type="button"
+              class="btn btn-block btn-primary mt-2"
+      disabled="true">
         Upload Image
       </button>
     </form>
