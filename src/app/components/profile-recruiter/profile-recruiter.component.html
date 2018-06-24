@@ -1,1 +1,225 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="mt-3 ml-4">
+      <app-user-sidebar></app-user-sidebar>
+    </div>
+    <div class="col bg-light">
+      <!--<h2  class="text text-center" style="color: dimgrey;"> User Profile</h2>-->
+      <div class=" ml-4 mt-0 mb-5">
+        <ul class="list-group border-0 mb-2">
+          <li class="list-group-item border-0 mb-4">
 
+            <!--personal info of recruiter-->
+
+
+
+            <!--company  icon -->
+            <!--firstname lastname-->
+            <!--request status - readonly -->
+
+            <div class="card rounded ">
+              <div class="card-header">
+                <button class="btn btn-outline-primary rounded float-right"
+                        [disabled]=editMode
+                        (click)="edit()">
+                  <i class="fas fa-pencil-alt"></i></button>
+                <h3 [hidden]="editMode"> Personal Information </h3>
+                <h3 [hidden]="!editMode" style="color:orange"> Update Personal Information </h3>
+              </div>
+              <ul class="list-group">
+                <li class="list-group-item" style="font-size: 24px;" [hidden]="editMode">
+                  <!--<i class="float-right btn btn-light fas fa-angle-down"></i>-->
+                  <span style="font-weight: bold; font-size: 30px;">
+                    {{user.firstName}} {{user.lastName}}
+                    <br/>
+                  </span>
+                  <span style="font-size: 27px; color: dimgray;">
+                    Position : {{recruiter.title}}
+                    Company :{{recruiter.company}}
+                    <br/>
+                   </span>
+                  <span style="font-style: italic; color: grey;">
+                    <b>Username :</b> {{username}}
+                    <br/>
+                   </span>
+                  <span>
+                  <i class="fas fa-envelope"></i> {{email}}
+                  <br/>
+                  <i class="fas fa-phone"></i>&nbsp;{{phone}}
+                  <br/>
+                  <hr/>
+                  <input class="form-control col-lg-2" type="text"
+                         placeholder="Account Access Request Status : {{user.requestStatus}}" readonly>
+                      <hr/>
+                    <!--<a href="#"><i class="fab fa-facebook fa-2x"></i></a> &nbsp;-->
+      </span>
+                  <span>
+        <a [hidden]="checkHidden(linkedin)" href={{linkedin}} target="_blank"><i class="fab fa-linkedin fa-2x"></i></a> &nbsp;
+        <a [hidden]="checkHidden(github)" href={{github}} target="_blank"><i class="fab fa-github fa-2x"></i></a> &nbsp;
+        <a [hidden]="checkHidden(facebook)" href={{facebook}} target="_blank"><i
+          class="fab fa-facebook-square fa-2x"></i></a> &nbsp;
+        <a [hidden]="checkHidden(twitter)" href={{twitter}} target="_blank"><i class="fab fa-twitter fa-2x"></i></a> &nbsp;
+      </span>
+
+                </li>
+                <li class="list-group-item" style="font-size: 24px;" [hidden]=!editMode>
+                  <form>
+                    <div class="form-group row mx-2 mt-2">
+
+                      <!--Username-->
+                      <label for="username" class="text-center col-form-label">
+                        Username</label>
+                      <input [ngModelOptions]="{standalone: true}"
+                             [(ngModel)]="username"
+                             id="username"
+                             class="form-control"
+                             placeholder="Username">
+
+                      <!--First Name-->
+                      <label for="firstname" class="text-center col-form-label">
+                        First Name</label>
+                      <input [ngModelOptions]="{standalone: true}"
+                             [(ngModel)]="firstName"
+                             id="firstname"
+                             class="form-control"
+                             placeholder="First Name">
+
+                      <!--Last Name-->
+                      <label for="lastname" class="text-center col-form-label">
+                        Last Name</label>
+                      <input [ngModelOptions]="{standalone: true}"
+                             [(ngModel)]="lastName"
+                             id="lastname"
+                             class="form-control"
+                             placeholder="Last Name">
+
+                      <!--Position-->
+                      <label for="position" class="text-center col-form-label">
+                        Position </label>
+                      <input [ngModelOptions]="{standalone: true}"
+                             [(ngModel)]="position"
+                             id="position"
+                             class="form-control"
+                             placeholder="Position in company">
+
+                      <!--Company-->
+                      <label for="company" class="text-center col-form-label">
+                        Company </label>
+                      <input [ngModelOptions]="{standalone: true}"
+                             [(ngModel)]="company"
+                             id="company"
+                             class="form-control"
+                             placeholder="Company for which you are recruiting">
+
+                      <!--email-->
+                      <label for="email" class="text-center col-form-label">
+                        Email</label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="fas fa-envelope"></i>
+                          </div>
+                        </div>
+                        <input [ngModelOptions]="{standalone: true}"
+                               [(ngModel)]="email"
+                               id="email"
+                               class="form-control"
+                               placeholder="abc@xyz.com">
+                      </div>
+
+                      <!--phone-->
+                      <label for="phone" class="text-center col-form-label">
+                        Phone</label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="fas fa-phone"></i>
+                          </div>
+                        </div>
+                        <input [ngModelOptions]="{standalone: true}"
+                               [(ngModel)]="phone"
+                               id="phone"
+                               class="form-control"
+                               placeholder="(555) 111-2222">
+                      </div>
+
+                      <!--Social contacts-->
+
+                      <!--linkedin-->
+                      <label class="text-center col-form-label" for="in">LinkedIn</label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="fab fa-linkedin"></i>
+                          </div>
+                        </div>
+                        <input type="text" class="form-control" id="in" placeholder="url"
+                               [ngModelOptions]="{standalone: true}"
+                               [(ngModel)]="linkedin">
+                      </div>
+
+                      <!--github-->
+                      <label class="text-center col-form-label" for="github">Github</label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="fab fa-github"></i>
+                          </div>
+                        </div>
+                        <input type="text" class="form-control" id="github" placeholder="url"
+                               [ngModelOptions]="{standalone: true}"
+                               [(ngModel)]="github">
+                      </div>
+
+                      <!--twitter-->
+                      <label class="text-center col-form-label" for="tweet">Twitter</label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="fab fa-twitter"></i>
+                          </div>
+                        </div>
+                        <input type="text" class="form-control" id="tweet" placeholder="url"
+                               [ngModelOptions]="{standalone: true}"
+                               [(ngModel)]="twitter">
+                      </div>
+
+                      <!--Facebook-->
+                      <label class="text-center col-form-label" for="fb">Facebook</label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="fab fa-facebook-square"></i>
+                          </div>
+                        </div>
+                        <input type="text" class="form-control" id="fb" placeholder="url"
+                               [ngModelOptions]="{standalone: true}"
+                               [(ngModel)]="facebook">
+                      </div>
+
+                      <button id="createBtn"
+                              class="btn btn-block mt-3"
+                              style="color: white; background-color: orange"
+                              (click)="update()">
+                        Update Info
+                      </button>
+                      <button id="cancelBtn"
+                              class="btn btn-secondary btn-block mt-2"
+                              (click)="cancel()">
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
+                </li>
+              </ul>
+            </div>
+
+
+            <!--personal info of recruiter ends-->
+
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
