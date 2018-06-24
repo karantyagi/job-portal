@@ -16,7 +16,7 @@ export class AppComponent {
     // this.router.events.subscribe(() => this.sessionCheck());
 
   }
-  
+
   sessionCheck() {
     this.userService.findLoggedUser().then((user) => this.user = user);
   }

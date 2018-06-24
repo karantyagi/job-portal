@@ -24,6 +24,7 @@ const appRoutes: Routes = [
   {path: 'dashboard-recruiter', component: RecruiterDashboardComponent},
   {path: 'dashboard-seeker', component: JobSeekerDashboardComponent},
   {path: 'job-list/:location/:keyword/view-job/:jobId', component: ViewJobComponent},
+  {path: 'dashboard-seeker/view-job/:jobId', component: ViewJobComponent},
   {path: 'post', component: PostJobComponent},
   {path: '**', component: JobBoardComponent} // last
 ];

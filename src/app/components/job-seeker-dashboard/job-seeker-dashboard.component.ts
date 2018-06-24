@@ -84,7 +84,8 @@ export class JobSeekerDashboardComponent implements OnInit {
     return this.location;
   }
 
-  ngOnInit() {
+
+  getJobApplication() {
 
     this.jobApplicationService.getAllJobApplicationForUser().then((application) => {
 
@@ -96,6 +97,14 @@ export class JobSeekerDashboardComponent implements OnInit {
     }).then(() => {
       console.log(this.allApplications);
       this.allApplications.forEach((jobApp) => {
+        if (jobApp.jobSource === 'github') {
+          jobApp['id'] = jobApp.gitHubJobId;
+        } else {
+          jobApp['id'] = jobApp.jobPosting;
+        }
+
+        jobApp.dateApplied = new Date(jobApp.dateApplied).toDateString();
+
         if (jobApp.status === 'save') {
           this.savedApplication.push(jobApp);
         } else {
@@ -108,5 +117,59 @@ export class JobSeekerDashboardComponent implements OnInit {
       this.jobsSaved = this.savedApplication.length;
 
     });
+
   }
+
+  ngOnInit() {
+    this.getJobApplication();
+  }
+
+
+  saveJobId(job) {
+    let jobApplication;
+    console.log(job.jobSource);
+    if (job.jobSource === 'github') {
+      jobApplication = {dateApplied: new Date(), status: 'save', jobSource: job.jobSource, gitHubJobId: job.id,
+        location: job.location, title: job.title, company: job.company};
+    } else {
+      jobApplication = {dateApplied: new Date(), status: 'save', jobSource: job.jobSource, jobPosting: job._id,
+        location: job.location, title: job.title, company: job.company};
+    }
+    this.jobApplicationService.createJobApplication(jobApplication).then(() => this.getJobApplication());
+  }
+
+  deleteJobId(job) {
+
+    let id;
+    if (job.jobSource === 'github') {
+      id = job.id;
+    } else {
+      id = job._id;
+    }
+    this.jobApplicationService.deleteJobApplicationByJobPosting(id, job.jobSource).then(() => this.getJobApplication());
+  }
+
+  applyJob(job) {
+    let jobApplication;
+    console.log(job.jobSource);
+    if (job.jobSource === 'github') {
+      jobApplication = {dateApplied: new Date(), status: 'applied', jobSource: job.jobSource, gitHubJobId: job.id,
+        location: job.location, title: job.title, company: job.company};
+    } else {
+      jobApplication = {dateApplied: new Date(), status: 'applied', jobSource: job.jobSource, jobPosting: job._id,
+        location: job.location, title: job.title, company: job.company};
+    }
+
+    let id;
+    if (job.jobSource === 'github') {
+      id = job.id;
+    } else {
+      id = job._id;
+    }
+
+
+    this.jobApplicationService.deleteJobApplicationByJobPosting(id, job.jobSource).then(() =>
+      this.jobApplicationService.createJobApplication(jobApplication).then(() => this.getJobApplication()));
+  }
+
 }

@@ -98,9 +98,11 @@ export class ViewJobComponent implements OnInit {
     let jobApplication;
     console.log(job.jobSource);
     if (job.jobSource === 'github') {
-      jobApplication = {dateApplied: new Date(), status: 'save', jobSource: job.jobSource, gitHubJobId: job.id};
+      jobApplication = {dateApplied: new Date(), status: 'save', jobSource: job.jobSource, gitHubJobId: job.id,
+        location: job.location, title: job.title, company: job.company};
     } else {
-      jobApplication = {dateApplied: new Date(), status: 'save', jobSource: job.jobSource, jobPosting: job._id};
+      jobApplication = {dateApplied: new Date(), status: 'save', jobSource: job.jobSource, jobPosting: job._id,
+        location: job.location, title: job.title, company: job.company};
     }
 
     this.alreadySavedCheck = false;
@@ -125,9 +127,11 @@ export class ViewJobComponent implements OnInit {
     let jobApplication;
     console.log(job.jobSource);
     if (job.jobSource === 'github') {
-      jobApplication = {dateApplied: new Date(), status: 'applied', jobSource: job.jobSource, gitHubJobId: job.id};
+      jobApplication = {dateApplied: new Date(), status: 'applied', jobSource: job.jobSource, gitHubJobId: job.id,
+        location: job.location, title: job.title, company: job.company};
     } else {
-      jobApplication = {dateApplied: new Date(), status: 'applied', jobSource: job.jobSource, jobPosting: job._id};
+      jobApplication = {dateApplied: new Date(), status: 'applied', jobSource: job.jobSource, jobPosting: job._id,
+        location: job.location, title: job.title, company: job.company};
     }
 
     let id;
