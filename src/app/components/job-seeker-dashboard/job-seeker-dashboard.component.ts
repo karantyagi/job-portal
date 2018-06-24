@@ -87,6 +87,11 @@ export class JobSeekerDashboardComponent implements OnInit {
 
   getJobApplication() {
 
+    this.jobsSaved = 0;
+    this.jobsApplied = 0;
+    this.savedApplication = [];
+    this.appliedApplication = [];
+
     this.jobApplicationService.getAllJobApplicationForUser().then((application) => {
 
       if (application.status != null && application.status === 'session expired') {
@@ -125,18 +130,18 @@ export class JobSeekerDashboardComponent implements OnInit {
   }
 
 
-  saveJobId(job) {
-    let jobApplication;
-    console.log(job.jobSource);
-    if (job.jobSource === 'github') {
-      jobApplication = {dateApplied: new Date(), status: 'save', jobSource: job.jobSource, gitHubJobId: job.id,
-        location: job.location, title: job.title, company: job.company};
-    } else {
-      jobApplication = {dateApplied: new Date(), status: 'save', jobSource: job.jobSource, jobPosting: job._id,
-        location: job.location, title: job.title, company: job.company};
-    }
-    this.jobApplicationService.createJobApplication(jobApplication).then(() => this.getJobApplication());
-  }
+  // saveJobId(job) {
+  //   let jobApplication;
+  //   console.log(job.jobSource);
+  //   if (job.jobSource === 'github') {
+  //     jobApplication = {dateApplied: new Date(), status: 'save', jobSource: job.jobSource, gitHubJobId: job.id,
+  //       location: job.location, title: job.title, company: job.company};
+  //   } else {
+  //     jobApplication = {dateApplied: new Date(), status: 'save', jobSource: job.jobSource, jobPosting: job._id,
+  //       location: job.location, title: job.title, company: job.company};
+  //   }
+  //   this.jobApplicationService.createJobApplication(jobApplication).then(() => this.getJobApplication());
+  // }
 
   deleteJobId(job) {
 

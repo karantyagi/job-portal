@@ -75,8 +75,8 @@
               </div>
               </div>
               <div class="col-2 float-left">
-                <button class="btn float-left btn-success p-0 p-1 mr-1">Apply</button>
-                <button  class="btn float-left btn-danger p-0 p-1">UnSave</button>
+                <button class="btn float-left btn-success p-0 p-1 mr-1" (click)="applyJob(job);">Apply</button>
+                <button  class="btn float-left btn-danger p-0 p-1" (click)="deleteJobId(job)">UnSave</button>
               </div>
               <!--</div>-->
               <!--<div class="col-1 float-left">-->
@@ -108,7 +108,7 @@
                 <div class="row">
                   <div class="col-8"><h6>{{job.company}}</h6></div>
                   <div class="col-4 text-right">
-                    <small>Saved on: {{job.dateApplied}}</small>
+                    <small>Applied on: {{job.dateApplied}}</small>
                   </div>
                 </div>
               </div>
