@@ -51,10 +51,10 @@ export class ExperienceListComponent implements OnInit {
   company;
   location;
   startDate;
-  startMonth = 'month';
-  startYear = 'year';
-  endMonth = 'month';
-  endYear = 'year';
+  startMonth = 'Month';
+  startYear = 'Year';
+  endMonth = 'Month';
+  endYear = 'Year';
   endDate;
   ongoingStatus; // present working on this job
   description;
@@ -90,12 +90,31 @@ export class ExperienceListComponent implements OnInit {
     this.company = experience.company;
     this.location = experience.location;
     this.ongoingStatus = experience.ongoingStatus;
-    this.startDate = experience.startDate;
-    this.endDate = experience.endDate;
+    console.log('DB ongoingStatus :', this.ongoingStatus);
+    this.startMonth = experience.startDate.month;
+    this.endMonth = experience.endDate.month;
+    this.startYear = experience.startDate.year;
+    this.endYear = experience.endDate.year;
     this.description = experience.description;
     this.updateId = updateId;
-    console.log('update id : ', updateId);
+    // console.log('update id : ', updateId);
     this.editMode = true;
+  }
+
+  disableMonth(mm) {
+    if (mm === 'Month') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  disableYear(yy) {
+    if (yy === 'Year') {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   getEditMode(updateId) {
@@ -106,11 +125,21 @@ export class ExperienceListComponent implements OnInit {
     }
   }
 
-  check() {
-    console.log(this.ongoingStatus);
+  checkStatus(status) {
+    this.ongoingStatus = !status;
+    console.log('New status : ', this.ongoingStatus);
   }
 
   add() {
+    this.title = '';
+    this.company = '';
+    this.location = '';
+    this.startMonth = 'Month';
+    this.startYear = 'Year';
+    this.endMonth = 'Month';
+    this.endYear = 'Year';
+    this.ongoingStatus = false; // present working on this job
+    this.description = '';
     this.addMode = true;
   }
 
@@ -119,8 +148,8 @@ export class ExperienceListComponent implements OnInit {
       title: this.title,
       company: this.company,
       location: this.location,
-      // startDate: this.startDate,
-      // endDate: this.endDate,
+      startDate: {'month' : this.startMonth, 'year' : this.startYear},
+      endDate: {'month' : this.endMonth, 'year' : this.endYear},
       ongoingStatus: this.ongoingStatus,
       description: this.description
     };
@@ -148,20 +177,22 @@ export class ExperienceListComponent implements OnInit {
   }
 
   update() {
-    console.log('Update new experience as : ');
-    this.startDate = this.startMonth + ' ' + this.startYear;
-    console.log('Start Date : ', this.startDate);
-    this.endDate = this.endMonth + ' ' + this.endYear;
-    console.log('End Date : ', this.endDate);
+    // this.startDate = this.startMonth + ' ' + this.startYear;
+    // console.log('Start Date : ', this.startDate);
+    // this.endDate = this.endMonth + ' ' + this.endYear;
+    // console.log('End Date : ', this.endDate);
+    console.log('Updated new ongoing status as : ', !this.ongoingStatus);
     const updatedExperience = {
       title: this.title,
       company: this.company,
       location: this.location,
-      // startDate: this.startDate,
-      // endDate: this.endDate,
-      ongoingStatus: this.ongoingStatus,
+      startDate: {'month' : this.startMonth, 'year' : this.startYear},
+      endDate: {'month' : this.endMonth, 'year' : this.endYear},
+      ongoingStatus: !this.ongoingStatus,
       description: this.description
     };
+    // console.log('Update new experience as : ');
+    // console.log(updatedExperience);
     this.editMode = false;
     this.experienceService.updateExperience(this.updateId, updatedExperience)
       .then((response) => {
@@ -180,10 +211,9 @@ export class ExperienceListComponent implements OnInit {
   }
 
   cancelEdit() {
-    console.log('in cancel update ---');
-    console.log(this.editMode);
+    // console.log('in cancel update ---');
     this.editMode = false;
-    console.log(this.editMode);
+    // console.log(this.editMode);
   }
 
   ngOnInit() {
@@ -191,6 +221,11 @@ export class ExperienceListComponent implements OnInit {
       .then((user) => {
         this.user = user;
         if (user !== null) {
+          if ( this.ongoingStatus === undefined ) {
+            this.ongoingStatus = false;
+          } else {
+            this.ongoingStatus = user.ongoingStatus;
+          }
           this.experienceService.findExperienceByUserId()
             .then((experiences) => {
               console.log('Experiences array : ', experiences);

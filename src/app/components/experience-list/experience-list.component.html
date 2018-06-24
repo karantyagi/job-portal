@@ -16,10 +16,10 @@
       <span style="font-size: 22px; font-weight: normal; color:black;"> {{experience.location}} </span> <br/>
       <div [ngSwitch]="experience.ongoingStatus">
         <span style="font-size: 20px; font-weight: normal; color:gray;" *ngSwitchCase="'true'">
-        {{experience.startDate}} &nbsp;&nbsp;-&nbsp;&nbsp;Present
+        {{experience.startDate.month}} {{experience.startDate.year}}&nbsp;&nbsp;-&nbsp;&nbsp;Present
       </span>
         <span style="font-size: 20px; font-weight: normal; color:gray;" *ngSwitchCase="'false'">
-        {{experience.startDate}} &nbsp;&nbsp;-&nbsp;&nbsp;{{experience.endDate}}
+        {{experience.startDate.month}} {{experience.startDate.year}} &nbsp;&nbsp;-&nbsp;&nbsp;{{experience.endDate.month}} {{experience.endDate.year}}
       </span>
       </div>
       <p style="white-space: pre-line; font-size: 22px;">
@@ -72,33 +72,37 @@
                 From </label>
               <select class="form-control"
                       [(ngModel)]="startMonth" name="startMonth">
-                <option *ngFor="let month of months" [ngValue]="month">{{month}}</option>
+                <option *ngFor="let month of months" [ngValue]="month"
+                        [disabled]="disableMonth(month)">{{month}}</option>
               </select>
               <select class="form-control mt-3" name="startYear"
                       [(ngModel)]="startYear">
-                <option *ngFor="let year of years" [ngValue]="year">{{year}}</option>
+                <option *ngFor="let year of years" [ngValue]="year"
+                        [disabled]="disableYear(year)">{{year}}</option>
               </select>
             </div>
 
             <div class="col">
               <label class="text-center col-form-label">
                 To </label>
-              <span [hidden]=!ongoingStatus> <br/> Present </span>
-              <select class="form-control" [hidden]=ongoingStatus [(ngModel)]="endMonth" name="endMonth">
-                <option *ngFor="let month of months" [ngValue]="month">{{month}}</option>
+              <span [hidden]=ongoingStatus> <br/> Present </span>
+              <select class="form-control" [hidden]=!ongoingStatus [(ngModel)]="endMonth" name="endMonth">
+                <option *ngFor="let month of months" [ngValue]="month"
+                        [disabled]="disableMonth(month)">{{month}}</option>
               </select>
-              <select class="form-control mt-3" [hidden]=ongoingStatus
+              <select class="form-control mt-3" [hidden]=!ongoingStatus
                       [(ngModel)]="endYear" name="endYear">
-                <option *ngFor="let year of years" [ngValue]="year">{{year}}</option>
+                <option *ngFor="let year of years" [ngValue]="year"
+                        [disabled]="disableYear(year)">{{year}}</option>
               </select>
             </div>
           </div>
 
 
           <div class="custom-control custom-checkbox form-group row mx-2 mb-1">
-            <input type="checkbox" class="custom-control-input" id="check2"
-                   [checked]="ongoingStatus" (change)="ongoingStatus = !ongoingStatus; check()" name="ongoingStatus">
-            <label class="custom-control-label" for="check2">I presently work here.</label>
+            <input type="checkbox" class="custom-control-input" id={{updateId}}
+                   [checked]="!ongoingStatus" (change)="checkStatus(ongoingStatus)" name="ongoingStatus">
+            <label class="custom-control-label" for={{updateId}}>I presently work here.</label>
           </div>
 
           <!--Description-->
@@ -187,11 +191,13 @@
               From </label>
             <select class="form-control"
                     [(ngModel)]="startMonth" name="startMonth">
-              <option *ngFor="let month of months" [ngValue]="month">{{month}}</option>
+              <option *ngFor="let month of months" [ngValue]="month"
+                      [disabled]="disableMonth(month)">{{month}}</option>
             </select>
             <select class="form-control mt-3" name="startYear"
                     [(ngModel)]="startYear">
-              <option *ngFor="let year of years" [ngValue]="year">{{year}}</option>
+              <option *ngFor="let year of years" [ngValue]="year"
+                      [disabled]="disableYear(year)">{{year}}</option>
             </select>
           </div>
 
@@ -200,11 +206,13 @@
               To </label>
             <span [hidden]=!ongoingStatus> <br/> Present </span>
             <select class="form-control" [hidden]=ongoingStatus [(ngModel)]="endMonth" name="endMonth">
-              <option *ngFor="let month of months" [ngValue]="month">{{month}}</option>
+              <option *ngFor="let month of months" [ngValue]="month"
+                      [disabled]="disableMonth(month)">{{month}}</option>
             </select>
             <select class="form-control mt-3" [hidden]=ongoingStatus
                     [(ngModel)]="endYear" name="endYear">
-              <option *ngFor="let year of years" [ngValue]="year">{{year}}</option>
+              <option *ngFor="let year of years" [ngValue]="year"
+                      [disabled]="disableYear(year)">{{year}}</option>
             </select>
           </div>
         </div>
@@ -212,7 +220,7 @@
 
         <div class="custom-control custom-checkbox form-group row mx-2 mb-1">
           <input type="checkbox" class="custom-control-input" id="check1"
-                 [checked]="ongoingStatus" (change)="ongoingStatus = !ongoingStatus; check()" name="ongoingStatus">
+                 [checked]="ongoingStatus" (change)="checkStatus(ongoingStatus)" name="ongoingStatus">
           <label class="custom-control-label" for="check1">I presently work here.</label>
         </div>
 
