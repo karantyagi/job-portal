@@ -10,6 +10,8 @@ export class JobSeekerDashboardComponent implements OnInit {
 
   keywordOrTitle: string;
   location: string;
+  jobsSaved = 0;
+  jobsApplied = 0;
   states = ['Alaska',
     'Alabama',
     'Arkansas',
