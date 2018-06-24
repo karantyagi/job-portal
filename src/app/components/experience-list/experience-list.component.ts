@@ -59,7 +59,7 @@ export class ExperienceListComponent implements OnInit {
   ongoingStatus; // present working on this job
   description;
   updateId = '';
-experiences = [];
+  experiences = [];
   // experiences = [
   //   { _id: 1,
   //     title: 'Software Engineering Intern',
@@ -98,6 +98,23 @@ experiences = [];
     this.editMode = true;
   }
 
+  setStartMonth(month) {
+    this.startMonth = month;
+    console.log(month);
+  }
+
+  setEndMonth(month) {
+    this.endMonth = month;
+  }
+
+  setStartYear(yyyy) {
+    this.startYear = yyyy;
+  }
+
+  setEndYear(yyyy) {
+    this.endYear = yyyy;
+  }
+
   getEditMode(updateId) {
     if (this.updateId === updateId && this.editMode === true) {
       return true;
@@ -116,14 +133,14 @@ experiences = [];
 
   create() {
     const newExperience = {
-        title: this.title,
-        company: this.company,
-        location: this.location,
-        startDate: this.startDate,
-        endDate: this.endDate,
-        ongoingStatus: this.ongoingStatus,
-        description: this.description
-      };
+      title: this.title,
+      company: this.company,
+      location: this.location,
+      // startDate: this.startDate,
+      // endDate: this.endDate,
+      ongoingStatus: this.ongoingStatus,
+      description: this.description
+    };
     this.experienceService.createExperience(newExperience)
       .then((response) => {
         console.log('Add new experience : ', response);
@@ -136,26 +153,36 @@ experiences = [];
     this.addMode = false;
   }
 
+  delete(id) {
+    this.experienceService.deleteExperience(id)
+      .then((response) => {
+        this.experienceService.findExperienceByUserId()
+          .then((experiences) => {
+            console.log('Experiences array : ', experiences);
+            this.experiences = experiences;
+          });
+      });
+  }
+
   update() {
     console.log('Update new experience as : ');
-    // this.startDate = this.startMonth + ' ' + this.startYear;
-    // console.log('Start Date : ', this.startDate);
-    // this.endDate = this.endMonth + ' ' + this.endYear;
-    // console.log('End Date : ', this.endDate);
-    // this.experienceService.updateExperience()
+    this.startDate = this.startMonth + ' ' + this.startYear;
+    console.log('Start Date : ', this.startDate);
+    this.endDate = this.endMonth + ' ' + this.endYear;
+    console.log('End Date : ', this.endDate);
     const updatedExperience = {
       title: this.title,
       company: this.company,
       location: this.location,
-      startDate: this.startDate,
-      endDate: this.endDate,
+      // startDate: this.startDate,
+      // endDate: this.endDate,
       ongoingStatus: this.ongoingStatus,
       description: this.description
     };
     this.editMode = false;
     this.experienceService.updateExperience(this.updateId, updatedExperience)
       .then((response) => {
-        console.log('Updated in DB : ', response);
+        // console.log('Updated in DB : ', response);
         this.experienceService.findExperienceByUserId()
           .then((experiences) => {
             console.log('Experiences array : ', experiences);
@@ -171,7 +198,7 @@ experiences = [];
 
   cancelEdit() {
     console.log('in cancel update ---');
-console.log(this.editMode);
+    console.log(this.editMode);
     this.editMode = false;
     console.log(this.editMode);
   }
@@ -180,14 +207,14 @@ console.log(this.editMode);
     this.userService.findLoggedUser()
       .then((user) => {
         this.user = user;
-        if (user !== null ) {
+        if (user !== null) {
           this.experienceService.findExperienceByUserId()
             .then((experiences) => {
               console.log('Experiences array : ', experiences);
               this.experiences = experiences;
             });
         }
-        });
+      });
   }
 
 }

@@ -57,5 +57,11 @@ export class ExperienceService {
     });
   }
 
+  deleteExperience(Id) {
+    return fetch(this.url + '/' + Id, {
+      method: 'DELETE',
+      credentials: 'include'
+    });
+  }
 
 }
