@@ -60,8 +60,11 @@
         <h3 class="text-muted" >{{job.company}} | {{job.location}} </h3>
         <small>Posted : {{job.created_at}}</small> <br>
         <div class="d-inline-block mt-3">
-          <button class="btn btn-outline-primary mr-3" (click)="saveJobId(job.id)">Save</button>
-          <a class="btn btn-primary" href={{job.how_to_apply}}>Apply</a>
+          <button [ngClass]="{ 'disabled': user != null && user.role != 'JobSeeker'}"
+                  [disabled]="(user!=null && user.role != 'JobSeeker')"
+                  class="btn btn-outline-primary mr-3" (click)="saveJobId(job.id)">Save</button>
+          <a [ngClass]="{ 'disabled': user != null && user.role != 'JobSeeker'}"
+             class="btn  btn-primary" href={{job.how_to_apply}}>Apply</a>
         </div>
       </div>
     </div>

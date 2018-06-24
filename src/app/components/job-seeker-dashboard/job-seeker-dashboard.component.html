@@ -1,69 +1,70 @@
-<div class="row bg-dark p-3 mx-2">
-  <div class="col-5">
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text" id=""><i class="fa fa-search"></i></span>
-      </div>
-      <input type="text" class="form-control" placeholder="Keyword or Title" aria-label="Keyword or Title"
-             aria-describedby="basic-addon1" [(ngModel)]="keywordOrTitle" name="keywordOrTitle">
-    </div>
+<div class="row">
+  <div class="ml-3">
+    <app-user-sidebar></app-user-sidebar>
   </div>
-  <div class="col-5">
-    <div class="input-group">
-      <div class="input-group-prepend ">
-        <span class="input-group-text" id="basic-addon1"><i class="fa fa-map-marker"></i></span>
-      </div>
-      <input type="text" autocomplete="off" class="form-control dropdown-toggle" id="dropdownMenuLink"
-             placeholder="Location" aria-label="Location"
-             aria-describedby="basic-addon1" [(ngModel)]="location"
-             name="location" data-toggle="dropdown">
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <div *ngFor="let state of states | searchFilter: getInputVal()" (click)="setVal(state)"
-             class="dropdown-item">{{state}}
+  <div class="col">
+    <div class="row bg-dark p-3 mx-2">
+      <div class="col-5">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id=""><i class="fa fa-search"></i></span>
+          </div>
+          <input type="text" class="form-control" placeholder="Keyword or Title" aria-label="Keyword or Title"
+                 aria-describedby="basic-addon1" [(ngModel)]="keywordOrTitle" name="keywordOrTitle">
         </div>
       </div>
-
-    </div>
-  </div>
-  <div class="col-2">
-    <button class="btn btn-primary float-right btn-block"
-            routerLink="/job-list/{{location!='' && location!=null ? location:' '}}/{{keywordOrTitle!='' &&
+      <div class="col-5">
+        <div class="input-group">
+          <div class="input-group-prepend ">
+            <span class="input-group-text" id="basic-addon1"><i class="fa fa-map-marker"></i></span>
+          </div>
+          <input type="text" autocomplete="off" class="form-control dropdown-toggle" id="dropdownMenuLink"
+                 placeholder="Location" aria-label="Location"
+                 aria-describedby="basic-addon1" [(ngModel)]="location"
+                 name="location" data-toggle="dropdown">
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <div *ngFor="let state of states | searchFilter: getInputVal()" (click)="setVal(state)"
+                 class="dropdown-item">{{state}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-2">
+        <button class="btn btn-primary float-right btn-block"
+                routerLink="/job-list/{{location!='' && location!=null ? location:' '}}/{{keywordOrTitle!='' &&
               keywordOrTitle!=null? keywordOrTitle: ' '}}">Search
-    </button>
-  </div>
-</div>
-
-<div class="row mx-2 p-3 mt-3 bg-white border bounceOutUp">
-  <div class="col stats text-center text-muted">
-    <span class="float-right"><span class="text-primary">{{jobsSaved}}</span> Saved Job</span>
-    <span class="float-left"><span class="text-primary">{{jobsSaved}}</span> Applied Jobs</span>
-  </div>
-</div>
-
-<div class="row mx-2 mt-3 bg-white border bounceOutUp">
-  <div class="col-12 stats text-center text-muted">
-    <div class="row text-center border-bottom">
-        <div class="col p-2">Jobs</div>
-    </div>
-    <div class="row back">
-      <div class="col">
-      <div class="row mx-2 p-2 m-3 bg-white border">
-          <div class="col-10">
-
-          </div>
-          <div class="col-1">
-              <button class="btn btn-success">Apply</button>
-          </div>
-          <div class="col-1">
-            <button [hidden]="false" class="btn btn-danger">Save</button>
-            <button [hidden]="true" class="btn btn-danger">UnSave</button>
-          </div>
-
-      </div>
+        </button>
       </div>
     </div>
 
+    <div class="row mx-2 p-3 mt-3 bg-white border bounceOutUp">
+      <div class="col stats text-center text-muted">
+        <span class="float-right"><span class="text-primary">{{jobsSaved}}</span> Saved Job</span>
+        <span class="float-left"><span class="text-primary">{{jobsSaved}}</span> Applied Jobs</span>
+      </div>
+    </div>
+
+    <div class="row mx-2 mt-3 bg-white border bounceOutUp">
+      <div class="col-12 stats text-center text-muted">
+        <div class="row text-center border-bottom">
+          <div class="col p-2">Jobs</div>
+        </div>
+        <div class="row back">
+          <div class="col">
+            <div class="row mx-2 p-2 m-3 bg-white border">
+              <div class="col-10">
+              </div>
+              <div class="col-1">
+                <button class="btn btn-success">Apply</button>
+              </div>
+              <div class="col-1">
+                <button [hidden]="false" class="btn btn-danger">Save</button>
+                <button [hidden]="true" class="btn btn-danger">UnSave</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-
-

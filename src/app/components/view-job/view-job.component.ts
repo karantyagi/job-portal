@@ -3,6 +3,8 @@ import {Job} from '../../models/Job';
 import {ActivatedRoute} from '@angular/router';
 import {JobListingService} from '../../services/job-listing.service';
 import {SaveJobService} from '../../services/save-job.service';
+import {UserService} from '../../services/user.service';
+import {User} from '../../models/user.model.client';
 
 @Component({
   selector: 'app-view-job',
@@ -13,9 +15,10 @@ export class ViewJobComponent implements OnInit {
 
   job: Job = new Job();
   jobId: string;
+  user: User;
 
   constructor(private jobService: JobListingService, private route: ActivatedRoute,
-              private saveJobService: SaveJobService ) {
+              private saveJobService: SaveJobService, private userService: UserService  ) {
 
     this.route.params.subscribe(param => {
       this.jobId = param['jobId'];
@@ -33,7 +36,7 @@ export class ViewJobComponent implements OnInit {
             this.job.created_at = d.toDateString();
           }
         }
-      });
+      }).then(() => this.userService.findLoggedUser().then((user) => this.user = user));
       console.log(this.job);
     }
   }
