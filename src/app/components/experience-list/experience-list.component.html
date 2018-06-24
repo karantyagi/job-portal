@@ -9,7 +9,7 @@
 
     <li class="list-group-item" *ngFor="let experience of experiences">
       <i class="float-right btn btn-light fas fa-angle-down"
-         (click)="edit(experience)"></i>
+         (click)="edit(experience, experience._id)"></i>
       <span style="font-size: 28px; font-weight: bold; color:black;"> {{experience.title}} </span> <br/>
       <span style="font-size: 22px; font-weight: normal; color:black;"> {{experience.company}} </span> <br/>
       <span style="font-size: 22px; font-weight: normal; color:black;"> {{experience.location}} </span> <br/>
@@ -24,7 +24,7 @@
       <p style="white-space: pre-line; font-size: 22px;">
         {{experience.description}}
       </p>
-      <div [hidden]= !editMode class="mt-1 border-top pt-2" style="border-top-color: darkgray;">
+      <div [hidden]="!getEditMode(experience._id)" class="mt-1 border-top pt-2" style="border-top-color: darkgray;">
         <h4>Update Experience</h4>
         <form>
         <div class="form-group row mx-2 mt-2">
@@ -178,11 +178,13 @@
             <div class="col">
               <label class="text-center col-form-label">
                 From </label>
-              <select class="form-control">
-                <option *ngFor="let month of months">{{month}}</option>
+              <select class="form-control"
+                      [ngModelOptions]="{standalone: true}" [(ngModel)]="startMonth">
+                <option *ngFor="let month of months" [ngValue]="startMonth">{{month}}</option>
               </select>
-              <select class="form-control mt-3">
-                <option *ngFor="let year of years">{{year}}</option>
+              <select class="form-control mt-3"
+                      [ngModelOptions]="{standalone: true}" [(ngModel)]="startYear">
+                <option [(ngValue)]="startYear" *ngFor="let year of years">{{year}}</option>
               </select>
             </div>
 
@@ -190,10 +192,12 @@
               <label class="text-center col-form-label">
                 To </label>
               <span [hidden]=!ongoingStatus> <br/> Present </span>
-              <select class="form-control" [hidden]=ongoingStatus>
+              <select class="form-control" [hidden]=ongoingStatus
+                      [ngModelOptions]="{standalone: true}" [(ngModel)]="endMonth">
                 <option *ngFor="let month of months">{{month}}</option>
               </select>
-              <select class="form-control mt-3" [hidden]=ongoingStatus>
+              <select class="form-control mt-3" [hidden]=ongoingStatus
+                      [ngModelOptions]="{standalone: true}" [(ngModel)]="endYear">
                 <option *ngFor="let year of years">{{year}}</option>
               </select>
             </div>
@@ -224,7 +228,7 @@
                   class="btn btn-block mt-3"
                   style="color: white; background-color: orange"
                   (click)="create()">
-            Add Section
+            Add Experience
           </button>
           <button id="cancelBtn"
                   class="btn btn-secondary btn-block mt-2"
@@ -234,13 +238,22 @@
         </div>
       </form>
     </li>
-    <li class="list-group-item">
-      <i class="float-right btn btn-light fas fa-angle-down"></i>
-      Experience 1
-    </li>
-    <li class="list-group-item">
-      <i class="float-right btn btn-light fas fa-angle-down"></i>
-      Experience 2
+    <li class="list-group-item" *ngFor="let experience of experiences">
+      <!--<i class="float-right btn btn-light fas fa-angle-down"></i>-->
+      <span style="font-size: 28px; font-weight: bold; color:black;"> {{experience.title}} </span> <br/>
+      <span style="font-size: 22px; font-weight: normal; color:black;"> {{experience.company}} </span> <br/>
+      <span style="font-size: 22px; font-weight: normal; color:black;"> {{experience.location}} </span> <br/>
+      <div [ngSwitch]="experience.ongoingStatus">
+        <span style="font-size: 20px; font-weight: normal; color:gray;" *ngSwitchCase="'true'">
+        {{experience.startDate}} &nbsp;&nbsp;-&nbsp;&nbsp;Present
+      </span>
+        <span style="font-size: 20px; font-weight: normal; color:gray;" *ngSwitchCase="'false'">
+        {{experience.startDate}} &nbsp;&nbsp;-&nbsp;&nbsp;{{experience.endDate}}
+      </span>
+      </div>
+      <p style="white-space: pre-line; font-size: 22px;">
+        {{experience.description}}
+      </p>
     </li>
 
   </ul>

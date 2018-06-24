@@ -1,4 +1,4 @@
-<div class="card rounded shadow">
+<div class="card rounded">
   <div class="card-header">
     <button class="btn btn-outline-primary rounded float-right"
             [disabled]=editMode
@@ -17,8 +17,8 @@
       <span style="font-style: italic; color: grey;">
         <b>Username :</b> {{username}}
       <br/>
-        <b>Password :</b> {{password}}
-        <br/>
+        <!--<b>Password :</b> {{password}}-->
+        <!--<br/>-->
       </span>
       <span>
         <!--FirstName :-->
@@ -33,10 +33,10 @@
         <!--<a href="#"><i class="fab fa-facebook fa-2x"></i></a> &nbsp;-->
       </span>
       <span>
-        <a href="#"><i class="fab fa-linkedin fa-2x"></i></a> &nbsp;
-        <a href="#"><i class="fab fa-github fa-2x"></i></a> &nbsp;
-        <a href="#"><i class="fab fa-facebook-square fa-2x"></i></a> &nbsp;
-        <a href="#"><i class="fab fa-twitter fa-2x"></i></a> &nbsp;
+        <a href={{linkedin}} target="_blank"><i class="fab fa-linkedin fa-2x"></i></a> &nbsp;
+        <a href={{github}} target="_blank"><i class="fab fa-github fa-2x"></i></a> &nbsp;
+        <a href={{facebook}} target="_blank"><i class="fab fa-facebook-square fa-2x"></i></a> &nbsp;
+        <a href={{twitter}} target="_blank"><i class="fab fa-twitter fa-2x"></i></a> &nbsp;
       </span>
     </li>
     <li class="list-group-item" style="font-size: 24px;" [hidden]=!editMode>
@@ -122,7 +122,9 @@
                 <i class="fab fa-linkedin"></i>
               </div>
             </div>
-            <input type="text" class="form-control" id="in" placeholder="url">
+            <input type="text" class="form-control" id="in" placeholder="url"
+                   [ngModelOptions]="{standalone: true}"
+                   [(ngModel)]="linkedin">
           </div>
 
           <!--github-->
@@ -133,7 +135,9 @@
                 <i class="fab fa-github"></i>
               </div>
             </div>
-            <input type="text" class="form-control" id="github" placeholder="url">
+            <input type="text" class="form-control" id="github" placeholder="url"
+                   [ngModelOptions]="{standalone: true}"
+                   [(ngModel)]="github">
           </div>
 
           <!--twitter-->
@@ -144,7 +148,9 @@
                 <i class="fab fa-twitter"></i>
               </div>
             </div>
-            <input type="text" class="form-control" id="tweet" placeholder="url">
+            <input type="text" class="form-control" id="tweet" placeholder="url"
+                   [ngModelOptions]="{standalone: true}"
+                   [(ngModel)]="twitter">
           </div>
 
           <!--Facebook-->
@@ -155,7 +161,9 @@
                 <i class="fab fa-facebook-square"></i>
               </div>
             </div>
-            <input type="text" class="form-control" id="fb" placeholder="url">
+            <input type="text" class="form-control" id="fb" placeholder="url"
+                   [ngModelOptions]="{standalone: true}"
+                   [(ngModel)]="facebook">
           </div>
 
           <button id="createBtn"

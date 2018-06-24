@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {UserService} from '../../services/user.service';
+import {ExperienceService} from '../../services/experience.service';
 
 @Component({
   selector: 'app-experience-list',
@@ -43,39 +45,47 @@ export class ExperienceListComponent implements OnInit {
     '2018'
   ];
 
+  user;
+  experience;
   title;
   company;
   location;
   startDate;
+  startMonth = 'month';
+  startYear = 'year';
+  endMonth = 'month';
+  endYear = 'year';
   endDate;
   ongoingStatus: String; // present working on this job
   description;
+  updateId = '';
+experiences = [];
+  // experiences = [
+  //   { _id: 1,
+  //     title: 'Software Engineering Intern',
+  //     company: 'Google',
+  //     location: 'Palo Alto, Califoria',
+  //     startDate: 'January 2018',
+  //     endDate: 'April 2018',
+  //     ongoingStatus: 'false',
+  //     description: 'It was an awesome experience interning at Google.'
+  //   },
+  //   { _id: 2,
+  //     title: 'Machine Learning Intern',
+  //     company: 'Google',
+  //     location: 'Palo Alto, Califoria',
+  //     startDate: 'January 2018',
+  //     endDate: 'April 2018',
+  //     ongoingStatus: 'false',
+  //     description: 'It was an awesome experience interning at Google.'
+  //   }
+  // ];
 
-  experiences = [
-    { _id: 1,
-      title: 'Software Engineering Intern',
-      company: 'Google',
-      location: 'Palo Alto, Califoria',
-      startDate: 'January 2018',
-      endDate: 'April 2018',
-      ongoingStatus: 'false',
-      description: 'It was an awesome experience interning at Google.'
-    },
-    { _id: 2,
-      title: 'Machine Learning Intern',
-      company: 'Google',
-      location: 'Palo Alto, Califoria',
-      startDate: 'January 2018',
-      endDate: 'April 2018',
-      ongoingStatus: 'false',
-      description: 'It was an awesome experience interning at Google.'
-    }
-  ];
-
-  constructor() {
+  constructor(private userService: UserService,
+              private experienceService: ExperienceService) {
   }
 
-  edit(experience) {
+  edit(experience, updateId) {
     this.title = experience.title;
     this.company = experience.company;
     this.location = experience.location;
@@ -83,7 +93,17 @@ export class ExperienceListComponent implements OnInit {
     this.startDate = experience.startDate;
     this.endDate = experience.endDate;
     this.description = experience.description;
+    this.updateId = updateId;
+    console.log('update id : ', updateId);
     this.editMode = true;
+  }
+
+  getEditMode(updateId) {
+    if (this.updateId === updateId && this.editMode === true) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   check() {
@@ -96,7 +116,6 @@ export class ExperienceListComponent implements OnInit {
 
   create() {
     const newExperience = {
-        _id: this.experiences[this.experiences.length - 1]._id + 1,
         title: this.title,
         company: this.company,
         location: this.location,
@@ -105,14 +124,45 @@ export class ExperienceListComponent implements OnInit {
         ongoingStatus: this.ongoingStatus,
         description: this.description
       };
-    // this.experiences.push(newExperience);
-    console.log('Add new experience : \n', newExperience);
+    this.experienceService.createExperience(newExperience)
+      .then((response) => {
+        console.log('Add new experience : ', response);
+        this.experienceService.findExperienceByUserId()
+          .then((experiences) => {
+            console.log('Experiences array : ', experiences);
+            this.experiences = experiences;
+          });
+      });
     this.addMode = false;
   }
 
   update() {
-    console.log('Updated new experience !');
+    console.log('Update new experience as : ');
+    // this.startDate = this.startMonth + ' ' + this.startYear;
+    // console.log('Start Date : ', this.startDate);
+    // this.endDate = this.endMonth + ' ' + this.endYear;
+    // console.log('End Date : ', this.endDate);
+    // this.experienceService.updateExperience()
+    const updatedExperience = {
+      title: this.title,
+      company: this.company,
+      location: this.location,
+      startDate: this.startDate,
+      endDate: this.endDate,
+      ongoingStatus: this.ongoingStatus,
+      description: this.description
+    };
     this.editMode = false;
+    this.experienceService.updateExperience(this.updateId, updatedExperience)
+      .then((response) => {
+        console.log('Updated in DB : ', response);
+        this.experienceService.findExperienceByUserId()
+          .then((experiences) => {
+            console.log('Experiences array : ', experiences);
+            this.experiences = experiences;
+          });
+      });
+
   }
 
   cancelAdd() {
@@ -120,10 +170,24 @@ export class ExperienceListComponent implements OnInit {
   }
 
   cancelEdit() {
+    console.log('in cancel update ---');
+console.log(this.editMode);
     this.editMode = false;
+    console.log(this.editMode);
   }
 
   ngOnInit() {
+    this.userService.findLoggedUser()
+      .then((user) => {
+        this.user = user;
+        if (user !== null ) {
+          this.experienceService.findExperienceByUserId()
+            .then((experiences) => {
+              console.log('Experiences array : ', experiences);
+              this.experiences = experiences;
+            });
+        }
+        });
   }
 
 }

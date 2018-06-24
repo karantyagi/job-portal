@@ -15,31 +15,12 @@ export class PersonalInfoComponent implements OnInit {
   lastName =  '';
   email = '';
   phone = '';
+  facebook = '';
+  linkedin = '';
+  github = '';
+  twitter = '';
+  socialContact;
   editMode = false;
-  socialContact =
-    [
-      {
-        'type': 'facebook',
-        'url': 'https://www.facebook.com/karan.tyagi.21'
-
-      },
-      {
-        'type': 'linkedin',
-        'url': 'https://www.linkedin.com/in/karantyagi-21/'
-
-      },
-      {
-        'type': 'twitter',
-        'url': 'https://twitter.com/karan__tyagi'
-
-      },
-      {
-        'type': 'github',
-        'url': 'https://github.com/karantyagi'
-
-      }
-    ];
-
   constructor(private userService: UserService) {
   }
 
@@ -52,8 +33,28 @@ export class PersonalInfoComponent implements OnInit {
   }
 
   update() {
-    alert('Update info !');
+    const social = [
+      {'socialtype' : 'github', 'url' : this.github},
+      {'socialtype' : 'linkedin', 'url' : this.linkedin},
+      {'socialtype' : 'facebook', 'url' : this.facebook},
+      {'socialtype' : 'twitter', 'url' : this.twitter}
+    ];
+    const updateduser = {
+      'username': this.username,
+      // 'password': this.password,
+      'firstName': this.firstName,
+      'lastName': this.lastName,
+      'email': this.email,
+      'phone': this.phone,
+      'socialContact' : social
+    };
+    // console.log('Update ID : ', this.updateId);
+    // console.log('Update as : ', updateduser);
     this.editMode = false;
+    this.userService.updateUserProfile(updateduser)
+      .then((updatedUser) => {
+        console.log('Update success');
+      });
   }
 
   ngOnInit() {
@@ -62,14 +63,17 @@ export class PersonalInfoComponent implements OnInit {
         this.user = user;
         if (user !== null ) {
           this.updateId = user._id;
-          console.log('Update ID : ', this.updateId);
           this.username = user.username;
           this.password = user.password;
           this.firstName = user.firstName;
           this.lastName = user.lastName;
           this.email = user.email;
           this.phone = user.phone;
-          // this.socialContact = user.socialContact;
+          this.socialContact = user.socialContact;
+          this.facebook = this.socialContact.find(s => s.socialtype === 'facebook').url;
+          this.github = this.socialContact.find(s => s.socialtype === 'github').url;
+          this.linkedin = this.socialContact.find(s => s.socialtype === 'linkedin').url;
+          this.twitter = this.socialContact.find(s => s.socialtype === 'twitter').url;
           console.log(this.user);
         } else {
           console.log('User : null');

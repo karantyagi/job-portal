@@ -1,16 +1,288 @@
-<div class="card rounded shadow">
+<div class="card rounded shadow" [hidden]=addMode>
   <div class="card-header">
-    <button class="btn btn-outline-primary rounded float-right"><i class="fas fa-plus"></i></button>
+    <button class="btn btn-outline-primary rounded float-right"
+            (click)="add()"
+            [disabled]=addMode><i class="fas fa-plus"></i></button>
+    <h3> Education </h3>
+  </div>
+  <ul class="list-group">
+
+    <li class="list-group-item" *ngFor="let edu of education">
+      <i class="float-right btn btn-light fas fa-angle-down"
+         (click)="edit(edu, edu._id)"></i>
+      <span style="font-size: 28px; font-weight: bold; color:black;"> {{edu.institute}} </span> <br/>
+      <span style="font-size: 24px; font-weight: normal; color:grey;"> {{edu.degree}} </span> <br/>
+      <span style="font-size: 22px; font-weight: normal; color:grey;"> {{edu.fieldOfStudy}} </span> <br/>
+      <span style="font-size: 22px; font-weight: normal; color:black;"> {{edu.location}} </span> <br/>
+
+      <div [ngSwitch]="edu.ongoingStatus">
+        <span style="font-size: 20px; font-weight: normal; color:gray;" *ngSwitchCase="'true'">
+        {{edu.startDate}} &nbsp;&nbsp;-&nbsp;&nbsp;Present
+      </span>
+        <span style="font-size: 20px; font-weight: normal; color:gray;" *ngSwitchCase="'false'">
+        {{edu.startDate}} &nbsp;&nbsp;-&nbsp;&nbsp;{{edu.endDate}}
+      </span>
+      </div>
+      <p style="white-space: pre-line; font-size: 22px;">
+        {{edu.description}}
+      </p>
+      <div [hidden]="!getEditMode(edu._id)" class="mt-1 border-top pt-2" style="border-top-color: darkgray;">
+        <h4>Update Education</h4>
+        <form>
+          <div class="form-group row mx-2 mt-2">
+
+            <!--institute-->
+
+            <label for="institute2" class="text-center col-form-label">
+              Institute </label>
+            <input [ngModelOptions]="{standalone: true}"
+                   [(ngModel)]="institute"
+                   id="institute2"
+                   class="form-control"
+                   placeholder="E.g. Northeastern University">
+
+            <!--degree-->
+
+            <label for="degree2" class="text-center col-form-label">
+              Degree </label>
+            <input [ngModelOptions]="{standalone: true}"
+                   [(ngModel)]="degree"
+                   id="degree2"
+                   class="form-control"
+                   placeholder="E.g. Masters in Computer Science">
+
+            <!--Field of Study-->
+
+            <label for="field2" class="text-center col-form-label">
+             Field of Study </label>
+            <input [ngModelOptions]="{standalone: true}"
+                   [(ngModel)]="fieldOfStudy"
+                   id="field2"
+                   class="form-control"
+                   placeholder="Field of Study">
+
+            <!--Location-->
+
+            <label for="location2" class="text-center col-form-label">
+              Location </label>
+            <input [ngModelOptions]="{standalone: true}"
+                   [(ngModel)]="location"
+                   id="location2"
+                   class="form-control"
+                   placeholder="Location">
+
+          </div>
+          <!--Dates-->
+
+          <div class="form-group row mt-2">
+            <div class="col">
+              <label class="text-center col-form-label">
+                From </label>
+              <select class="form-control">
+                <option *ngFor="let month of months">{{month}}</option>
+              </select>
+              <select class="form-control mt-3">
+                <option *ngFor="let year of years">{{year}}</option>
+              </select>
+            </div>
+
+            <div class="col">
+              <label class="text-center col-form-label">
+                To </label>
+              <span [hidden]=!ongoingStatus> <br/> Present </span>
+              <select class="form-control" [hidden]=ongoingStatus>
+                <option *ngFor="let month of months">{{month}}</option>
+              </select>
+              <select class="form-control mt-3" [hidden]=ongoingStatus>
+                <option *ngFor="let year of years">{{year}}</option>
+              </select>
+            </div>
+          </div>
+
+
+          <div class="custom-control custom-checkbox form-group row mx-2 mb-1">
+            <input type="checkbox" class="custom-control-input" id="check4"
+                   [checked]="ongoingStatus" (change)="ongoingStatus = !ongoingStatus; check()"  name="ongoingStatus">
+            <label class="custom-control-label" for="check4">I presently work here.</label>
+          </div>
+
+          <!--Description-->
+
+          <div class="form-group row mx-2">
+            <label for="desc2" class="text-center col-form-label">
+              Description </label>
+            <textarea [ngModelOptions]="{standalone: true}"
+                      [(ngModel)]="description"
+                      id="desc2"
+                      class="form-control"
+                      rows="4"
+                      placeholder="">
+        </textarea>
+
+            <button class="btn btn-block mt-2"
+                    style="color: white; background-color: green"
+                    (click)="update()">
+              Update education
+            </button>
+            <button class="btn btn-secondary btn-block mt-2"
+                    (click)="cancelEdit()">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </li>
+  </ul>
+</div>
+
+
+<!--Add Education-->
+
+<div class="card rounded shadow" [hidden]="!addMode">
+  <div class="card-header">
+    <button class="btn btn-outline-primary rounded float-right"
+            (click)="add()"
+            [disabled]=addMode><i class="fas fa-plus"></i></button>
     <h3> Education </h3>
   </div>
   <ul class="list-group">
     <li class="list-group-item">
-      <i class="float-right btn btn-light fas fa-angle-down"></i>
-      Education 1
+      <!--<i class="float-right btn btn-light fas fa-angle-down"></i>-->
+
+      <h4>Add new education</h4>
+      <form>
+        <div class="form-group row mx-2 mt-2">
+
+          <!--institute-->
+
+          <label for="institute1" class="text-center col-form-label">
+            Institute </label>
+          <input [ngModelOptions]="{standalone: true}"
+                 [(ngModel)]="institute"
+                 id="institute1"
+                 class="form-control"
+                 placeholder="E.g. Northeastern University">
+
+          <!--degree-->
+
+          <label for="degree1" class="text-center col-form-label">
+            Degree </label>
+          <input [ngModelOptions]="{standalone: true}"
+                 [(ngModel)]="degree"
+                 id="degree1"
+                 class="form-control"
+                 placeholder="E.g. Masters in Computer Science">
+
+          <!--Field of Study-->
+
+          <label for="field1" class="text-center col-form-label">
+            Field of Study </label>
+          <input [ngModelOptions]="{standalone: true}"
+                 [(ngModel)]="fieldOfStudy"
+                 id="field1"
+                 class="form-control"
+                 placeholder="Field of Study">
+
+          <!--Location-->
+
+          <label for="location1" class="text-center col-form-label">
+            Location </label>
+          <input [ngModelOptions]="{standalone: true}"
+                 [(ngModel)]="location"
+                 id="location1"
+                 class="form-control"
+                 placeholder="Location">
+
+        </div>
+        <!--Dates-->
+
+        <div class="form-group row mt-2">
+          <div class="col">
+            <label class="text-center col-form-label">
+              From </label>
+            <select class="form-control"
+                    [ngModelOptions]="{standalone: true}" [(ngModel)]="startMonth">
+              <option *ngFor="let month of months" [ngValue]="startMonth">{{month}}</option>
+            </select>
+            <select class="form-control mt-3"
+                    [ngModelOptions]="{standalone: true}" [(ngModel)]="startYear">
+              <option [(ngValue)]="startYear" *ngFor="let year of years">{{year}}</option>
+            </select>
+          </div>
+
+          <div class="col">
+            <label class="text-center col-form-label">
+              To </label>
+            <span [hidden]=!ongoingStatus> <br/> Present </span>
+            <select class="form-control" [hidden]=ongoingStatus
+                    [ngModelOptions]="{standalone: true}" [(ngModel)]="endMonth">
+              <option *ngFor="let month of months">{{month}}</option>
+            </select>
+            <select class="form-control mt-3" [hidden]=ongoingStatus
+                    [ngModelOptions]="{standalone: true}" [(ngModel)]="endYear">
+              <option *ngFor="let year of years">{{year}}</option>
+            </select>
+          </div>
+        </div>
+
+
+        <div class="custom-control custom-checkbox form-group row mx-2 mb-1">
+          <input type="checkbox" class="custom-control-input" id="check3"
+                 [checked]="ongoingStatus" (change)="ongoingStatus = !ongoingStatus; check()"  name="ongoingStatus">
+          <label class="custom-control-label" for="check3">I presently work here.</label>
+        </div>
+
+        <!--Description-->
+
+        <div class="form-group row mx-2">
+          <label for="desc1" class="text-center col-form-label">
+            Description </label>
+          <textarea [ngModelOptions]="{standalone: true}"
+                    [(ngModel)]="description"
+                    id="desc1"
+                    class="form-control"
+                    rows="4"
+                    placeholder="">
+          </textarea>
+
+
+          <button id="createBtn"
+                  class="btn btn-block mt-3"
+                  style="color: white; background-color: orange"
+                  (click)="create()">
+            Add Education
+          </button>
+          <button id="cancelBtn"
+                  class="btn btn-secondary btn-block mt-2"
+                  (click)="cancelAdd()">
+            Cancel
+          </button>
+        </div>
+      </form>
     </li>
-    <li class="list-group-item">
-      <i class="float-right btn btn-light fas fa-angle-down"></i>
-      Education 2
+
+    <li class="list-group-item" *ngFor="let edu of education">
+      <i class="float-right btn btn-light fas fa-angle-down"
+         (click)="edit(edu, edu._id)"></i>
+      <span style="font-size: 28px; font-weight: bold; color:black;"> {{edu.institute}} </span> <br/>
+      <span style="font-size: 24px; font-weight: normal; color:grey;"> {{edu.degree}} </span> <br/>
+      <span style="font-size: 22px; font-weight: normal; color:grey;"> {{edu.fieldOfStudy}} </span> <br/>
+      <span style="font-size: 22px; font-weight: normal; color:black;"> {{edu.location}} </span> <br/>
+
+      <div [ngSwitch]="edu.ongoingStatus">
+        <span style="font-size: 20px; font-weight: normal; color:gray;" *ngSwitchCase="'true'">
+        {{edu.startDate}} &nbsp;&nbsp;-&nbsp;&nbsp;Present
+      </span>
+        <span style="font-size: 20px; font-weight: normal; color:gray;" *ngSwitchCase="'false'">
+        {{edu.startDate}} &nbsp;&nbsp;-&nbsp;&nbsp;{{edu.endDate}}
+      </span>
+      </div>
+      <p style="white-space: pre-line; font-size: 22px;">
+        {{edu.description}}
+      </p>
     </li>
+
+
   </ul>
 </div>
+
