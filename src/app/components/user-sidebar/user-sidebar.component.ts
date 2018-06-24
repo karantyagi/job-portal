@@ -12,6 +12,7 @@ export class UserSidebarComponent implements OnInit {
   }
 
   user;
+  imageUrl = '../../assets/images/displayPic/dp.jpg';
   editMode = false;
   uploadPicture = true;
   firstName = 'firstName';
@@ -66,6 +67,9 @@ export class UserSidebarComponent implements OnInit {
           }
           if (user.lastName !== undefined ) {
             this.lastName = user.lastName;
+          }
+          if (user.requestStatus !== undefined ) {
+            this.imageUrl = '../../assets/images/displayPic/recruiterDefault.jpg';
           }
         }
       });

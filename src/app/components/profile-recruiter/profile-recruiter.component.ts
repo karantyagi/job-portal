@@ -18,6 +18,7 @@ export class ProfileRecruiterComponent implements OnInit {
   title = '';
   company = '';
   email = '';
+  requestStatus = '';
   phone = '';
   facebook = '';
   linkedin = '';
