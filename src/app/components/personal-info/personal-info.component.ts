@@ -57,6 +57,14 @@ export class PersonalInfoComponent implements OnInit {
       });
   }
 
+  checkHidden(url) {
+    if (url === '') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   ngOnInit() {
     this.userService.findLoggedUser()
       .then((user) => {
