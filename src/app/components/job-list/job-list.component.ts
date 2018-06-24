@@ -137,6 +137,7 @@ export class JobListComponent implements OnInit {
       this.jobs.forEach((job, index) => {
         const d = new Date(job.created_at);
         job.created_at = d.toDateString();
+        job.jobSource = 'github';
         // this.jobs[index] = job;
       })
       this.companyList = this.jobs.map(item => item.company)
@@ -167,6 +168,7 @@ export class JobListComponent implements OnInit {
       this.jobs.forEach((job, index) => {
         const d = new Date(job.created_at);
         job.created_at = d.toDateString();
+        job.jobSource = 'github';
         // this.jobs[index] = job;
       })
       this.companyList = this.jobs.map(item => item.company)
@@ -185,6 +187,7 @@ export class JobListComponent implements OnInit {
       this.jobs.forEach((job, index) => {
         const d = new Date(job.created_at);
         job.created_at = d.toDateString();
+        job.jobSource = 'github';
         // this.jobs[index] = job;
       });
       this.companyList = this.jobs.map(item => item.company)

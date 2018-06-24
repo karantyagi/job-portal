@@ -62,7 +62,7 @@
         <div class="d-inline-block mt-3">
           <button [ngClass]="{ 'disabled': user != null && user.role != 'JobSeeker'}"
                   [disabled]="(user!=null && user.role != 'JobSeeker')"
-                  class="btn btn-outline-primary mr-3" (click)="saveJobId(job.id)">Save</button>
+                  class="btn btn-outline-primary mr-3" (click)="saveJobId(job)">Save</button>
           <a [ngClass]="{ 'disabled': user != null && user.role != 'JobSeeker'}"
              class="btn  btn-primary" href={{job.how_to_apply}}>Apply</a>
         </div>
@@ -71,44 +71,44 @@
   </div>
   <div class="bg-white bounceOutRight border container mt-4 p-5 mb-4">
     <div class="row">
-      <div class="col-sm-8" [innerHTML]="job.description">
-
-        <!--<h2>Job Description</h2>-->
-        <!--<p class="text-left">{{job.description}}</p>-->
-        <!--<br>-->
-        <!--<br>-->
-        <!--<h4 >Key Responsibilty</h4>-->
-        <!--<ul class="mt-4">-->
-          <!--<li>-->
-            <!--<p>Lorem ipsun Lorem ipsunLorem ipsunLorem ipsunLorem ipsun</p>-->
-          <!--</li>-->
-          <!--<li>-->
-            <!--<p>Lorem ipsun Lorem ipsunLorem ipsunLorem ipsunLorem ipsun</p>-->
-          <!--</li>-->
-          <!--<li>-->
-            <!--<p>Lorem ipsun Lorem ipsunLorem ipsunLorem ipsunLorem ipsun</p>-->
-          <!--</li>-->
-          <!--<li>-->
-            <!--<p>Lorem ipsun Lorem ipsunLorem ipsunLorem ipsunLorem ipsun</p>-->
-          <!--</li>-->
-        <!--</ul>-->
-        <!--<br>-->
-        <!--<br>-->
-        <!--<h4 >Requirements</h4>-->
-        <!--<ul class="mt-4">-->
-          <!--<li>-->
-            <!--<p>Lorem ipsun Lorem ipsunLorem ipsunLorem ipsunLorem ipsun</p>-->
-          <!--</li>-->
-          <!--<li>-->
-            <!--<p>Lorem ipsun Lorem ipsunLorem ipsunLorem ipsunLorem ipsun</p>-->
-          <!--</li>-->
-          <!--<li>-->
-            <!--<p>Lorem ipsun Lorem ipsunLorem ipsunLorem ipsunLorem ipsun</p>-->
-          <!--</li>-->
-          <!--<li>-->
-            <!--<p>Lorem ipsun Lorem ipsunLorem ipsunLorem ipsunLorem ipsun</p>-->
-          <!--</li>-->
-        <!--</ul>-->
+      <div class="col-sm-8" [innerHTML]="job.description" [hidden]="job.jobSource!='github'"></div>
+      <div class="col-sm-8" [innerHTML]="job.description" [hidden]="job.jobSource=='github'">
+        <h2>Job Description</h2>
+        <p class="text-left">{{job.description}}</p>
+        <br>
+        <br>
+        <h4 >Key Responsibilty</h4>
+        <ul class="mt-4">
+          <li>
+            <p>Lorem ipsun Lorem ipsunLorem ipsunLorem ipsunLorem ipsun</p>
+          </li>
+          <li>
+            <p>Lorem ipsun Lorem ipsunLorem ipsunLorem ipsunLorem ipsun</p>
+          </li>
+          <li>
+            <p>Lorem ipsun Lorem ipsunLorem ipsunLorem ipsunLorem ipsun</p>
+          </li>
+          <li>
+            <p>Lorem ipsun Lorem ipsunLorem ipsunLorem ipsunLorem ipsun</p>
+          </li>
+        </ul>
+        <br>
+        <br>
+        <h4 >Requirements</h4>
+        <ul class="mt-4">
+          <li>
+            <p>Lorem ipsun Lorem ipsunLorem ipsunLorem ipsunLorem ipsun</p>
+          </li>
+          <li>
+            <p>Lorem ipsun Lorem ipsunLorem ipsunLorem ipsunLorem ipsun</p>
+          </li>
+          <li>
+            <p>Lorem ipsun Lorem ipsunLorem ipsunLorem ipsunLorem ipsun</p>
+          </li>
+          <li>
+            <p>Lorem ipsun Lorem ipsunLorem ipsunLorem ipsunLorem ipsun</p>
+          </li>
+        </ul>
       </div>
       <div class="col-sm-4 pr-3">
         <i class="fa fa-2x fa-pencil float-right"></i>

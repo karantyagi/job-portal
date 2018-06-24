@@ -16,15 +16,21 @@ export class ViewJobComponent implements OnInit {
   job: Job = new Job();
   jobId: string;
   user: User;
+  jobSource: string;
+  savedJobApplication = [];
+  appliedJobApplication = [];
+  alreadySavedCheck: boolean;
+  alreadyAppliedCheck: boolean;
 
   constructor(private jobService: JobListingService, private route: ActivatedRoute,
-              private saveJobService: SaveJobService, private userService: UserService  ) {
+              private saveJobService: SaveJobService, private userService: UserService) {
 
     this.route.params.subscribe(param => {
-      this.jobId = param['jobId'];
+      const detail = param['jobId'].split('|');
+      this.jobId = detail[0];
+      this.jobSource = detail[1];
     });
 
-    console.log(this.jobId);
 
     if (this.jobId != null) {
       this.jobService.findAllJobs().then(jobs => {
@@ -41,8 +47,17 @@ export class ViewJobComponent implements OnInit {
     }
   }
 
-  saveJobId(id) {
+  saveJobId(job) {
+    var jobApplication;
+    if (job.jobSource === 'github') {
+      jobApplication = {dateApplied: new Date(), status: 'save', jobSource: job.jobSource, gitHubJobId: job.id};
+    } else {
+      jobApplication = {dateApplied: new Date(), status: 'save', jobSource: job.jobSource, jobPosting: job._id};
+    }
 
+    this.saveJobService.createJobApplication(jobApplication).then(() => {
+
+    });
 
   }
 

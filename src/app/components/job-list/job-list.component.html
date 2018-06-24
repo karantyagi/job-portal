@@ -30,7 +30,7 @@
         </div>
       </div>
     </div>
-      <div class="col-2 m-0">
+    <div class="col-2 m-0">
       <div class="btn-group">
         <button type="button" class="btn btn-light border-secondary dropdown-toggle" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
@@ -65,7 +65,7 @@
 
     <div class="col-2 m-0">
       <!--<button class="btn btn-light font-weight-bold" (click)="searchJob();" >-->
-        <!--Search-->
+      <!--Search-->
       <!--</button>-->
     </div>
   </div>
@@ -74,8 +74,8 @@
     <ul class="nav nav-pills">
       <li class="nav-item" *ngFor="let item of filterItems; let i = index" [attr.data-index]="i">
         <div class="nav-link bg-white mx-3" href="#">
-         {{item.val}}
-         <i class="fa fa-times ml-3" (click)="removeItems(item,i)"></i>
+          {{item.val}}
+          <i class="fa fa-times ml-3" (click)="removeItems(item,i)"></i>
         </div>
       </li>
     </ul>
@@ -87,7 +87,7 @@
       <div class="row text-dark">
         <div class="col-8">
           <h5 style="color: rgba(0,123,255,0.85);">
-            <a routerLink="view-job/{{job.id}}">{{job.title}}</a></h5>
+            <a routerLink="view-job/{{job.id}}|{{job.jobSource}}">{{job.title}}</a></h5>
         </div>
         <div class="col-4" style="text-align: right">
           {{job.location}}

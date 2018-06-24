@@ -109,11 +109,11 @@ export class UserService {
     });
   }
 
-  deleteUser(userId) {
-    return fetch(this.url + '/' + userId, {
-      method: 'DELETE',
-    });
-  }
+  // deleteUser(userId) {
+  //   return fetch(this.url + '/' + userId, {
+  //     method: 'DELETE',
+  //   });
+  // }
 
   approveRecruiter(userId) {
     return fetch(this.urlApproveRecruiter + '/' + userId, {
@@ -139,7 +139,6 @@ export class UserService {
         return null;
       }
     });
-    ;
   }
 
   // sendPasswordResetEmail(emailId, pageLink, callback) {

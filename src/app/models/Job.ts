@@ -10,4 +10,5 @@ export class Job {
   company_url: string;
   company_logo: string;
   url: string;
+  jobSource: string;
 }
