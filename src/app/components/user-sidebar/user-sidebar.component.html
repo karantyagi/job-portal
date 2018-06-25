@@ -40,7 +40,7 @@
   </li>
   <li class="list-group-item border border-light mt-1 py-1 bg-light" ([ngModel])=tagline>
     <pre
-      class="mx-0 my-0" style="white-space: pre-line; font-size: 22px; color:grey;">
+      class="mx-0 my-0" style="white-space: pre-line; font-size: 22px; color:grey; width: 390px;">
       {{tagline}}
       </pre>
   </li>
@@ -65,8 +65,21 @@
     <img src={{imageUrl}} class="rounded"
          alt="profile picture" width="250px">
   </li>
-  <li class="list-group-item border border-light mt-2 mb-0 py-1 bg-light">
-    <span style="font-size: 25px; font-weight: bold">{{user}} </span>
+  <li class="list-group-item border border-light mt-0 mb-0 py-1 bg-light">
+  <form>
+    <input name="myFile"
+           type="file"
+           class="form-control"/>
+    <button type="button"
+            class="btn btn-block btn-primary mt-2"
+            disabled="true">
+      Upload Image
+    </button>
+  </form>
+  </li>
+
+  <li class="list-group-item border border-light bg-light">
+    <span style="font-size: 25px; font-weight: bold;">{{firstName}} {{lastName}} </span>
   </li>
   <li class="list-group-item border border-light mt-1 py-1 bg-light">
       <textarea class="mx-0 my-0" rows="5" cols="31"
