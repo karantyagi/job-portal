@@ -77,6 +77,7 @@ export class RecruiterDashboardComponent implements OnInit {
   saveJob() {
     console.log(this.jobPost);
     this.jobPost.datePosted = new Date();
+    this.jobPost.jobSource = 'job-portal';
     this.jobPostService.createJobPosting(this.jobPost).then(() => {
         this.getJobPostingOfCurrentUser();
       }

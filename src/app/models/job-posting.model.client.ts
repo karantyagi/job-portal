@@ -1,5 +1,6 @@
 export class JobPostingModelClient {
   _id: string;
+  id: string;
   title: string;
   created_at: string;
   location: string;

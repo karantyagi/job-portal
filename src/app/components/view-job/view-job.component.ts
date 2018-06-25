@@ -189,4 +189,9 @@ export class ViewJobComponent implements OnInit {
   ngOnInit() {
   }
 
+  updateJob(id, job) {
+    console.log(job);
+      this.jobPosting.updateJobPosting(id, job).then(() => this.getJobApplication() );
+  }
+
 }

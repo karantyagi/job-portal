@@ -1,6 +1,6 @@
 <!--<app-nav-bar></app-nav-bar>-->
 
-<nav class="navbar navbar-expand-md  fixed-top navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg  fixed-top navbar-dark bg-dark">
 
   <a class="navbar-brand " href="#"><i class="fa fa-bullhorn fa-4x"></i></a>
   <a class="navbar-brand " href="#"><h1 class="title">Job Portal</h1></a>
@@ -35,7 +35,8 @@
            [routerLinkActive]="['active']" routerLink="/dashboard-seeker" >Dashboard</a>
       </li>
       <li class="nav-item">
-        <a [hidden]="!(user != null && user.role === 'Recruiter')" class="btn btn-outline-light
+        <a [hidden]="!(user != null && (user.role === 'Recruiter' || user.role === 'Admin' ))"
+           class="btn btn-outline-light
         font-weight-light ml-3"
            [routerLinkActive]="['active']" routerLink="/dashboard-recruiter" >Dashboard</a>
       </li>
