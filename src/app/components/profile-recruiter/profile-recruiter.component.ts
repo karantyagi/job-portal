@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../services/user.service';
+import {RecruiterDetailService} from '../../services/recruiter-detail.service';
 
 @Component({
   selector: 'app-profile-recruiter',
@@ -11,6 +12,7 @@ export class ProfileRecruiterComponent implements OnInit {
   user;
   recruiter;
   updateId = '';
+  updateRecruiterId = '';
   username = '';
   password = '';
   firstName = '';
@@ -26,7 +28,8 @@ export class ProfileRecruiterComponent implements OnInit {
   twitter = '';
   socialContact;
   editMode = false;
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,
+              private  recruiterService: RecruiterDetailService) {
   }
 
   edit() {
@@ -53,12 +56,19 @@ export class ProfileRecruiterComponent implements OnInit {
       'phone': this.phone,
       'socialContact' : social
     };
+    const recruiter = {
+      'title' : this.title,
+      'company' : this.company
+    };
     // console.log('Update ID : ', this.updateId);
     // console.log('Update as : ', updateduser);
     this.editMode = false;
     this.userService.updateUserProfile(updateduser)
       .then((updatedUser) => {
-        console.log('Update success');
+        this.recruiterService.updateRecruiterDetail(this.updateRecruiterId, recruiter)
+          .then((updatedRecruiter) => {
+            console.log('Update success');
+          });
       });
   }
 
@@ -71,7 +81,7 @@ export class ProfileRecruiterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.findLoggedRecruiter()
+    this.userService.findLoggedUser()
       .then((user) => {
         this.user = user;
         if (user !== null ) {
@@ -95,6 +105,17 @@ export class ProfileRecruiterComponent implements OnInit {
             this.twitter = this.socialContact.find(s => s.socialtype === 'twitter').url;
           }
           console.log(this.user);
+          this.recruiterService.findRecruiterDetailsByUserId()
+            .then((recruiter) => {
+              console.log('Recruiter ID', recruiter);
+              this.updateRecruiterId = recruiter._id;
+              if (recruiter.title !== undefined) {
+                this.title = recruiter.title;
+              }
+              if (recruiter.company !== undefined) {
+                this.company = recruiter.company;
+              }
+            });
         } else {
           console.log('User : null');
         }
