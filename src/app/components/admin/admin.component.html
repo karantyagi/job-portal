@@ -1,4 +1,4 @@
-<div class="row navbar navbar-expand-lg  bg-dark text-light m-3" data-toggle="collapse" data-target="#pendingRec"  >
+<div class="row navbar navbar-expand-lg  bg-dark text-light m-3" data-toggle="collapse" data-target="#pendingRec">
   <div class="col">
     <h3>Pending Recruiter List</h3>
   </div>
@@ -21,7 +21,7 @@
   </div>
 </div>
 
-<div class="row navbar navbar-expand-lg  bg-dark text-light m-3" data-toggle="collapse" data-target="#pendingPremium"  >
+<div class="row navbar navbar-expand-lg  bg-dark text-light m-3" data-toggle="collapse" data-target="#pendingPremium">
   <div class="col">
     <h3>Pending Premium Job Seeker Request</h3>
   </div>
@@ -41,16 +41,18 @@
       </div>
       <div class="col">
         <button class="btn btn-success float-right ml-2" (click)="grantPremiumAccess(user._id)"
-                [hidden]="user.premiumRequestStatus !== 'Pending'">Approve</button>
+                [hidden]="user.premiumRequestStatus !== 'Pending'">Approve
+        </button>
         <button class="btn btn-danger float-right" (click)="revokePremiumAccess(user._id)"
-                [hidden]="user.premiumRequestStatus !== 'Verified'">Revoke</button>
+                [hidden]="user.premiumRequestStatus !== 'Verified'">Revoke
+        </button>
       </div>
     </div>
   </div>
 </div>
 
 
-<div class="row navbar navbar-expand-lg  bg-dark text-light m-3" data-toggle="collapse" data-target="#adminCreate"  >
+<div class="row navbar navbar-expand-lg  bg-dark text-light m-3" data-toggle="collapse" data-target="#adminCreate">
   <div class="col">
     <h3>Add or Remove Admin User</h3>
   </div>
@@ -60,18 +62,18 @@
 </div>
 
 <div class="collapse" id="adminCreate" data-parent="adminCreate">
-  <form class="form-inline">
-    <input  placeholder="" id="username" [(ngModel)]="newUser.username" name="newUser.username" >
-    <input  placeholder="" id="password" [(ngModel)]="newUser.password" name="newUser.password" >
-    <i class="fa fa-2x btn" (click)="createAdmin(newUser)" )></i>
+  <form class="form-inline m-3" #form="ngForm">
+    <input class="form-control mr-3" placeholder="Username" id="username" [(ngModel)]="username" name="username">
+    <input class="form-control mr-3" placeholder="Password" id="password" [(ngModel)]="password" name="password">
+    <i class="fa fa-3x btn fa-plus" (click)="createAdmin(username, password); form.reset()"></i>
   </form>
-  <div *ngFor="let user of admins" class="m-3">
+  <div *ngFor="let user of admins" class="">
     <div class="row bg-white border shadow text-dark p-2 mx-3" data-toggle="collapse">
       <div class="col">
         <h5>{{user.username}}</h5>
       </div>
       <div class="col">
-        <i class="btn fa fa-trash float-right ml-2" (click)="deleteAdmin(user._id)"></i>
+        <i class="btn fa fa-2x fa-trash float-right ml-2" (click)="deleteAdmin(user._id)"></i>
       </div>
     </div>
   </div>

@@ -17,7 +17,8 @@ export class AdminComponent implements OnInit {
   users = [];
   allJobSeekers = [];
   allUsers = [];
-  newUser: User = new User();
+  username: string;
+  password: string;
   admins = [];
 
   ngOnInit() {
@@ -59,10 +60,10 @@ export class AdminComponent implements OnInit {
     // this.userService.deleteUser(id).then(() => this.findAllUsers());
   }
 
-  createAdmin(user) {
+  createAdmin(username, password) {
 
-    user.role = 'Admin';
-    // this.userService.createUser(user).then(() => this.findAllUsers());
+    const role = 'Admin';
+    //this.userService.createUser({username, password, role}).then(() => this.findAllUsers());
 
   }
 }
