@@ -171,6 +171,9 @@ export class JobSeekerDashboardComponent implements OnInit {
       id = job.id;
     } else {
       id = job._id;
+      console.log(id);
+      console.log(job.id);
+      console.log(job.jobSource);
     }
     this.jobApplicationService.deleteJobApplicationByJobPosting(id, job.jobSource).then(() => this.getJobApplication());
   }
