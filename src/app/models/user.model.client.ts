@@ -9,7 +9,11 @@ export class User {
   phone: string;
   role: string;
   address: string;
-
+  tagline: string;
+  imageUrl: string;
+  requestStatus: string;
+  premiumRequestStatus: string;
+  socialContact: any;
 
 }
 

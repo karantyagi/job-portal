@@ -173,6 +173,18 @@ export class UserService {
     });
   }
 
+  findAllUsers() {
+    return fetch(this.url, {
+      credentials: 'include'
+    }).then(response => {
+      if (response.headers.get('content-type') != null) {
+        return response.json();
+      } else {
+        return null;
+      }
+    });
+  }
+
 
   // sendPasswordResetEmail(emailId, pageLink, callback) {
   //   return fetch(this.urlPassReset, {

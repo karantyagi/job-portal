@@ -1,6 +1,8 @@
 import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
 import {Router} from '@angular/router';
 import {SaveJobService} from '../../services/save-job.service';
+import {UserService} from '../../services/user.service';
+import {User} from '../../models/user.model.client';
 
 @Component({
   selector: 'app-job-seeker-dashboard',
@@ -16,6 +18,8 @@ export class JobSeekerDashboardComponent implements OnInit {
   savedApplication = [];
   appliedApplication = [];
   allApplications = [];
+  recruiters = [];
+  user = new User();
   states = ['Alaska',
     'Alabama',
     'Arkansas',
@@ -72,7 +76,8 @@ export class JobSeekerDashboardComponent implements OnInit {
     'West Virginia',
     'Wyoming'];
 
-  constructor(private router: Router, private jobApplicationService: SaveJobService) {
+  constructor(private router: Router, private jobApplicationService: SaveJobService, private userService: UserService) {
+
   }
 
 
@@ -127,6 +132,22 @@ export class JobSeekerDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.getJobApplication();
+    this.getLoggedInUser();
+  }
+
+  getLoggedInUser() {
+    this.userService.findLoggedUser().then((user) =>
+      this.user = user).then(() => this.userService.findAllUsers().then((users) => {
+        this.recruiters = users.filter((user) =>
+          user.role === 'Recruiter' && user.requestStatus === 'Verified'
+        );
+      }
+    ));
+  }
+
+  addPremium() {
+    this.userService.updateUserProfile({premiumRequestStatus: 'Verified'}).then(() =>
+      this.getLoggedInUser());
   }
 
 

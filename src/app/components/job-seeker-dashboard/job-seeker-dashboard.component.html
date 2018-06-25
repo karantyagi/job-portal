@@ -37,86 +37,129 @@
       </div>
     </div>
 
-  <div id="myGroup">
+    <div id="myGroup">
+      <div class="row mx-2 p-3 mt-3 bg-white border bounceOutUp shadow">
+        <div class="col stats text-center text-muted">
+          <a class="float-right mx-3 btn p-0 stats"
+             data-toggle="collapse" data-parent="#myGroup" data-target="#SavedJob">Saved Job</a>
+          <span class="text-danger float-right"
+          >{{jobsSaved}}</span>
+          <span class="text-danger float-left"
+          >{{jobsApplied}}</span><a class="float-left mx-3 btn p-0 stats" data-toggle="collapse"
+                                    data-target="#Applied">Applied Jobs</a>
+        </div>
+      </div>
+      <div class="collapse row mx-2 mt-3 bg-white border bounceOutUp shadow" data-parent="#myGroup" id="SavedJob">
+        <div class="col-12 text-muted ">
+          <div class="row stats text-center border-bottom bg-dark text-light">
+            <div class="col p-2">Saved Jobs</div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="row mx-2 p-2 my-3 bg-white border" *ngFor="let job of savedApplication">
+                <div class="col-10">
+                  <div class="row text-dark">
+                    <div class="col-6">
+                      <h5 style="color: rgba(0,123,255,0.85);">
+                        <a routerLink="view-job/{{job.id}}|{{job.jobSource}}">{{job.title}}</a></h5>
+                    </div>
+                    <div class="col-4 text-right">
+                      <h6>{{job.location}}</h6>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6 "><h6>{{job.company}}</h6></div>
+                    <div class="col-4 text-right ">
+                      <small>Saved on: {{job.dateApplied}}</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2 float-left">
+                  <button class="btn float-left btn-success p-0 p-1 mr-1" (click)="applyJob(job);">Apply</button>
+                  <button class="btn float-left btn-danger p-0 p-1" (click)="deleteJobId(job)">UnSave</button>
+                </div>
+                <!--</div>-->
+                <!--<div class="col-1 float-left">-->
+                <!---->
+                <!--</div>-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row collapse mx-2 mt-3 bg-white border bounceOutUp shadow" data-parent="#myGroup" id="Applied">
+        <div class="col-12 text-muted ">
+          <div class="row stats text-center border-bottom bg-dark text-light">
+            <div class="col p-2">Applied Jobs</div>
+          </div>
+          <div class="row ">
+            <div class="col">
+              <div class="row mx-2 p-2 m-3 bg-white border" *ngFor="let job of appliedApplication">
+                <div class="col-12">
+                  <div class="row text-dark">
+                    <div class="col-8">
+                      <h5 style="color: rgba(0,123,255,0.85);">
+                        <a routerLink="view-job/{{job.id}}|{{job.jobSource}}">{{job.title}}</a></h5>
+                    </div>
+                    <div class="col-4 text-right">
+                      <h6>{{job.location}}</h6>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-8"><h6>{{job.company}}</h6></div>
+                    <div class="col-4 text-right">
+                      <small>Applied on: {{job.dateApplied}}</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div id="myGroup2">
     <div class="row mx-2 p-3 mt-3 bg-white border bounceOutUp shadow">
       <div class="col stats text-center text-muted">
-        <a class="float-right mx-3 btn p-0 stats"
-           data-toggle="collapse"  data-parent="#myGroup" data-target="#SavedJob"  >Saved Job</a>
-        <span class="text-danger float-right"
-              >{{jobsSaved}}</span>
-        <span class="text-danger float-left"
-        >{{jobsApplied}}</span><a class="float-left mx-3 btn p-0 stats"  data-toggle="collapse"
-                                  data-target="#Applied" >Applied Jobs</a>
+        <a class="mx-3 btn p-0 stats"
+           data-toggle="collapse" data-parent="#myGroup2" data-target="#Premium">Checkout Premium Membership !</a>
       </div>
     </div>
-    <div class="collapse row mx-2 mt-3 bg-white border bounceOutUp shadow" data-parent="#myGroup"  id ="SavedJob" >
+    <div class="collapse row mx-2 mt-3 bg-white border bounceOutUp shadow" data-parent="#myGroup" id="Premium">
       <div class="col-12 text-muted ">
-        <div class="row stats text-center border-bottom bg-dark text-light">
-          <div class="col p-2" >Saved Jobs</div>
+        <div class="row stats text-center border-bottom bg-dark text-light"
+             [hidden]="user.premiumRequestStatus !== 'Verified' ">
+          <div class="col p-2">Premium Membership</div>
         </div>
-        <div class="row">
+        <div class="row stats text-center border-bottom bg-dark text-light"
+             [hidden]="user.premiumRequestStatus === 'Verified' ">
+          <div class="col p-2">Join Premium Membership to get contact details of recruiters.</div>
+
+        </div>
+        <div class="row" [hidden]="user.premiumRequestStatus === 'Verified' ">
           <div class="col">
-            <div class="row mx-2 p-2 my-3 bg-white border" *ngFor="let job of savedApplication">
-              <div class="col-10">
-              <div class="row text-dark">
-                <div class="col-6">
-                  <h5 style="color: rgba(0,123,255,0.85);">
-                    <a routerLink="view-job/{{job.id}}|{{job.jobSource}}">{{job.title}}</a></h5>
-                </div>
-                <div class="col-4 text-right">
-                  <h6>{{job.location}}</h6>
-                </div>
+            <div class="row">
+              <div class="col text-center">
+                <span class="stats  mr-3">Join Premium Membership for free for a month.</span>
               </div>
-              <div class="row">
-                <div class="col-6 "><h6>{{job.company}}</h6></div>
-                <div class="col-4 text-right ">
-                  <small>Saved on: {{job.dateApplied}}</small>
-                </div>
-              </div>
-              </div>
-              <div class="col-2 float-left">
-                <button class="btn float-left btn-success p-0 p-1 mr-1" (click)="applyJob(job);">Apply</button>
-                <button  class="btn float-left btn-danger p-0 p-1" (click)="deleteJobId(job)">UnSave</button>
-              </div>
-              <!--</div>-->
-              <!--<div class="col-1 float-left">-->
-                <!---->
-              <!--</div>-->
+            </div>
+            <div class="row mx-2 p-2 my-3 bg-white ">
+
+              <button class="btn btn-success btn-block" (click)="addPremium()">Join Premium Membership</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" [hidden]="user.premiumRequestStatus !== 'Verified' ">
+          <div class="col">
+            <div class="row mx-2 p-2 my-3 bg-white border" *ngFor = "let rec of recruiters">
+               <div class="col">{{rec.username}}</div>
+               <div class= "col">{{rec.email}}</div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="row collapse mx-2 mt-3 bg-white border bounceOutUp shadow" data-parent="#myGroup" id="Applied">
-      <div class="col-12 text-muted ">
-        <div class="row stats text-center border-bottom bg-dark text-light">
-          <div class="col p-2">Applied Jobs</div>
-        </div>
-        <div class="row " >
-          <div class="col">
-            <div class="row mx-2 p-2 m-3 bg-white border" *ngFor="let job of appliedApplication">
-              <div class="col-12">
-                <div class="row text-dark">
-                  <div class="col-8">
-                    <h5 style="color: rgba(0,123,255,0.85);">
-                      <a routerLink="view-job/{{job.id}}|{{job.jobSource}}">{{job.title}}</a></h5>
-                  </div>
-                  <div class="col-4 text-right">
-                    <h6>{{job.location}}</h6>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-8"><h6>{{job.company}}</h6></div>
-                  <div class="col-4 text-right">
-                    <small>Applied on: {{job.dateApplied}}</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          </div>
-        </div>
-    </div>
-      </div>
   </div>
+</div>
 </div>
