@@ -62,21 +62,42 @@
 </div>
 
 <div class="collapse" id="adminCreate" data-parent="adminCreate">
-  <form class="form-inline m-3" #form="ngForm">
-    <input type="text" [(ngModel)]="username" name="username" placeholder="Username"
-           id="username" class="form-control mr-3" required #userName="ngModel">
-    <div [hidden]="userName.valid || userName.pristine" class="mt-2 alert alert-danger">
-      Username required!!
+  <div class="row m-3">
+    <div class="col">
+      <div class="alert alert-danger" [hidden]="!usernameExists">
+        Username already exists user another one !
+      </div>
     </div>
-    <input type="password" placeholder="123qwe#$" [(ngModel)]="password" name="password"
-           id="password" class="form-control mr-3" required #pass="ngModel">
-    <div [hidden]="pass.valid || pass.pristine" class="mt-2 alert alert-danger">
-      Password required!!
+  </div>
+  <div class="row m-3">
+    <div class="col">
+      <form class="form" #form="ngForm">
+        <div class="row">
+          <div class="col">
+            <input type="text" [(ngModel)]="username" name="username" placeholder="Username"
+                   id="username" class="form-control " required #userName="ngModel">
+            <div [hidden]="userName.valid || userName.pristine" class="mt-2 alert alert-danger">
+              Username required!!
+            </div>
+          </div>
+          <div class="col">
+
+            <input type="password" placeholder="123qwe#$" [(ngModel)]="password" name="password"
+                   id="password" class="form-control" required #pass="ngModel">
+            <div [hidden]="pass.valid || pass.pristine" class="mt-2 alert alert-danger">
+              Password required!!
+            </div>
+          </div>
+          <div class="col">
+            <i class="fa fa-2x p-1 btn fa-plus" (click)="createAdmin(username, password); form.reset()"></i>
+          </div>
+        </div>
+      </form>
     </div>
-    <i class="fa fa-2x btn fa-plus" (click)="createAdmin(username, password); form.reset()"></i>
-  </form>
+  </div>
   <div *ngFor="let user of admins" class="">
-    <div class="row bg-white border shadow text-dark p-2 mx-3" data-toggle="collapse">
+    <div class="row bg-white border shadow text-dark p-2 mx-3" data-toggle="collapse"
+         *ngIf="currentAdmin.username != user.username">
       <div class="col">
         <h4>{{user.username}}</h4>
       </div>

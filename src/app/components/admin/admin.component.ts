@@ -15,11 +15,13 @@ export class AdminComponent implements OnInit {
   }
 
   users = [];
+  currentAdmin: User;
   allJobSeekers = [];
   allUsers = [];
   username: string;
   password: string;
   admins = [];
+  usernameExists = false;
 
   ngOnInit() {
     this.fetchPendingUser();
@@ -35,9 +37,11 @@ export class AdminComponent implements OnInit {
     this.userService.findAllUsers().then((users) => {
       this.allUsers = users;
       this.allJobSeekers = users.filter((user) => user.role === 'JobSeeker' && user.premiumRequestStatus);
-    }).then(() =>  {
-        this.admins = this.allUsers.filter((user) => user.role === 'Admin');
-    });
+    }).then(() => {
+      this.admins = this.allUsers.filter((user) => user.role === 'Admin');
+    }).then(() => this.userService.findLoggedUser().then((user) =>
+    this.currentAdmin = user
+    ));
   }
 
   approveUser(id) {
@@ -63,7 +67,13 @@ export class AdminComponent implements OnInit {
   createAdmin(username, password) {
 
     const role = 'Admin';
-    this.userService.createUser({username, password, role}).then(() => this.findAllUsers());
-
+    this.userService.createUser({username, password, role}).then((res) => {
+      if (res.status === true) {
+        this.findAllUsers();
+        this.usernameExists = false;
+      } else {
+        this.usernameExists = true;
+      }
+    });
   }
 }
