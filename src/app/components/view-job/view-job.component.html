@@ -48,28 +48,28 @@
         <form>
           <input
             class="form-control mb-2"
-            placeholder="Job Title">
+            placeholder="Job Title" [(ngModel)]="job.title" name="job.title">
 
           <!--Company-->
           <input id="logo"
                  class="form-control mb-2"
-                 placeholder="Company">
+                 placeholder="Company" [ngModel]="job.company" name = "job.company" >
 
           <!--Location-->
           <input
             class="form-control mb-2 "
-            placeholder="Location">
+            placeholder="Location" [ngModel]="job.location" name = "job.location" >
 
           <!--File-->
           <div class="row">
             <div class="col">
               <input type="file"
                      class="form-control"
-                     placeholder="">
+                     placeholder=""  >
             </div>
             <div class="col py-1">
               <button type="button"
-                      class="btn btn-block btn-primary ">
+                      class="btn btn-block btn-primary">
                 Upload Company Logo
               </button>
             </div>
@@ -102,38 +102,30 @@
         <p class="text-left">{{job.description}}</p>
         <br>
         <br>
-        <h4>Key Responsibilty</h4>
+        <h4 [hidden]="job && job.responsibilities && job.responsibilities.length === 0 ">Key Responsibilty</h4>
         <ul class="mt-4">
-          <li>
-            <p>Lorem ipsun Lorem ipsunLorem ipsunLorem ipsunLorem ipsun</p>
-          </li>
-          <li>
-            <p>Lorem ipsun Lorem ipsunLorem ipsunLorem ipsunLorem ipsun</p>
-          </li>
-          <li>
-            <p>Lorem ipsun Lorem ipsunLorem ipsunLorem ipsunLorem ipsun</p>
-          </li>
-          <li>
-            <p>Lorem ipsun Lorem ipsunLorem ipsunLorem ipsunLorem ipsun</p>
+          <li *ngFor="let responsibility of job.responsibilities">
+            <p>{{responsibility}}</p>
           </li>
         </ul>
         <br>
         <br>
-        <h4>Requirements</h4>
+        <h4 [hidden]="job && job.minQualification &&  job.minQualification.length ===0 ">Minimum Qualification</h4>
         <ul class="mt-4">
-          <li>
-            <p>Lorem ipsun Lorem ipsunLorem ipsunLorem ipsunLorem ipsun</p>
-          </li>
-          <li>
-            <p>Lorem ipsun Lorem ipsunLorem ipsunLorem ipsunLorem ipsun</p>
-          </li>
-          <li>
-            <p>Lorem ipsun Lorem ipsunLorem ipsunLorem ipsunLorem ipsun</p>
-          </li>
-          <li>
-            <p>Lorem ipsun Lorem ipsunLorem ipsunLorem ipsunLorem ipsun</p>
+          <li *ngFor="let minQualification of job.minQualification">
+            <p>{{minQualification}}</p>
           </li>
         </ul>
+        <br>
+        <br>
+        <h4 [hidden]="job && job.minQualification &&  job.skillsRequired.length ===0 " >Skills Required</h4>
+        <ul class="mt-4">
+          <li *ngFor="let skillsRequired of job.skillsRequired">
+            <p>{{skillsRequired}}</p>
+          </li>
+        </ul>
+
+
       </div>
       <div class="col-sm-4 pr-3">
         <i class="fa btn fa-2x fa-pencil float-right"

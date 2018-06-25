@@ -13,4 +13,6 @@ export class JobPostingModelClient {
   datePosted: Date;
   minQualification: string[];
   date: string;
+  how_to_apply: string;
+  company_url: string;
 }

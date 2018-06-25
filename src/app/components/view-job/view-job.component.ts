@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {Job} from '../../models/Job';
+// import {Job} from '../../models/Job';
 import {ActivatedRoute} from '@angular/router';
 import {JobListingService} from '../../services/job-listing.service';
 import {SaveJobService} from '../../services/save-job.service';
 import {UserService} from '../../services/user.service';
-import {User} from '../../models/user.model.client';
+// import {User} from '../../models/user.model.client';
 import {JobPostingService} from '../../services/job-posting.service';
+import {JobPostingModelClient} from '../../models/job-posting.model.client';
 
 @Component({
   selector: 'app-view-job',
@@ -14,7 +15,7 @@ import {JobPostingService} from '../../services/job-posting.service';
 })
 export class ViewJobComponent implements OnInit {
 
-  job: Job = new Job();
+  job: JobPostingModelClient = new JobPostingModelClient();
   jobId: string;
   user = null;
   jobSource: string;
