@@ -191,8 +191,7 @@ export class ViewJobComponent implements OnInit {
 
   updateJob(id, job) {
     console.log(job);
-      this.jobPosting.updateJobPosting(id, job).then(() => this.getJobApplication() ).then(() =>
-        this.isMainDivVisible = !this.isMainDivVisible );
+      this.jobPosting.updateJobPosting(id, job).then(() => this.getJobApplication() );
   }
 
 }

@@ -20,6 +20,7 @@
       </li>
 
       <li class="nav-item">
+
         <a [hidden]="!(user != null && user.role === 'JobSeeker')" class="btn btn-outline-light
         font-weight-light ml-3"
            [routerLinkActive]="['active']" routerLink="/profile-seeker" >Profile</a>

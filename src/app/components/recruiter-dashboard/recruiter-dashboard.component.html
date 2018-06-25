@@ -140,10 +140,11 @@
           </div>
           <div class="my-2">
             <h6 style="color: dimgrey;"> Responsibilities</h6>
-            <ul>
-              <li *ngFor="let item of jobPost.responsibilities">
+            <ul class="list-group">
+              <li class="list-group-item" *ngFor="let item of jobPost.responsibilities; index as i" [attr.data-index]="i">
                 {{item}}
-                <button class="btn btn-primary float-right"><i class="fas fa-pencil-alt"></i></button>
+                <i class="btn fas fa-trash fa-2x float-right" (click)="jobPost.responsibilities.splice(i,1)"></i>
+                <!--<button class="btn btn-primary float-right"><i class="fas fa-pencil-alt"></i></button>-->
               </li>
             </ul>
             <hr>
@@ -174,10 +175,11 @@
 
           <div class="my-2">
             <h6 style="color: dimgrey;"> Minimum Qualifications</h6>
-            <ul>
-              <li *ngFor="let item of jobPost.minQualification">
+            <ul class="list-group">
+              <li class="list-group-item" *ngFor="let item of jobPost.minQualification; index as i" [attr.data-index]="i">
                 {{item}}
-                <button class="btn btn-primary float-right"><i class="fas fa-times"></i></button>
+                <i class="btn fas fa-trash fa-2x float-right" (click)="jobPost.minQualification.splice(i,1)"></i>
+                <!--<button class="btn btn-primary float-right"><i class="fas fa-pencil-alt"></i></button>-->
               </li>
             </ul>
             <hr/>
@@ -207,10 +209,11 @@
           </div>
           <div class="my-2">
             <h6 style="color: dimgrey;"> Required Skills</h6>
-            <ul>
-              <li *ngFor="let item of jobPost.skillsRequired">
+            <ul class="list-group">
+              <li class="list-group-item" *ngFor="let item of jobPost.skillsRequired; index as i" [attr.data-index]="i">
                 {{item}}
-                <button class="btn btn-primary float-right"><i class="fas fa-times"></i></button>
+                <i class="btn fas fa-trash fa-2x float-right" (click)="jobPost.skillsRequired.splice(i,1)"></i>
+                <!--<button class="btn btn-primary float-right"><i class="fas fa-pencil-alt"></i></button>-->
               </li>
             </ul>
             <hr/>
