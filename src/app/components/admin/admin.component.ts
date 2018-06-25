@@ -15,7 +15,7 @@ export class AdminComponent implements OnInit {
   }
 
   users = [];
-  allJobSeekers: User[] = [];
+  allJobSeekers = [];
 
   ngOnInit() {
     this.fetchPendingUser();
@@ -41,4 +41,11 @@ export class AdminComponent implements OnInit {
     this.userService.rejectRecruiter(id).then(() => this.fetchPendingUser());
   }
 
+  grantPremiumAccess(id) {
+    this.userService.grantPremiumAccess(id).then(() => this.findAllUsers());
+  }
+
+  revokePremiumAccess(id) {
+    this.userService.revokePremiumAccess(id).then(() => this.findAllUsers());
+  }
 }

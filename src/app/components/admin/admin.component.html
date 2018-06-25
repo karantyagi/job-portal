@@ -40,9 +40,9 @@
         <h5>{{user.premiumRequestStatus}}</h5>
       </div>
       <div class="col">
-        <button class="btn btn-success float-right ml-2" (click)="approveUser(user._id)"
+        <button class="btn btn-success float-right ml-2" (click)="grantPremiumAccess(user._id)"
                 [hidden]="user.premiumRequestStatus !== 'Pending'">Approve</button>
-        <button class="btn btn-danger float-right" (click)="rejectUser(user._id)"
+        <button class="btn btn-danger float-right" (click)="revokePremiumAccess(user._id)"
                 [hidden]="user.premiumRequestStatus !== 'Verified'">Revoke</button>
       </div>
     </div>

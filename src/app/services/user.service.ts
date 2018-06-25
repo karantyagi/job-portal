@@ -18,6 +18,8 @@ export class UserService {
   urlApproveRecruiter: string;
   urlPending: string;
   urlRecruiterProfile: string;
+  urlPremiumGrant: string;
+  urlPremiumRevoke: string;
 
   constructor() {
     let base;
@@ -39,6 +41,8 @@ export class UserService {
     this.urlApproveRecruiter = base + '/api/approve';
     this.urlPending = base + '/api/pending';
     this.urlRecruiterProfile = base + '/api/profile/recruiter';
+    this.urlPremiumGrant = base + '/api/premium/approve';
+    this.urlPremiumRevoke = base + '/api/premium/revoke';
   }
 
   register(user) {
@@ -140,6 +144,20 @@ export class UserService {
   rejectRecruiter(userId) {
     return fetch(this.url + '/' + userId, {
       method: 'DELETE',
+      credentials: 'include'
+    });
+  }
+
+  grantPremiumAccess(userId) {
+    return fetch(this.urlPremiumGrant + '/' + userId, {
+      method: 'POST',
+      credentials: 'include'
+    });
+  }
+
+  revokePremiumAccess(userId) {
+    return fetch(this.urlPremiumRevoke + '/' + userId, {
+      method: 'POST',
       credentials: 'include'
     });
   }
