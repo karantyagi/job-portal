@@ -16,6 +16,9 @@ export class AdminComponent implements OnInit {
 
   users = [];
   allJobSeekers = [];
+  allUsers = [];
+  newUser: User = new User();
+  admins = [];
 
   ngOnInit() {
     this.fetchPendingUser();
@@ -28,9 +31,12 @@ export class AdminComponent implements OnInit {
   }
 
   findAllUsers() {
-    this.userService.findAllUsers().then((users) =>
-      this.allJobSeekers = users.filter((user) => user.role === 'JobSeeker' && user.premiumRequestStatus )
-    );
+    this.userService.findAllUsers().then((users) => {
+      this.allUsers = users;
+      this.allJobSeekers = users.filter((user) => user.role === 'JobSeeker' && user.premiumRequestStatus);
+    }).then(() =>  {
+        this.admins = this.allUsers.filter((user) => user.role === 'Admin');
+    });
   }
 
   approveUser(id) {
@@ -47,5 +53,16 @@ export class AdminComponent implements OnInit {
 
   revokePremiumAccess(id) {
     this.userService.revokePremiumAccess(id).then(() => this.findAllUsers());
+  }
+
+  deleteAdmin(id) {
+    // this.userService.deleteUser(id).then(() => this.findAllUsers());
+  }
+
+  createAdmin(user) {
+
+    user.role = 'Admin';
+    // this.userService.createUser(user).then(() => this.findAllUsers());
+
   }
 }

@@ -48,3 +48,34 @@
     </div>
   </div>
 </div>
+
+
+<div class="row navbar navbar-expand-lg  bg-dark text-light m-3" data-toggle="collapse" data-target="#adminCreate"  >
+  <div class="col">
+    <h3>Add or Remove Admin User</h3>
+  </div>
+  <div class="col">
+    <i class="fa fa-angle-down fa-2x btn float-right"></i>
+  </div>
+</div>
+
+<div class="collapse" id="adminCreate" data-parent="adminCreate">
+  <form class="form-inline">
+    <input  placeholder="" id="username" [(ngModel)]="newUser.username" name="newUser.username" >
+    <input  placeholder="" id="password" [(ngModel)]="newUser.password" name="newUser.password" >
+    <i class="fa fa-2x btn" (click)="createAdmin(newUser)" )></i>
+  </form>
+  <div *ngFor="let user of admins" class="m-3">
+    <div class="row bg-white border shadow text-dark p-2 mx-3" data-toggle="collapse">
+      <div class="col">
+        <h5>{{user.username}}</h5>
+      </div>
+      <div class="col">
+        <i class="btn fa fa-trash float-right ml-2" (click)="deleteAdmin(user._id)"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
