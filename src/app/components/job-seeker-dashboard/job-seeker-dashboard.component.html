@@ -122,21 +122,29 @@
     <div class="row mx-2 p-3 mt-3 bg-white border bounceOutUp shadow">
       <div class="col stats text-center text-muted">
         <a class="mx-3 btn p-0 stats"
-           data-toggle="collapse" data-parent="#myGroup2" data-target="#Premium">Checkout Premium Membership !</a>
+           data-toggle="collapse" data-parent="#myGroup2" data-target="#Premium">Checkout Premium Membership Feature!</a>
       </div>
     </div>
     <div class="collapse row mx-2 mt-3 bg-white border bounceOutUp shadow" data-parent="#myGroup" id="Premium">
       <div class="col-12 text-muted ">
         <div class="row stats text-center border-bottom bg-dark text-light"
              [hidden]="user.premiumRequestStatus !== 'Verified' ">
-          <div class="col p-2">Premium Membership</div>
+          <div class="col p-2">Recruiters Contacts</div>
         </div>
+
         <div class="row stats text-center border-bottom bg-dark text-light"
-             [hidden]="user.premiumRequestStatus === 'Verified' ">
+             [hidden]="user.premiumRequestStatus !== undefined">
           <div class="col p-2">Join Premium Membership to get contact details of recruiters.</div>
 
         </div>
-        <div class="row" [hidden]="user.premiumRequestStatus === 'Verified' ">
+
+        <div class="row stats text-center border-bottom bg-dark text-light"
+             [hidden]="user.premiumRequestStatus !== 'Pending'">
+          <div class="col p-2">Premium request pending with Admin.</div>
+
+        </div>
+
+        <div class="row" [hidden]="user.premiumRequestStatus !== undefined">
           <div class="col">
             <div class="row">
               <div class="col text-center">
@@ -149,7 +157,6 @@
             </div>
           </div>
         </div>
-
         <div class="row" [hidden]="user.premiumRequestStatus !== 'Verified' ">
           <div class="col">
             <div class="row mx-2 p-2 my-3 bg-white border" *ngFor = "let rec of recruiters">

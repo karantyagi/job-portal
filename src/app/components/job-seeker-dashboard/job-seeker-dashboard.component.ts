@@ -146,7 +146,7 @@ export class JobSeekerDashboardComponent implements OnInit {
   }
 
   addPremium() {
-    this.userService.updateUserProfile({premiumRequestStatus: 'Verified'}).then(() =>
+    this.userService.updateUserProfile({premiumRequestStatus: 'Pending'}).then(() =>
       this.getLoggedInUser());
   }
 

@@ -1,18 +1,50 @@
-<div class="row navbar navbar-expand-lg  bg-dark text-light m-3">
-  <div class="col text-center">
+<div class="row navbar navbar-expand-lg  bg-dark text-light m-3" data-toggle="collapse" data-target="#pendingRec"  >
+  <div class="col">
     <h3>Pending Recruiter List</h3>
   </div>
+  <div class="col">
+    <i class="fa fa-angle-down fa-2x btn float-right"></i>
+  </div>
 </div>
 
-<div *ngFor="let user of users" class="m-3">
-  <div class="row bg-white border shadow text-dark p-2 mx-3" data-toggle="collapse">
-    <div class="col">
-      <h5>{{user.username}}</h5>
-    </div>
-    <div class="col">
-      <button class="btn btn-success float-right ml-2" (click)="approveUser(user._id)" >Approve</button>
-      <button class="btn btn-danger float-right" (click)="rejectUser(user._id)" >Reject</button>
+<div class="collapse" id="pendingRec" data-parent="admin">
+  <div *ngFor="let user of users" class="m-3">
+    <div class="row bg-white border shadow text-dark p-2 mx-3" data-toggle="collapse">
+      <div class="col">
+        <h5>{{user.username}}</h5>
+      </div>
+      <div class="col">
+        <button class="btn btn-success float-right ml-2" (click)="approveUser(user._id)">Approve</button>
+        <button class="btn btn-danger float-right" (click)="rejectUser(user._id)">Reject</button>
+      </div>
     </div>
   </div>
 </div>
 
+<div class="row navbar navbar-expand-lg  bg-dark text-light m-3" data-toggle="collapse" data-target="#pendingPremium"  >
+  <div class="col">
+    <h3>Pending Premium Job Seeker Request</h3>
+  </div>
+  <div class="col">
+    <i class="fa fa-angle-down fa-2x btn float-right"></i>
+  </div>
+</div>
+
+<div class="collapse" id="pendingPremium" data-parent="admin">
+  <div *ngFor="let user of allJobSeekers" class="m-3">
+    <div class="row bg-white border shadow text-dark p-2 mx-3" data-toggle="collapse">
+      <div class="col">
+        <h5>{{user.username}}</h5>
+      </div>
+      <div class="col">
+        <h5>{{user.premiumRequestStatus}}</h5>
+      </div>
+      <div class="col">
+        <button class="btn btn-success float-right ml-2" (click)="approveUser(user._id)"
+                [hidden]="user.premiumRequestStatus !== 'Pending'">Approve</button>
+        <button class="btn btn-danger float-right" (click)="rejectUser(user._id)"
+                [hidden]="user.premiumRequestStatus !== 'Verified'">Revoke</button>
+      </div>
+    </div>
+  </div>
+</div>

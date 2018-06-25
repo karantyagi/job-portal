@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../services/user.service';
+import {User} from '../../models/user.model.client';
 
 
 @Component({
@@ -14,14 +15,22 @@ export class AdminComponent implements OnInit {
   }
 
   users = [];
+  allJobSeekers: User[] = [];
 
   ngOnInit() {
     this.fetchPendingUser();
+    this.findAllUsers();
 
   }
 
   fetchPendingUser() {
     this.userService.findPendingRecruiters().then((user) => this.users = user);
+  }
+
+  findAllUsers() {
+    this.userService.findAllUsers().then((users) =>
+      this.allJobSeekers = users.filter((user) => user.role === 'JobSeeker' && user.premiumRequestStatus )
+    );
   }
 
   approveUser(id) {
