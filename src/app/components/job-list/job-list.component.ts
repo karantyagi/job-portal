@@ -97,53 +97,50 @@ export class JobListComponent implements OnInit {
           job.date = d.toDateString();
         });
 
-      this.companyList = this.jobs.map(item => item.company)
-        .filter((value, index, self) => self.indexOf(value) === index);
-      this.typeList = this.jobs.map(item => item.type)
-        .filter((value, index, self) => self.indexOf(value) === index);
-      this.states = this.jobs.map(item => item.location)
-        .filter((value, index, self) => self.indexOf(value) === index);
-    }).then(() => {
-      for (const filter in this.filterCriteria) {
-        if (1 === 1) {
-          console.log(this.filterCriteria[filter]);
-          console.log(filter);
-          this.jobs = this.jobs.filter((value) => value[filter] === this.filterCriteria[filter]);
-          console.log(this.jobs);
+        this.companyList = this.jobs.map(item => item.company)
+          .filter((value, index, self) => self.indexOf(value) === index);
+        this.typeList = this.jobs.map(item => item.type)
+          .filter((value, index, self) => self.indexOf(value) === index);
+        this.states = this.jobs.map(item => item.location)
+          .filter((value, index, self) => self.indexOf(value) === index);
+      }).then(() => {
+        for (const filter in this.filterCriteria) {
+          if (1 === 1) {
+            console.log(this.filterCriteria[filter]);
+            console.log(filter);
+            this.jobs = this.jobs.filter((value) => value[filter] === this.filterCriteria[filter]);
+            console.log(this.jobs);
+          }
         }
-      }
-    });
-
-    console.log(this.jobs);
-
+      }));
   }
 
 
   fetchAllJobs() {
-  this.jobPostService.getAllJobPostings().then((jobs) =>
+    this.jobPostService.getAllJobPostings().then((jobs) =>
       this.jobs = jobs).then(() => console.log(this.jobs)).then(() =>
-    this.service.findAllJobs().then(jobs => {
+      this.service.findAllJobs().then(jobs => {
 
-      jobs.forEach((job, index) => {
-        const d = new Date(job.created_at);
-        job.created_at = d.toDateString();
-        job.jobSource = 'github';
-        // this.jobs[index] = job;
-      });
+        jobs.forEach((job, index) => {
+          const d = new Date(job.created_at);
+          job.created_at = d.toDateString();
+          job.jobSource = 'github';
+          // this.jobs[index] = job;
+        });
 
-      this.jobs = this.jobs.concat(jobs);
-      this.jobs.forEach((job) => {
-        const d = new Date(job.datePosted);
-        job.date = d.toDateString();
-      });
-      this.companyList = this.jobs.map(item => item.company)
-        .filter((value, index, self) => self.indexOf(value) === index);
-      this.typeList = this.jobs.map(item => item.type)
-        .filter((value, index, self) => self.indexOf(value) === index);
-      this.states = this.jobs.map(item => item.location)
-        .filter((value, index, self) => self.indexOf(value) === index);
-    })
-  );
+        this.jobs = this.jobs.concat(jobs);
+        this.jobs.forEach((job) => {
+          const d = new Date(job.datePosted);
+          job.date = d.toDateString();
+        });
+        this.companyList = this.jobs.map(item => item.company)
+          .filter((value, index, self) => self.indexOf(value) === index);
+        this.typeList = this.jobs.map(item => item.type)
+          .filter((value, index, self) => self.indexOf(value) === index);
+        this.states = this.jobs.map(item => item.location)
+          .filter((value, index, self) => self.indexOf(value) === index);
+      })
+    );
   }
 
   fetchFilteredJobs(location, keyword) {
