@@ -84,22 +84,41 @@
   <ul class="list-group">
     <li *ngFor="let job of jobs"
         class="list-group-item bg-light my-2 rounded shadow-sm">
-      <div class="row text-dark">
-        <div class="col-8">
-          <h5 style="color: rgba(0,123,255,0.85);">
-            <a routerLink="view-job/{{job.id}}|{{job.jobSource}}">{{job.title}}</a></h5>
+      <div [hidden]="job.jobSource !== 'github' ">
+        <div class="row text-dark">
+          <div class="col-8">
+            <h5 style="color: rgba(0,123,255,0.85);">
+              <a routerLink="view-job/{{job.id}}|{{job.jobSource}}">{{job.title}}</a></h5>
+          </div>
+          <div class="col-4" style="text-align: right">
+            {{job.location}}
+          </div>
         </div>
-        <div class="col-4" style="text-align: right">
-          {{job.location}}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-8">{{job.company}} | {{job.type}}</div>
-        <div class="col-4" style="text-align: right">
-          <small>Posted on: {{job.created_at}}</small>
+        <div class="row">
+          <div class="col-8">{{job.company}} | {{job.type}}</div>
+          <div class="col-4" style="text-align: right">
+            <small>Posted on: {{job.created_at}}</small>
+          </div>
         </div>
       </div>
 
+        <div [hidden]="job.jobSource === 'github' ">
+          <div class="row text-dark">
+            <div class="col-8">
+              <h5 style="color: rgba(0,123,255,0.85);">
+                <a routerLink="view-job/{{job._id}}|{{job.jobSource}}">{{job.title}}</a></h5>
+            </div>
+            <div class="col-4" style="text-align: right">
+              {{job.location}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8">{{job.company}} | {{job.type}}</div>
+            <div class="col-4" style="text-align: right">
+              <small>Posted on: {{job.date}}</small>
+            </div>
+          </div>
+        </div>
     </li>
   </ul>
   <nav class="mt-2 marginFooter">
