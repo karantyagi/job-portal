@@ -22,6 +22,7 @@ export class ViewJobComponent implements OnInit {
   alreadySavedCheck = false;
   alreadyAppliedCheck = false;
   postings = [];
+  isMainDivVisible = false;
 
   constructor(private jobService: JobListingService, private route: ActivatedRoute,
               private saveJobService: SaveJobService, private userService: UserService,
