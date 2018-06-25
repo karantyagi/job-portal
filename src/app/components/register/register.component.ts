@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
 
 
   register(username, password, role, email) {
-    var user;
+    let user;
     if (role === 'Recruiter') {
       user = {username, password, role, email};
     } else {

@@ -17,6 +17,7 @@ export class UserService {
   urlDeleteProfile: string;
   urlApproveRecruiter: string;
   urlPending: string;
+  urlRecruiterProfile: string;
 
   constructor() {
     let base;
@@ -37,6 +38,7 @@ export class UserService {
     this.urlDeleteProfile = base + '/api/user';
     this.urlApproveRecruiter = base + '/api/approve';
     this.urlPending = base + '/api/pending';
+    this.urlRecruiterProfile = base + '/api/profile/recruiter';
   }
 
   register(user) {
@@ -93,7 +95,6 @@ export class UserService {
       }
     });
   }
-
   findLoggedRecruiter() {
     return fetch(this.urlLoggedRecruiter, {
       credentials: 'include',
@@ -105,7 +106,6 @@ export class UserService {
       }
     });
   }
-
 
   updateUserProfile(user) {
     return fetch(this.urlUpdateProfile, {
@@ -155,6 +155,24 @@ export class UserService {
       }
     });
   }
+
+  addRecruiterProfile(recruiter) {
+    return fetch(this.urlRecruiterProfile, {
+      method: 'POST',
+      body: JSON.stringify(recruiter),
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json'
+      }
+    }).then(response => {
+      if (response.headers.get('content-type') != null) {
+        return response.json();
+      } else {
+        return null;
+      }
+    });
+  }
+
 
   // sendPasswordResetEmail(emailId, pageLink, callback) {
   //   return fetch(this.urlPassReset, {

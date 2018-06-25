@@ -48,15 +48,14 @@
 
 <div class="mainContainer pb-5">
   <div class="h-25"></div>
-  <div class="bg-white bounceOutRight border container  p-5">
+  <div class="bg-white bounceOutRight border container  p-5" [hidden]="isMainDivVisible">
     <div class="row">
       <div class="col-sm-2 ">
         <img class="mt-3" alt="Image not found" src="{{job.company_logo}}" width="120px" height="140px"/>
       </div>
       <div class="col-sm-10">
-        <i class="fa fa-2x fa-pencil float-right"
-
-           [hidden]="!(user!=null && user.role === 'JobSeeker' ) && (job.jobSource === 'job-portal' )" ></i>
+        <i class="fa fa-2x fa-pencil float-right btn" [hidden]="!(user!=null && user.role != 'JobSeeker' &&
+         job.jobSource!='github')" (click)="isMainDivVisible =!isMainDivVisible"></i>
         <h1 class="p-0">{{job.title}}</h1>
 
         <h3 class="text-muted" >{{job.company}} | {{job.location}} </h3>
@@ -77,6 +76,57 @@
       </div>
     </div>
   </div>
+
+  <div class="bg-white bounceOutRight border container  p-5" [hidden]="!isMainDivVisible">
+    <div>
+      <form>
+        <input
+          class="form-control mb-2"
+          placeholder="Job Title">
+
+        <!--Company-->
+        <input id="logo"
+          class="form-control mb-2"
+          placeholder="Company">
+
+        <!--Location-->
+        <input
+          class="form-control mb-2 "
+          placeholder="Location">
+
+        <!--File-->
+        <div class="row">
+          <div class="col">
+        <input type="file"
+          class="form-control"
+               placeholder="">
+          </div>
+          <div class="col py-1">
+            <button type="button"
+                    class="btn btn-block btn-primary ">
+              Upload Company Logo
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col py-1">
+            <button type="button"
+                    class="btn btn-block btn-success">
+              Save
+            </button>
+          </div>
+          <div class="col py-1">
+            <button type="button"
+                    class="btn btn-block btn-danger">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
   <div class="bg-white bounceOutRight border container mt-4 p-5 mb-4">
     <div class="row">
       <div class="col-sm-8" [innerHTML]="job.description" [hidden]="job.jobSource!='github'"></div>
@@ -119,7 +169,8 @@
         </ul>
       </div>
       <div class="col-sm-4 pr-3">
-        <i class="fa fa-2x fa-pencil float-right"></i>
+        <i class="fa fa-2x fa-pencil float-right"
+           [hidden]="!(user!=null && user.role != 'JobSeeker' && job.jobSource!='github')"></i>
         <h5 class="mt-3">Seniority Level</h5>
         <h6 class="text-muted">{{job.title}}</h6>
         <h5 class="mt-3">Industry</h5>
