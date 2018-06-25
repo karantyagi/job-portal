@@ -128,11 +128,29 @@ export class UserService {
     });
   }
 
-  // deleteUser(userId) {
-  //   return fetch(this.url + '/' + userId, {
-  //     method: 'DELETE',
-  //   });
-  // }
+  deleteUser(userId) {
+    return fetch(this.url + '/' + userId, {
+      method: 'DELETE',
+      credentials: 'include'
+    });
+  }
+
+  createUser(user) {
+    return fetch(this.url , {
+      method: 'POST',
+      body: JSON.stringify(user),
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json'
+      }
+    }).then(response => {
+      if (response.headers.get('content-type') != null) {
+        return response.json();
+      } else {
+        return null;
+      }
+    });
+  }
 
   approveRecruiter(userId) {
     return fetch(this.urlApproveRecruiter + '/' + userId, {

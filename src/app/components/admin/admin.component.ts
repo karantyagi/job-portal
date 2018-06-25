@@ -57,13 +57,13 @@ export class AdminComponent implements OnInit {
   }
 
   deleteAdmin(id) {
-    // this.userService.deleteUser(id).then(() => this.findAllUsers());
+    this.userService.deleteUser(id).then(() => this.findAllUsers());
   }
 
   createAdmin(username, password) {
 
     const role = 'Admin';
-    //this.userService.createUser({username, password, role}).then(() => this.findAllUsers());
+    this.userService.createUser({username, password, role}).then(() => this.findAllUsers());
 
   }
 }

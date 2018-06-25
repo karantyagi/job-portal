@@ -65,12 +65,12 @@
   <form class="form-inline m-3" #form="ngForm">
     <input class="form-control mr-3" placeholder="Username" id="username" [(ngModel)]="username" name="username">
     <input class="form-control mr-3" placeholder="Password" id="password" [(ngModel)]="password" name="password">
-    <i class="fa fa-3x btn fa-plus" (click)="createAdmin(username, password); form.reset()"></i>
+    <i class="fa fa-2x btn fa-plus" (click)="createAdmin(username, password); form.reset()"></i>
   </form>
   <div *ngFor="let user of admins" class="">
     <div class="row bg-white border shadow text-dark p-2 mx-3" data-toggle="collapse">
       <div class="col">
-        <h5>{{user.username}}</h5>
+        <h4>{{user.username}}</h4>
       </div>
       <div class="col">
         <i class="btn fa fa-2x fa-trash float-right ml-2" (click)="deleteAdmin(user._id)"></i>
@@ -79,5 +79,6 @@
   </div>
 </div>
 
+<app-footer></app-footer>
 
 
