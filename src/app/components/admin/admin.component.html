@@ -63,8 +63,16 @@
 
 <div class="collapse" id="adminCreate" data-parent="adminCreate">
   <form class="form-inline m-3" #form="ngForm">
-    <input class="form-control mr-3" placeholder="Username" id="username" [(ngModel)]="username" name="username">
-    <input class="form-control mr-3" placeholder="Password" id="password" [(ngModel)]="password" name="password">
+    <input type="text" [(ngModel)]="username" name="username" placeholder="Username"
+           id="username" class="form-control mr-3" required #userName="ngModel">
+    <div [hidden]="userName.valid || userName.pristine" class="mt-2 alert alert-danger">
+      Username required!!
+    </div>
+    <input type="password" placeholder="123qwe#$" [(ngModel)]="password" name="password"
+           id="password" class="form-control mr-3" required #pass="ngModel">
+    <div [hidden]="pass.valid || pass.pristine" class="mt-2 alert alert-danger">
+      Password required!!
+    </div>
     <i class="fa fa-2x btn fa-plus" (click)="createAdmin(username, password); form.reset()"></i>
   </form>
   <div *ngFor="let user of admins" class="">
