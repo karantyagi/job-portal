@@ -23,9 +23,9 @@
 
       </div>
     </div>
-    <div class="row">
-      <div class="col">
-        <div class="row mx-2 p-2 my-3 bg-white border" *ngFor="let job of jobPostings">
+    <div class="row" *ngFor="let job of jobPostings">
+      <div class="col-10">
+        <div class="row mx-2 p-2 my-3 bg-white border" >
           <div class="col">
             <div class="row text-dark">
               <div class="col-8">
@@ -39,11 +39,14 @@
             <div class="row">
               <div class="col-8 "><h6>{{job.company}}</h6></div>
               <div class="col-4 text-right ">
-                <small>Saved on: {{job.dateApplied}}</small>
+                <small>Posted  on: {{ job.date}}</small>
               </div>
             </div>
           </div>
         </div>
+      </div>
+      <div class="col-2 py-3 ">
+        <i class="fa fa-trash float-left fa-4x btn ml-3" (click)="deleteJobPosting(job.id)"></i>
       </div>
     </div>
   </div>
@@ -53,6 +56,7 @@
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
      aria-hidden="true">
+  <form #form="ngForm">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -65,17 +69,17 @@
         <!--Job Title-->
         <input
           class="form-control mb-2"
-          placeholder="Job Title">
+          placeholder="Job Title" [(ngModel)]="jobPost.title" name="jobPost.title">
 
         <!--Company-->
         <input
           class="form-control mb-2"
-          placeholder="Company">
+          placeholder="Company" [(ngModel)]="jobPost.company" name="jobPost.company">
 
         <!--Location-->
         <input
           class="form-control mb-2"
-          placeholder="Location">
+          placeholder="Location" [(ngModel)]="jobPost.location" name="jobPost.location">
 
         <!--&lt;!&ndash; Date Posted &ndash;&gt;-->
         <!--<label for="dateposted" class="text-center col-form-label">-->
@@ -93,7 +97,7 @@
         <div [hidden]="!moreDetails">
           <div class="form-group">
             <label for="inputState">Job Type</label>
-            <select id="inputState" class="form-control">
+            <select id="inputState" class="form-control" [(ngModel)]="jobPost.type" name="jobPost.type">
               <option disabled>Choose one...</option>
               <option value="Fulltime">Fulltime</option>
               <option value="Contract">Contract</option>
@@ -102,40 +106,14 @@
             </select>
           </div>
 
-          <div class="form-group">
-            <label for="status">Status</label>
-            <select id="status" class="form-control">
-              <option disabled>Choose one...</option>
-              <option value="Fulltime">Positions open</option>
-              <option value="Contract">Closed</option>
-            </select>
-          </div>
-
-          <!--Dates-->
-
-          <div class="form-group row mt-2">
-            <div class="col">
-              <label class="text-center col-form-label">
-                Start Date </label>
-              <select class="form-control">
-                <option *ngFor="let month of months">{{month}}</option>
-              </select>
-              <select class="form-control mt-3">
-                <option *ngFor="let year of years">{{year}}</option>
-              </select>
-            </div>
-
-            <div class="col">
-              <label class="text-center col-form-label">
-                End Date </label>
-              <select class="form-control">
-                <option *ngFor="let month of months">{{month}}</option>
-              </select>
-              <select class="form-control mt-3">
-                <option *ngFor="let year of years">{{year}}</option>
-              </select>
-            </div>
-          </div>
+          <!--<div class="form-group">-->
+            <!--<label for="status">Status</label>-->
+            <!--<select id="status" class="form-control" [(ngModel)]="jobPost && jobPost.status" name="jobPost.type">-->
+              <!--<option disabled>Choose one...</option>-->
+              <!--<option value="Fulltime">Positions open</option>-->
+              <!--<option value="Contract">Closed</option>-->
+            <!--</select>-->
+          <!--</div>-->
 
           <!--Add Responsibilities-->
           <button class="btn btn-block btn-outline-primary"
@@ -148,20 +126,22 @@
               <input type="text"
                      class="form-control my-1"
                      placeholder="Add a responsibility bullet ..."
-                     [(ngModel)]="responsibility">
+                     [(ngModel)]="responsibility" name="responsibility">
             </div>
 
             <div class="form-group col-md-2 mt-1">
-              <button class="btn btn-success"><i class="fas fa-check"></i></button>
+              <button class="btn btn-success" (click)="jobPost.responsibilities.push(responsibility)">
+                <i class="fas fa-check"></i></button>
               &nbsp;
               <button class="btn btn-danger"
-                      (click)="cancelAddR()"><i class="fas fa-times"></i></button>
+                      (click)="cancelAddR()">
+                <i class="fas fa-times"></i></button>
             </div>
           </div>
           <div class="my-2">
             <h6 style="color: dimgrey;"> Responsibilities</h6>
             <ul>
-              <li *ngFor="let item of responsibilities">
+              <li *ngFor="let item of jobPost.responsibilities">
                 {{item}}
                 <button class="btn btn-primary float-right"><i class="fas fa-pencil-alt"></i></button>
               </li>
@@ -180,11 +160,12 @@
               <input type="text"
                      class="form-control my-1"
                      placeholder="Add a minimum qualification ..."
-                     [(ngModel)]="qualification">
+                     [(ngModel)]="qualification" name="qualification">
             </div>
 
             <div class="form-group col-md-2 mt-1">
-              <button class="btn btn-success"><i class="fas fa-check"></i></button>
+              <button class="btn btn-success" (click)="jobPost.minQualification.push(qualification)">
+              <i class="fas fa-check"></i></button>
               &nbsp;
               <button class="btn btn-danger"
                       (click)="cancelAddQ()"><i class="fas fa-times"></i></button>
@@ -194,7 +175,7 @@
           <div class="my-2">
             <h6 style="color: dimgrey;"> Minimum Qualifications</h6>
             <ul>
-              <li *ngFor="let item of minQualifications">
+              <li *ngFor="let item of jobPost.minQualification">
                 {{item}}
                 <button class="btn btn-primary float-right"><i class="fas fa-times"></i></button>
               </li>
@@ -213,11 +194,12 @@
               <input type="text"
                      class="form-control my-1"
                      placeholder="Add a skill required for the job ..."
-                     [(ngModel)]="skill">
+                     [(ngModel)]="skill" name="skill">
             </div>
 
             <div class="form-group col-md-2 mt-1">
-              <button class="btn btn-success"><i class="fas fa-check"></i></button>
+              <button class="btn btn-success" (click)="jobPost.skillsRequired.push(skill)" >
+                <i class="fas fa-check"></i></button>
               &nbsp;
               <button class="btn btn-danger"
                       (click)="cancelAddS()"><i class="fas fa-times"></i></button>
@@ -226,15 +208,19 @@
           <div class="my-2">
             <h6 style="color: dimgrey;"> Required Skills</h6>
             <ul>
-              <li *ngFor="let item of skillsRequired">
+              <li *ngFor="let item of jobPost.skillsRequired">
                 {{item}}
                 <button class="btn btn-primary float-right"><i class="fas fa-times"></i></button>
               </li>
             </ul>
             <hr/>
           </div>
+          <div class="my-2">
+            <button data-dismiss="modal" class="btn btn-block btn-success" (click)="saveJob(); form.reset()">Save</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
+  </form>
 </div>

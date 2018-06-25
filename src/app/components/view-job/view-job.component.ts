@@ -24,7 +24,6 @@ export class ViewJobComponent implements OnInit {
   postings = [];
   isMainDivVisible = false;
   isSecondaryDivVisible = false;
-  moreDetails = false;
   sAddMode = false;
   rAddMode = false;
   qAddMode = false;
@@ -34,41 +33,6 @@ export class ViewJobComponent implements OnInit {
   responsibility = '';
   minQualifications = [];
   qualification = '';
-  months = [
-    'Month',
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ];
-
-  years = [
-    'Year',
-    '2005',
-    '2006',
-    '2007',
-    '2008',
-    '2009',
-    '2010',
-    '2011',
-    '2012',
-    '2013',
-    '2014',
-    '2015',
-    '2016',
-    '2017',
-    '2018'
-  ];
-
-
   constructor(private jobService: JobListingService, private route: ActivatedRoute,
               private saveJobService: SaveJobService, private userService: UserService,
               private jobPosting: JobPostingService) {
@@ -99,6 +63,7 @@ export class ViewJobComponent implements OnInit {
             if (posting._id === this.jobId ) {
               this.job = posting;
               this.job.jobSource = this.jobSource;
+              this.job.datePosted = new Date(posting.datePosted);
             }
         });
       }).then(() => this.userService.findLoggedUser().then((user) => this.user = user)).then(() =>
@@ -194,9 +159,6 @@ export class ViewJobComponent implements OnInit {
       this.saveJobService.createJobApplication(jobApplication).then(() => this.getJobApplication()));
   }
 
-  addMoreDetails() {
-    this.moreDetails = true;
-  }
 
   toggleRAddMode() {
     this.rAddMode = !this.rAddMode;
