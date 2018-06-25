@@ -1,51 +1,3 @@
-<!--<div class="rounded bg-light p-5 background-pic">-->
-  <!--<div class="row">-->
-    <!--<div class="col">-->
-      <!--<h1 class="text-center text-light-->
-       <!--rounded shadow p-2 mb-4 heading">-->
-        <!--{{job.title}}-->
-      <!--</h1>-->
-
-
-      <!--<div class="card shadow rounded my-3">-->
-        <!--<div class="card-body">-->
-          <!--<img src={{job.company_logo}} alt="logo" width="85px" height="85px" class="float-right"/>-->
-          <!--<b>Position : </b>{{job.title}} <br>-->
-          <!--<b>Company : </b><a href={{job.company_url}} class="card-link">{{job.company}}</a> <br/>-->
-          <!--<b>Location : </b>{{job.location}}-->
-        <!--</div>-->
-      <!--</div>-->
-
-      <!--<div class="card shadow rounded my-3">-->
-        <!--<div class="card-body">-->
-          <!--<b>Description</b><br>-->
-          <!--{{job.description}}-->
-        <!--</div>-->
-      <!--</div>-->
-
-      <!--<div class="card shadow rounded my-3 " >-->
-        <!--<div class="card-body">-->
-          <!--<b>How to Apply ?</b> <br>-->
-          <!--{{job.how_to_apply}}-->
-          <!--<br/>-->
-        <!--</div>-->
-      <!--</div>-->
-
-      <!--<div class="my-3">-->
-        <!--<form class="form-inline pb-3">-->
-          <!--<button class="btn btn-primary font-weight-bold mr-3 shadow" type="submit">-->
-            <!--Bookmark&nbsp;&nbsp;<i class="fa fa-bookmark" aria-hidden="true"></i></button>-->
-          <!--<button class="btn btn-primary font-weight-bold mr-3 shadow" type="submit">-->
-            <!--Apply-->
-          <!--</button>-->
-        <!--</form>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-
-
-<!--</div>-->
-
 <div class="mainContainer pb-5">
   <div class="h-25"></div>
   <div class="bg-white bounceOutRight border container  p-5" [hidden]="isMainDivVisible">
@@ -58,19 +10,25 @@
          job.jobSource!='github')" (click)="isMainDivVisible =!isMainDivVisible"></i>
         <h1 class="p-0">{{job.title}}</h1>
 
-        <h3 class="text-muted" >{{job.company}} | {{job.location}} </h3>
-        <small [hidden]="job.jobSource!='github'">Posted : {{job.created_at}}</small> <br>
-        <small [hidden]="job.jobSource==='github'">Posted : {{job.datePosted}}</small> <br>
+        <h3 class="text-muted">{{job.company}} | {{job.location}} </h3>
+        <small [hidden]="job.jobSource!='github'">Posted : {{job.created_at}}</small>
+        <br>
+        <small [hidden]="job.jobSource==='github'">Posted : {{job.datePosted}}</small>
+        <br>
         <div class="d-inline-block mt-3">
           <!--{{user.role}}-->
           <button [ngClass]="{ 'disabled': !(user != null && user.role === 'JobSeeker')}"
-                  [disabled]="!(user!=null && user.role === 'JobSeeker') " [hidden]="alreadySavedCheck || alreadyAppliedCheck"
-                  class="btn btn-outline-primary mr-3" (click)="saveJobId(job)">Save</button>
+                  [disabled]="!(user!=null && user.role === 'JobSeeker') "
+                  [hidden]="alreadySavedCheck || alreadyAppliedCheck"
+                  class="btn btn-outline-primary mr-3" (click)="saveJobId(job)">Save
+          </button>
           <button [ngClass]="{ 'disabled': !(user != null && user.role === 'JobSeeker')}"
-                  [disabled]="!(user!=null && user.role === 'JobSeeker')" [hidden]="!alreadySavedCheck || alreadyAppliedCheck"
-                  class="btn btn-outline-primary mr-3" (click)="deleteJobId(job)">UnSave</button>
+                  [disabled]="!(user!=null && user.role === 'JobSeeker')"
+                  [hidden]="!alreadySavedCheck || alreadyAppliedCheck"
+                  class="btn btn-outline-primary mr-3" (click)="deleteJobId(job)">UnSave
+          </button>
           <a [ngClass]="{ 'disabled': !(user != null && user.role === 'JobSeeker')}"
-             class="btn  btn-primary" (click)="applyJob(job);"  [hidden]="alreadyAppliedCheck" >Apply</a>
+             class="btn  btn-primary" (click)="applyJob(job);" [hidden]="alreadyAppliedCheck">Apply</a>
           <div class="btn btn-primary disabled" [hidden]="!alreadyAppliedCheck">Applied</div>
         </div>
       </div>
@@ -78,64 +36,73 @@
   </div>
 
   <div class="bg-white bounceOutRight border container  p-5" [hidden]="!isMainDivVisible">
-    <div>
-      <form>
-        <input
-          class="form-control mb-2"
-          placeholder="Job Title">
+    <div class="row">
+      <div class="col">
+        <i class="fa btn fa-2x fa-times float-right"
+           [hidden]="!(user!=null && user.role != 'JobSeeker' && job.jobSource!='github')"
+           (click)="isMainDivVisible =!isMainDivVisible"></i>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <form>
+          <input
+            class="form-control mb-2"
+            placeholder="Job Title">
 
-        <!--Company-->
-        <input id="logo"
-          class="form-control mb-2"
-          placeholder="Company">
+          <!--Company-->
+          <input id="logo"
+                 class="form-control mb-2"
+                 placeholder="Company">
 
-        <!--Location-->
-        <input
-          class="form-control mb-2 "
-          placeholder="Location">
+          <!--Location-->
+          <input
+            class="form-control mb-2 "
+            placeholder="Location">
 
-        <!--File-->
-        <div class="row">
-          <div class="col">
-        <input type="file"
-          class="form-control"
-               placeholder="">
+          <!--File-->
+          <div class="row">
+            <div class="col">
+              <input type="file"
+                     class="form-control"
+                     placeholder="">
+            </div>
+            <div class="col py-1">
+              <button type="button"
+                      class="btn btn-block btn-primary ">
+                Upload Company Logo
+              </button>
+            </div>
           </div>
-          <div class="col py-1">
-            <button type="button"
-                    class="btn btn-block btn-primary ">
-              Upload Company Logo
-            </button>
+          <div class="row">
+            <div class="col py-1">
+              <button type="button"
+                      class="btn btn-block btn-success">
+                Save
+              </button>
+            </div>
+            <div class="col py-1">
+              <button type="button"
+                      class="btn btn-block btn-danger" (click)="isMainDivVisible =!isMainDivVisible">
+                Cancel
+              </button>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col py-1">
-            <button type="button"
-                    class="btn btn-block btn-success">
-              Save
-            </button>
-          </div>
-          <div class="col py-1">
-            <button type="button"
-                    class="btn btn-block btn-danger">
-              Cancel
-            </button>
-          </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
 
   </div>
 
-  <div class="bg-white bounceOutRight border container mt-4 p-5 mb-4">
+  <div class="bg-white bounceOutRight border container mt-4 p-5 mb-4" [hidden]="isSecondaryDivVisible">
     <div class="row">
       <div class="col-sm-8" [innerHTML]="job.description" [hidden]="job.jobSource!='github'"></div>
-      <div class="col-sm-8"  [hidden]="job.jobSource==='github'">
+      <div class="col-sm-8" [hidden]="job.jobSource==='github'">
         <h2>Job Description</h2>
         <p class="text-left">{{job.description}}</p>
         <br>
         <br>
-        <h4 >Key Responsibilty</h4>
+        <h4>Key Responsibilty</h4>
         <ul class="mt-4">
           <li>
             <p>Lorem ipsun Lorem ipsunLorem ipsunLorem ipsunLorem ipsun</p>
@@ -152,7 +119,7 @@
         </ul>
         <br>
         <br>
-        <h4 >Requirements</h4>
+        <h4>Requirements</h4>
         <ul class="mt-4">
           <li>
             <p>Lorem ipsun Lorem ipsunLorem ipsunLorem ipsunLorem ipsun</p>
@@ -169,14 +136,185 @@
         </ul>
       </div>
       <div class="col-sm-4 pr-3">
-        <i class="fa fa-2x fa-pencil float-right"
-           [hidden]="!(user!=null && user.role != 'JobSeeker' && job.jobSource!='github')"></i>
+        <i class="fa btn fa-2x fa-pencil float-right"
+           [hidden]="!(user!=null && user.role != 'JobSeeker' && job.jobSource!='github')"
+           (click)="isSecondaryDivVisible =!isSecondaryDivVisible"></i>
         <h5 class="mt-3">Seniority Level</h5>
         <h6 class="text-muted">{{job.title}}</h6>
         <h5 class="mt-3">Industry</h5>
         <h6 class="text-muted">{{job.title}}</h6>
         <h5 class="mt-3">Employment Type</h5>
         <h6 class="text-muted">{{job.type}}</h6>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white bounceOutRight border container  p-5" [hidden]="!isSecondaryDivVisible">
+    <div class="row">
+      <div class="col">
+        <i class="fa btn fa-2x fa-times float-right"
+           [hidden]="!(user!=null && user.role != 'JobSeeker' && job.jobSource!='github')"
+           (click)="isSecondaryDivVisible =!isSecondaryDivVisible"></i>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="inputState">Job Type</label>
+          <select id="inputState" class="form-control">
+            <option disabled>Choose one...</option>
+            <option value="Fulltime">Fulltime</option>
+            <option value="Contract">Contract</option>
+            <option value="Internship">Internship</option>
+            <option value="Coop">Coop</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select id="status" class="form-control">
+            <option disabled>Choose one...</option>
+            <option value="Fulltime">Positions open</option>
+            <option value="Contract">Closed</option>
+          </select>
+        </div>
+
+        <!--Dates-->
+
+        <div class="form-group row mt-2">
+          <div class="col">
+            <label class="text-center col-form-label">
+              Start Date </label>
+            <select class="form-control">
+              <option *ngFor="let month of months">{{month}}</option>
+            </select>
+            <select class="form-control mt-3">
+              <option *ngFor="let year of years">{{year}}</option>
+            </select>
+          </div>
+
+          <div class="col">
+            <label class="text-center col-form-label">
+              End Date </label>
+            <select class="form-control">
+              <option *ngFor="let month of months">{{month}}</option>
+            </select>
+            <select class="form-control mt-3">
+              <option *ngFor="let year of years">{{year}}</option>
+            </select>
+          </div>
+        </div>
+
+        <!--Add Responsibilities-->
+        <button class="btn btn-block btn-outline-primary"
+                (click)=" toggleRAddMode()">
+          <i class="fas fa-plus"></i>&nbsp;&nbsp;Add Responsibilities
+        </button>
+
+        <div [hidden]="!rAddMode" class="form-row my-2">
+          <div class="form-group col-md-10">
+            <input type="text"
+                   class="form-control my-1"
+                   placeholder="Add a responsibility bullet ..."
+                   [(ngModel)]="responsibility">
+          </div>
+
+          <div class="form-group col-md-2 mt-1">
+            <button class="btn btn-success"><i class="fas fa-check"></i></button>
+            &nbsp;
+            <button class="btn btn-danger"
+                    (click)="cancelAddR()"><i class="fas fa-times"></i></button>
+          </div>
+        </div>
+        <div class="my-2">
+          <h6 style="color: dimgrey;"> Responsibilities</h6>
+          <ul>
+            <li *ngFor="let item of responsibilities">
+              {{item}}
+              <button class="btn btn-primary float-right"><i class="fas fa-pencil-alt"></i></button>
+            </li>
+          </ul>
+          <hr>
+        </div>
+
+        <!--Add Minimum Qualification Required-->
+        <button class="btn btn-block btn-outline-primary"
+                (click)=" toggleQAddMode()">
+          <i class="fas fa-plus"></i>&nbsp;&nbsp;Add Qualifications
+        </button>
+
+        <div [hidden]="!qAddMode" class="form-row my-2">
+          <div class="form-group col-md-10">
+            <input type="text"
+                   class="form-control my-1"
+                   placeholder="Add a minimum qualification ..."
+                   [(ngModel)]="qualification">
+          </div>
+
+          <div class="form-group col-md-2 mt-1">
+            <button class="btn btn-success"><i class="fas fa-check"></i></button>
+            &nbsp;
+            <button class="btn btn-danger"
+                    (click)="cancelAddQ()"><i class="fas fa-times"></i></button>
+          </div>
+        </div>
+
+        <div class="my-2">
+          <h6 style="color: dimgrey;"> Minimum Qualifications</h6>
+          <ul>
+            <li *ngFor="let item of minQualifications">
+              {{item}}
+              <button class="btn btn-primary float-right"><i class="fas fa-times"></i></button>
+            </li>
+          </ul>
+          <hr/>
+        </div>
+
+        <!--Add Skills Required-->
+        <button class="btn btn-block btn-outline-primary"
+                (click)=" toggleSAddMode()">
+          <i class="fas fa-plus"></i>&nbsp;&nbsp;Add Required Skills
+        </button>
+
+        <div [hidden]="!sAddMode" class="form-row my-2">
+          <div class="form-group col-md-10">
+            <input type="text"
+                   class="form-control my-1"
+                   placeholder="Add a skill required for the job ..."
+                   [(ngModel)]="skill">
+          </div>
+
+          <div class="form-group col-md-2 mt-1">
+            <button class="btn btn-success"><i class="fas fa-check"></i></button>
+            &nbsp;
+            <button class="btn btn-danger"
+                    (click)="cancelAddS()"><i class="fas fa-times"></i></button>
+          </div>
+        </div>
+        <div class="my-2">
+          <h6 style="color: dimgrey;"> Required Skills</h6>
+          <ul>
+            <li *ngFor="let item of skillsRequired">
+              {{item}}
+              <button class="btn btn-primary float-right"><i class="fas fa-times"></i></button>
+            </li>
+          </ul>
+          <hr/>
+        </div>
+        <div class="row">
+          <div class="col py-1">
+            <button type="button"
+                    class="btn btn-block btn-success">
+              Save
+            </button>
+          </div>
+          <div class="col py-1">
+            <button type="button"
+                    class="btn btn-block btn-danger" (click)="isSecondaryDivVisible =!isSecondaryDivVisible">
+              Cancel
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -23,6 +23,51 @@ export class ViewJobComponent implements OnInit {
   alreadyAppliedCheck = false;
   postings = [];
   isMainDivVisible = false;
+  isSecondaryDivVisible = false;
+  moreDetails = false;
+  sAddMode = false;
+  rAddMode = false;
+  qAddMode = false;
+  skillsRequired = [];
+  skill = '';
+  responsibilities = [];
+  responsibility = '';
+  minQualifications = [];
+  qualification = '';
+  months = [
+    'Month',
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
+
+  years = [
+    'Year',
+    '2005',
+    '2006',
+    '2007',
+    '2008',
+    '2009',
+    '2010',
+    '2011',
+    '2012',
+    '2013',
+    '2014',
+    '2015',
+    '2016',
+    '2017',
+    '2018'
+  ];
+
 
   constructor(private jobService: JobListingService, private route: ActivatedRoute,
               private saveJobService: SaveJobService, private userService: UserService,
@@ -148,6 +193,35 @@ export class ViewJobComponent implements OnInit {
     this.saveJobService.deleteJobApplicationByJobPosting(id, job.jobSource).then(() =>
       this.saveJobService.createJobApplication(jobApplication).then(() => this.getJobApplication()));
   }
+
+  addMoreDetails() {
+    this.moreDetails = true;
+  }
+
+  toggleRAddMode() {
+    this.rAddMode = !this.rAddMode;
+  }
+
+  toggleSAddMode() {
+    this.sAddMode = !this.sAddMode;
+  }
+
+  toggleQAddMode() {
+    this.qAddMode = !this.qAddMode;
+  }
+
+  cancelAddR() {
+    this.toggleRAddMode();
+  }
+
+  cancelAddS() {
+    this.toggleSAddMode();
+  }
+
+  cancelAddQ() {
+    this.toggleQAddMode();
+  }
+
 
   ngOnInit() {
   }
