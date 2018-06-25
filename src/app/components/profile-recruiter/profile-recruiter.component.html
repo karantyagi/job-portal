@@ -30,16 +30,19 @@
                 <li class="list-group-item" style="font-size: 24px;" [hidden]="editMode">
                   <!--<i class="float-right btn btn-light fas fa-angle-down"></i>-->
                   <span style="font-weight: bold; font-size: 30px;">
-                    {{user.firstName}} {{user.lastName}}
+                    {{firstName}} {{lastName}}
                     <br/>
                   </span>
-                  <span style="font-size: 27px; color: dimgray;">
-                    Position : {{recruiter.title}}
-                    Company :{{recruiter.company}}
+                  <span style="font-size: 28px; font-weight: bold; color: dimgray;">
+                    Position : {{title}}
+                    <br/>
+                    Company :{{company}}
                     <br/>
                    </span>
-                  <span style="font-style: italic; color: grey;">
+                  <span style="font-size: 24px; color: grey;">
                     <b>Username :</b> {{username}}
+                    <br/>
+                    Account Access Request Status : {{requestStatus}}
                     <br/>
                    </span>
                   <span>
@@ -48,10 +51,6 @@
                   <i class="fas fa-phone"></i>&nbsp;{{phone}}
                   <br/>
                   <hr/>
-                  <input class="form-control col-lg-2" type="text"
-                         placeholder="Account Access Request Status : {{user.requestStatus}}" readonly>
-                      <hr/>
-                    <!--<a href="#"><i class="fab fa-facebook fa-2x"></i></a> &nbsp;-->
       </span>
                   <span>
         <a [hidden]="checkHidden(linkedin)" href={{linkedin}} target="_blank"><i class="fab fa-linkedin fa-2x"></i></a> &nbsp;
@@ -73,7 +72,7 @@
                              [(ngModel)]="username"
                              id="username"
                              class="form-control"
-                             placeholder="Username">
+                             placeholder="Enter Username">
 
                       <!--First Name-->
                       <label for="firstname" class="text-center col-form-label">
@@ -82,7 +81,7 @@
                              [(ngModel)]="firstName"
                              id="firstname"
                              class="form-control"
-                             placeholder="First Name">
+                             placeholder="Enter First Name">
 
                       <!--Last Name-->
                       <label for="lastname" class="text-center col-form-label">
@@ -91,7 +90,7 @@
                              [(ngModel)]="lastName"
                              id="lastname"
                              class="form-control"
-                             placeholder="Last Name">
+                             placeholder="Enter Last Name">
 
                       <!--Position-->
                       <label for="position" class="text-center col-form-label">

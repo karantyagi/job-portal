@@ -8,6 +8,7 @@ export class UserService {
   url: string;
   urlRegister: string;
   urlLoggedUser: string;
+  urlLoggedRecruiter: string;
   urlUpdateProfile: string;
   urlLogin: string;
   urlPassReset: string;
@@ -28,6 +29,7 @@ export class UserService {
     this.url = base + '/api/user';
     this.urlRegister = base + '/api/register';
     this.urlLoggedUser = base + '/api/profile';
+    this.urlLoggedRecruiter = base + '/api/profile/recruiter';
     this.urlUpdateProfile = base + '/api/profile';
     this.urlLogin = base + '/api/login';
     this.urlPassReset = base + '/api/reset';
@@ -84,6 +86,17 @@ export class UserService {
   findLoggedUser() {
     console.log('sadasdas');
     return fetch(this.urlLoggedUser, {
+      credentials: 'include',
+    }).then(response => {
+      if (response.headers.get('content-type') != null) {
+        return response.json();
+      } else {
+        return null;
+      }
+    });
+  }
+  findLoggedRecruiter() {
+    return fetch(this.urlLoggedRecruiter, {
       credentials: 'include',
     }).then(response => {
       if (response.headers.get('content-type') != null) {

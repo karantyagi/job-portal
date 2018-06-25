@@ -18,6 +18,7 @@ export class ProfileRecruiterComponent implements OnInit {
   title = '';
   company = '';
   email = '';
+  requestStatus = '';
   phone = '';
   facebook = '';
   linkedin = '';
@@ -70,7 +71,7 @@ export class ProfileRecruiterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.findLoggedUser()
+    this.userService.findLoggedRecruiter()
       .then((user) => {
         this.user = user;
         if (user !== null ) {
@@ -84,6 +85,8 @@ export class ProfileRecruiterComponent implements OnInit {
           this.lastName = user.lastName;
           this.email = user.email;
           this.phone = user.phone;
+          console.log('Request : ', user.requestStatus);
+          this.requestStatus = user.requestStatus;
           if (user.socialContact.length !== 0 ) {
             this.socialContact = user.socialContact;
             this.facebook = this.socialContact.find(s => s.socialtype === 'facebook').url;
