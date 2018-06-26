@@ -10,7 +10,7 @@ Repository for Final Project for CS5610-Web Development course, taught by Prof. 
 
 - Heroku : __[Job Search Made Easy](https://job-search-made-easy.herokuapp.com/home)__
 - _Node Server Repo :_ [https://github.com/karantyagi/job-portal-node-server](https://github.com/karantyagi/job-portal-node-server)
-- __[Demo walkthrough video](https://youtu.be/fdo68zSZZ94)__
+- __Demo video__[https://youtu.be/fdo68zSZZ94](https://youtu.be/fdo68zSZZ94)__
 
 ## Documentation
 - Check __[wiki](https://github.com/karantyagi/CS5610-web-dev-project/wiki)__
