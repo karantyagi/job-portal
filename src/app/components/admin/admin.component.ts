@@ -25,12 +25,10 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
     this.fetchPendingUser();
-    this.findAllUsers();
-
   }
 
   fetchPendingUser() {
-    this.userService.findPendingRecruiters().then((user) => this.users = user);
+    this.userService.findPendingRecruiters().then((user) => this.users = user).then(() => this.findAllUsers());
   }
 
   findAllUsers() {
