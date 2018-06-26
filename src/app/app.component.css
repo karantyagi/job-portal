@@ -32,9 +32,11 @@
 
 
 .cont {
-  padding: 160px 15px 0;
+  padding-left:20px;
+  padding-right:20px;
+  margin-top: 130px;
   height: 100%;
-  margin-bottom: 120px;
+  margin-bottom: 110px;
 }
 
 .title {
@@ -50,8 +52,8 @@
 
 .navbar {
 
-  height: 140px;
-  background-color: #cccccc;
+  /*height: 140px;*/
+  /*background-color: #cccccc;*/
   /*background-image: linear-gradient(black,whitesmoke);*/
   background-image: url('./../assets/images/naphtali-marshall-45606-unsplash.jpg');
   /*background-size: contain;*/
